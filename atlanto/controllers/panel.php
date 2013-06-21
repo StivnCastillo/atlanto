@@ -47,6 +47,17 @@ class Panel extends CI_Controller {
 			redirect('panel', 'refresh');
 		}
 	}
+
+	public function error()
+	{
+		$data = array(
+			'titulo' => $this->lang->line('titulo_404'),
+			'titulo_menu' => $this->lang->line('index_titulo_menu'),
+			'content' => '404_view',
+			'validador' => FALSE
+		);
+		$this->load->view('template', $data);
+	}
 }
 
 /* End of file welcome.php */

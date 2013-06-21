@@ -39,7 +39,7 @@
 */
 
 $route['default_controller'] = "panel";
-$route['404_override'] = '';
+$route['404_override'] = 'panel/error';
 
 
 /* End of file routes.php */

@@ -1,6 +1,7 @@
 <?php 
 //Titulo de las paginas
 $lang['titulo'] = 'SCI | Inicio';
+$lang['titulo_404'] = 'SCI | Error 404';
 
 //Pagina index
 $lang['index_titulo_menu'] = 'Sistema de Control de Informática';
