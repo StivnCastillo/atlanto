@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<!-- Meta tags -->
+	<meta charset="UTF-8" />
+	<meta name="description" content="Sistema de control de equipos de computo" />
+	<meta name="author" content="Stiven Castillo - Blanco y Negro Masivo S.A." />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Agregar Monitor</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="img/icono1.png">
+	
+	<!-- Estilos CSS -->
+	<link href="css/bootstrap.css" rel="stylesheet" media="screen" />
+	<link href="css/bootstrap-responsive.css" rel="stylesheet" />
+	<link href="css/datepicker.css" rel="stylesheet" />
+	<link href="css/main.css" rel="stylesheet" />
+</head>
+<body>
+	<!-- MENU -->
+	<nav class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- BOTON MENU, CUANDO SE ACHIQUE--> 
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" href="#">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="active"><a href="escritorio.html">Escritorio</a></li>
+						<li class="dropdown">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown">
+								Inventario
+								<b class="caret"></b>
+							</a>
+								<ul class="dropdown-menu">
+									<li><a href="computadores.html">Computadores</a></li>
+									<li><a href="monitores.html">Monitores</a></li>
+									<li><a href="">Equipos de Red</a></li>
+									<li><a href="">Impresoras</a></li>
+									<li><a href="">Telefonos</a></li>
+									<li><a href="">Dispositivos</a></li>
+									<li><a href="">Software</a></li>
+								</ul>
+							
+						</li>
+						<li><a href="">Usuarios</a></li>				
+						<li><a href="">Publicidad</a></li>				
+						<li><a href="">Otros</a></li>				
+					</ul>
+					<ul class="nav pull-right">
+						<li class="dropdown">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown">
+								Cuenta
+								<b class="caret"></b>
+							</a>
+							<div class="dropdown-menu" style="padding: 1em;">
+								<form>
+									<fieldset>
+										<legend>Iniciar Sesión</legend>
+										<label>Usuario</label>
+										<input type="text" placeholder="Usuarios" />
+
+										<label>Password</label>
+										<input type="password" placeholder="Password" />
+										<button type="submit" class="btn btn-block">Entrar</button>
+										<a href="#" class="btn btn-block btn-primary">Registrarse</a>
+									</fieldset>
+								</form>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<section class="container">
+		<!-- MENU AGREGAR MONITOR -->
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="#">Monitor</a>
+			</li>
+			<li class="disabled"><a href="#">Financiero</a></li>
+			<li><a href="#">Documentos</a></li>
+			<li><a href="#">Tickets</a></li>
+		</ul>
+
+		<br>
+		<article class="row">
+			<form class="form-horizontal">
+				<div class="span5">
+					    
+					<div class="control-group">
+						<label class="control-label" for="input01">Nombre</label>
+						<div class="controls">
+							<input type="text" class="span3" id="input01">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input01">Serial S/N</label>
+						<div class="controls">
+							<input type="text" class="span3" id="input01">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input01">Puerto</label>
+						<div class="controls">
+							<select class="span3" name="" id="">
+								<option value="">puerto 1</option>
+								<option value="">puerto 2</option>
+								<option value="">puerto 3</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input01">Fabricante</label>
+						<div class="controls">
+							<select class="span3" name="" id="">
+								<option value="">fabricante 1</option>
+								<option value="">fabricante 2</option>
+								<option value="">fabricante 3</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input01">Modelo</label>
+						<div class="controls">
+							<select class="span3" name="" id="">
+								<option value="">modelo 1</option>
+								<option value="">modelo 2</option>
+								<option value="">modelo 3</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input01">Estado</label>
+						<div class="controls">
+							<select class="span3" name="" id="">
+								<option value="">estado 1</option>
+								<option value="">estado 2</option>
+								<option value="">estado 3</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="span5">
+					<div class="control-group">
+						<label class="control-label" for="input01">Ubicacion</label>
+						<div class="controls">
+							<select class="span3" name="" id="">
+								<option value="">ubicacion 1</option>
+								<option value="">ubicacion 2</option>
+								<option value="">ubicacion 3</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input01">Usuario</label>
+						<div class="controls">
+							<select class="span3" name="" id="">
+								<option value="">usuario 1</option>
+								<option value="">usuario 2</option>
+								<option value="">usuario 3</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input01">Notas</label>
+						<div class="controls">
+							<textarea class="span3" id="textarea" rows="2"></textarea>
+						</div>
+					</div>
+				</div>
+			</form>
+		</article>
+		<div class="row">
+			<button class="btn btn-inverse pull-right" href="#">Guardar</button>
+		</div>
+	</section>
+
+	<hr />
+	<div class="container-fluid">
+		<footer>
+			<p>Sistema de control de informatica, Blanco y Negro Masivo S.A. 2013</p>
+		</footer>
+	</div>
+	<script src="js/jquery-2.0.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
