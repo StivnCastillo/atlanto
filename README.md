@@ -13,3 +13,4 @@ En la parte frontend usaré bootstrap, modificando algo de la hoja de estilos.
 
 Base de datos relacional con mysql.
 
+Proyecto en desarrollo
