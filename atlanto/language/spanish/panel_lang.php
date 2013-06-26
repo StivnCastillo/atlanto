@@ -1,6 +1,7 @@
 <?php 
 //Titulo de las paginas
 $lang['titulo'] = 'SCI | Inicio';
+$lang['titulo_usuarios'] = 'SCI | Usuarios';
 $lang['titulo_404'] = 'SCI | Error 404';
 
 //Pagina index
@@ -19,34 +20,34 @@ $lang['men_reportes'] = 'Reportes';
 $lang['men_config'] = 'Configuración';
 $lang['men_cuenta'] = 'Cuenta';
 	//Submenu Inventario
-	$lang['men_sub_compu'] = 'Computadores';
-	$lang['men_sub_monitores'] = 'Monitores';
-	$lang['men_sub_red'] = 'Equipos de red';
-	$lang['men_sub_impresoras'] = 'Impresoras';
-	$lang['men_sub_telefonos'] = 'Teléfonos';
-	$lang['men_sub_dispositivos'] = 'Dispositivos';
-	$lang['men_sub_software'] = 'Software';
+		$lang['men_sub_compu'] = 'Computadores';
+		$lang['men_sub_monitores'] = 'Monitores';
+		$lang['men_sub_red'] = 'Equipos de red';
+		$lang['men_sub_impresoras'] = 'Impresoras';
+		$lang['men_sub_telefonos'] = 'Teléfonos';
+		$lang['men_sub_dispositivos'] = 'Dispositivos';
+		$lang['men_sub_software'] = 'Software';
 	//Submenu Tickets
-	$lang['men_sub_abiertos'] = 'Abiertos';
-	$lang['men_sub_respondidos'] = 'Respondidos';
-	$lang['men_sub_cerrados'] = 'Cerrados';	
-	$lang['men_sub_mis_tickets'] = 'Mis Tickets';	
-	$lang['men_sub_crear'] = 'Crear Ticket';
+		$lang['men_sub_abiertos'] = 'Abiertos';
+		$lang['men_sub_respondidos'] = 'Respondidos';
+		$lang['men_sub_cerrados'] = 'Cerrados';	
+		$lang['men_sub_mis_tickets'] = 'Mis Tickets';	
+		$lang['men_sub_crear'] = 'Crear Ticket';
 	//Submenu Financiero
-	$lang['men_sub_proveedores'] = 'Proveedores';
-	$lang['men_sub_contratos'] = 'Contratos';
+		$lang['men_sub_proveedores'] = 'Proveedores';
+		$lang['men_sub_contratos'] = 'Contratos';
 	//Submenu Administracion
-	$lang['men_sub_usuarios'] = 'Usuarios';
-	$lang['men_sub_perfiles'] = 'Perfiles';
-	$lang['men_sub_tablas'] = 'Tablas';
-	$lang['men_sub_resp'] = 'Respuestas Automaticas';
+		$lang['men_sub_usuarios'] = 'Usuarios';
+		$lang['men_sub_perfiles'] = 'Perfiles';
+		$lang['men_sub_tablas'] = 'Tablas';
+		$lang['men_sub_resp'] = 'Respuestas Automaticas';
 	//Submenu Configuracion
-	$lang['men_sub_general'] = 'General';
-	$lang['men_sub_noti'] = 'Notificaciones';
-	$lang['men_sub_rol'] = 'Roles';
+		$lang['men_sub_general'] = 'General';
+		$lang['men_sub_noti'] = 'Notificaciones';
+		$lang['men_sub_rol'] = 'Roles';
 	//Submenu Cuenta
-	$lang['men_sub_configuracion'] = 'Roles';
-	$lang['men_sub_salir'] = 'Salir';
+		$lang['men_sub_configuracion'] = 'Configuracion';
+		$lang['men_sub_salir'] = 'Salir';
 
 //Formularios
 	//Labels
@@ -54,6 +55,8 @@ $lang['men_cuenta'] = 'Cuenta';
 		$lang['lbl_password'] = 'Contraseña';
 		$lang['lbl_asunto'] = 'Asunto';
 		$lang['lbl_mensaje'] = 'Mensaje';
+		$lang['lbl_mostrar'] = 'Mostrar';
+		$lang['lbl_imprimir'] = 'Imprimir';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -61,6 +64,19 @@ $lang['men_cuenta'] = 'Cuenta';
 		$lang['btn_enviar'] = 'Enviar';
 		$lang['btn_iniciar_sesion'] = 'Iniciar Sesión';
 		$lang['btn_ticket_rapido'] = 'Ticket Rápido';
+
+	//links
+		$lang['lnk_agregar'] = 'Agregar Nuevo';
+		$lang['lnk_new_plantilla'] = 'Nueva Plantilla';
+
+	//Placeholder
+		$lang['plc_buscar'] = 'Buscar...';
+
+	//Selects
+		$lang['slc_imp_pdf'] = 'Imprimir PDF';
+		$lang['slc_imp_excel'] = 'Imprimir Excel';
+
+		
 
 //Mensajes
 	//Error
@@ -74,3 +90,12 @@ $lang['men_cuenta'] = 'Cuenta';
 
 	//Descripciones
 	$lang['log_error_login'] = 'Fallo en el inicio de sesion.';
+
+//Tablas
+	$lang['tab_empty'] = '&nbsp;';
+	$lang['tab_nombre'] = 'Nombre';
+	$lang['tab_departamento'] = 'Departamento';
+	$lang['tab_lugar'] = 'Lugar/Ubicación';
+	$lang['tab_mail'] = 'Email';
+	$lang['tab_acciones'] = 'Acciones';
+	

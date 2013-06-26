@@ -42,12 +42,6 @@ class Panel extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
-	public function acceso_restringido(){
-		if (!$this->session->userdata('ingresado')) {
-			redirect('panel', 'refresh');
-		}
-	}
-
 	public function error()
 	{
 		$data = array(
@@ -57,6 +51,31 @@ class Panel extends CI_Controller {
 			'validador' => FALSE
 		);
 		$this->load->view('template', $data);
+	}
+
+	public function usuarios()
+	{
+		$this->acceso_restringido();
+		$validador = TRUE;
+
+		$usuarios = $this->usuario_model->get_todos_usuarios();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_usuarios'),
+			'titulo_menu' => $this->lang->line('index_titulo_menu'),
+			'content' => 'usuarios/index_view',
+			'validador' => $validador,
+			'usuarios' => $usuarios
+		);
+		$this->load->view('template', $data);
+	}
+
+
+
+	public function acceso_restringido(){
+		if (!$this->session->userdata('ingresado')) {
+			redirect('panel', 'refresh');
+		}
 	}
 }
 

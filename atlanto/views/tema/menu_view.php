@@ -74,7 +74,7 @@ $ci = &get_instance();
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href=""><?php echo $ci->lang->line('men_sub_usuarios') ?></a></li>
+									<li><a href="<?php echo base_url()."panel/usuarios" ?>"><?php echo $ci->lang->line('men_sub_usuarios') ?></a></li>
 									<li><a href=""><?php echo $ci->lang->line('men_sub_perfiles') ?></a></li>
 									<li><a href=""><?php echo $ci->lang->line('men_sub_tablas') ?></a></li>
 									<li><a href=""><?php echo $ci->lang->line('men_sub_resp') ?></a></li>

@@ -1,7 +1,8 @@
 <?php 
 
 class Usuario_model extends CI_Model {
-	private $tabla = 'usuario';
+    private $tabla = 'usuario';
+	private $tabla_dep = 'departamento';
 	function __construct() {
         // Call the Model constructor
         parent::__construct();
@@ -15,16 +16,31 @@ class Usuario_model extends CI_Model {
         	return $query->row();
         }else{
         	return FALSE;
-        }        
+        }
     }
 
     //Traer todos los usuarios
-    function get_todos_usuarios($raw = FALSE) {
-        $query = $this->db->get($this->db->dbprefix($this->tabla));
-        if ($raw)
-            return $query;
-        else
+    function get_todos_usuarios() {
+        $query = $this->db->query("SELECT ".$this->db->dbprefix($this->tabla).".id, 
+                                    CONCAT(".$this->db->dbprefix($this->tabla).".nombre,' ', ".$this->db->dbprefix($this->tabla).".apellido) AS nombre_usuario, 
+                                    ".$this->db->dbprefix($this->tabla).".email,
+                                    ".$this->db->dbprefix($this->tabla).".telefono,
+                                    ".$this->db->dbprefix($this->tabla).".activo,
+                                    ".$this->db->dbprefix($this->tabla).".ultimo_ingreso,
+                                    ".$this->db->dbprefix($this->tabla).".fecha_actualizado,
+                                    ".$this->db->dbprefix($this->tabla_dep).".nombre AS departamento,
+                                    atl_lugar.nombre AS lugar
+                                    FROM ".$this->db->dbprefix($this->tabla)." 
+                                    LEFT JOIN (".$this->db->dbprefix($this->tabla_dep).")
+                                    ON (".$this->db->dbprefix($this->tabla).".id_departamento = ".$this->db->dbprefix($this->tabla_dep).".id)
+                                    LEFT JOIN (atl_lugar)
+                                    ON (atl_usuario.id_lugar = atl_lugar.id)
+        ");
+        if ($query->num_rows() > 0){
             return $query->result();
+        }else{
+            return FALSE;
+        }
     }
 
     //Guarda datos de usuario
