@@ -6,9 +6,13 @@ class Usuario extends CI_Controller {
 		parent::__construct();
 		//$this->load->helper(array('form'));
 		//$this->load->library('form_validation');
-		$this->load->model(array('usuario_model', 'rol_model'));
+		$this->load->model(array('usuario_model', 'rol_model', 'ubicacion_model'));
 	}
 
+	/*
+	* Funcion index, aun sin funcionar
+	 */
+	
 	public function index()
 	{
 		$data = array(
@@ -18,6 +22,10 @@ class Usuario extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
+
+	/*
+	* Crea una sesion del usuario
+	 */
 
 	public function login()
 	{
@@ -58,11 +66,47 @@ class Usuario extends CI_Controller {
 			redirect('panel/escritorio', 'refresh');
 		}
 	}
+
+	/*
+	* Destruye sesion de usuario
+	 */
 	public function logout()
 	{
 		$this->session->sess_destroy();
 		redirect('panel', 'refresh');
 	}
+
+	/*
+	* Muestra formulario para la creacion de un nuevo usuario
+	 */
+	
+	public function nuevo_usuario()
+	{
+		//Traer los roles
+		$roles = $this->rol_model->get_todos();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo'),
+			'titulo_menu' => $this->lang->line('index_titulo_menu'),
+			'content' => 'usuarios/save_view',
+			'validador' => TRUE,
+			'roles' => $roles,
+			'accion_ubicacion' => site_url('buscar_ubicacion'),
+			'accion_departamento' => site_url('buscar_departamento'),
+			'accion_cargo' => site_url('buscar_cargo')
+		);
+		$this->load->view('template', $data);
+	}
+
+	/*
+	* Procesa datos de usuario y los guarda en la base de datos
+	 */
+	
+	public function guardar()
+	{
+		# code...
+	}
+
 }
 
 /* End of file welcome.php */

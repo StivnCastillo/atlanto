@@ -53,10 +53,21 @@ $lang['men_cuenta'] = 'Cuenta';
 	//Labels
 		$lang['lbl_usuario'] = 'Usuario';
 		$lang['lbl_password'] = 'Contraseña';
+		$lang['lbl_comf_password'] = 'Comfirmar Contraseña';
 		$lang['lbl_asunto'] = 'Asunto';
 		$lang['lbl_mensaje'] = 'Mensaje';
 		$lang['lbl_mostrar'] = 'Mostrar';
 		$lang['lbl_imprimir'] = 'Imprimir';
+		$lang['lbl_nombre'] = 'Nombre';
+		$lang['lbl_apellido'] = 'Apellido';
+		$lang['lbl_telefono'] = 'Teléfono';
+		$lang['lbl_mail'] = 'Email';
+		$lang['lbl_ubicacion'] = 'Ubicación';
+		$lang['lbl_cargo'] = 'Cargo';
+		$lang['lbl_departamento'] = 'Departamento';
+		$lang['lbl_activado'] = 'Activado';
+		$lang['lbl_rol'] = 'Rol de Usuario';
+		$lang['lbl_notas'] = 'Nota';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -71,16 +82,21 @@ $lang['men_cuenta'] = 'Cuenta';
 
 	//Placeholder
 		$lang['plc_buscar'] = 'Buscar...';
+		$lang['plc_nota_interna'] = 'Las notas internas solo son visualizadas por los administradores.';
 
 	//Selects
 		$lang['slc_imp_pdf'] = 'Imprimir PDF';
 		$lang['slc_imp_excel'] = 'Imprimir Excel';
+
+	//Tabs
+		$lang['tab_usu_usuario'] = 'Usuario';
 
 		
 
 //Mensajes
 	//Error
 	$lang['msj_error_sesion'] = 'Eror, sus credenciales no son correctas. Intentelo de nuevo';
+	$lang['msj_error_resultado'] = 'Sin resultado';
 
 //Log
 	//tipos

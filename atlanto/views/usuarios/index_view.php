@@ -3,7 +3,7 @@ $ci = &get_instance();
 ?>
 		<!-- MENU COMPONENTES -->
 	    <ul class="breadcrumb">
-		    <li><a href="com_agregar.html"><?php echo $ci->lang->line('lnk_agregar'); ?></a> <span class="divider">/</span></li>
+		    <li><a href="<?php echo base_url().'usuario/nuevo_usuario' ?>"><?php echo $ci->lang->line('lnk_agregar'); ?></a> <span class="divider">/</span></li>
 		    <!-- variable -->
 		    <li><a href="#"><?php echo $ci->lang->line('lnk_new_plantilla'); ?></a> <span class="divider">/</span></li>
 	    </ul>

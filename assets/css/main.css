@@ -38,3 +38,13 @@ body {
 {
 	text-align: center !important;
 }
+
+.display-no
+{
+	display: none;
+}
+
+.display-si
+{
+	display: block;
+}

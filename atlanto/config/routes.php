@@ -41,6 +41,10 @@
 $route['default_controller'] = "panel";
 $route['404_override'] = 'panel/error';
 
+$route['buscar_ubicacion'] = "ubicacion/ubicaciones_select";
+$route['buscar_departamento'] = "departamento/departamento_select";
+$route['buscar_cargo'] = "cargo/cargo_select";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
