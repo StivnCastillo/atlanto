@@ -97,6 +97,11 @@ $lang['men_cuenta'] = 'Cuenta';
 	//Error
 	$lang['msj_error_sesion'] = 'Eror, sus credenciales no son correctas. Intentelo de nuevo';
 	$lang['msj_error_resultado'] = 'Sin resultado';
+	$lang['msj_error_guardar_usu'] = 'Ocurrio un error al guardar el usuario';
+	//Exito
+	$lang['msj_exito'] = '<strong>Éxito</strong>';
+	$lang['msj_ext_guardar_usu'] = 'fue creado en la base de datos';
+	
 
 //Log
 	//tipos

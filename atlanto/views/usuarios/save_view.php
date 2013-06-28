@@ -2,7 +2,7 @@
 $ci = &get_instance();
 ?>
 <div class="tabbable">
-			<!-- MENU AGREGAR COMPUTADOR -->
+			<!-- MENU AGREGAR USUARIO -->
 			<ul class="nav nav-tabs">
 				<li class="active">
 					<a href="#tab1" data-toggle="tab"><?php echo $ci->lang->line('tab_usu_usuario') ?></a>
@@ -10,11 +10,37 @@ $ci = &get_instance();
 			</ul>
 			<br>
 
-	    	<!-- DATOS DIRECTOS DEL COMPUTADOR -->
+	    	<?php if ($this->session->flashdata('mensaje')): ?>
+	    		<!-- mensaje, error, completado, peligro -->
+	    		<!-- mensaje de exito -->
+	    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+	    			<div class="alert alert-success">
+			            <button type="button" class="close" data-dismiss="alert">×</button>
+			            <?php echo $this->session->flashdata('mensaje') ?>
+		            </div>
+	    		<?php endif ?>
+			    	
+				<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+		            <div class="alert alert-error">
+			            <button type="button" class="close" data-dismiss="alert">×</button>
+			            <?php echo $this->session->flashdata('mensaje') ?>
+		            </div>
+		        <?php endif ?>
+				
+				<?php if ($this->session->flashdata('tipo_mensaje') == 'cuidado'): ?>
+		            <div class="alert alert-warning">
+			            <button type="button" class="close" data-dismiss="alert">×</button>
+			            <?php echo $this->session->flashdata('mensaje') ?>
+		            </div>
+	            <?php endif ?>
+
+	    	<?php endif ?>
+
+            <!-- DATOS DIRECTOS DEL USUARIO -->
 	    	<div class="tab-content">
 	    		<div class="tab-pane active" id="tab1">
 					<article class="row">
-						<form class="form-horizontal" id="frmUsuario">
+						<form class="form-horizontal" id="frmUsuario" name="frmUsuario" action="<?php echo $accion ?>" method="POST">
 							<div class="span5">
 								    
 								<div class="control-group">
@@ -34,7 +60,7 @@ $ci = &get_instance();
 								<div class="control-group">
 									<label class="control-label" for="telefono"><?php echo $ci->lang->line('lbl_telefono') ?></label>
 									<div class="controls">
-										<input type="number" class="span3" id="telefono" name="telefono" required  />
+										<input type="number" class="span3" id="telefono" name="telefono" />
 									</div>
 								</div>
 
@@ -72,7 +98,7 @@ $ci = &get_instance();
 									<label class="control-label" for="activado"><?php echo $ci->lang->line('lbl_activado') ?></label>
 									<div class="controls">
 										<div class="switch" data-on="success" data-off="danger" data-on-label="SI" data-off-label="NO">
-											<input type="checkbox" checked="checked" name="activado" id="activado" />
+											<input type="checkbox" checked="checked" name="activado" id="activado" value="1" />
 										</div>
 									</div>
 								</div>
@@ -126,53 +152,16 @@ $ci = &get_instance();
 										<textarea class="span3" rows="4" name="nota_interna" id="nota_interna" placeholder="<?php echo $ci->lang->line('plc_nota_interna') ?>"></textarea>
 									</div>
 								</div>
+
+								<div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn btn-inverse">Guardar</button>
+										<a href="#" class="btn">Cancelar</a>
+									</div>
+								</div>
+								
 							</div>
 						</form>
-					</article>
-					<div class="row">
-						<button class="btn btn-inverse pull-right" href="#">Guardar</button>
-					</div>
-				</div>
-
-				<div class="tab-pane" id="tab2">
-					<article class="well">
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Serial</th>
-									<th>Conexion</th>
-									<th>Usuario</th>
-									<th>Ubicación</th>
-									<th>Estado</th>
-									<th class="tabla-center">Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><a href="">MOBN001</a></td>
-									<td>SDF787SS1W4</td>
-									<td><a href="">PCBN001</a></td>
-									<td><a href="">Stiven Castillo</a></td>
-									<td>Informatica - Financiero 2do piso</td>
-									<td>Propio</td>
-									<td class="tabla-center">
-										<div class="btn-group">
-											<a class="btn btn-small" href="#ver" data-toggle="modal">
-												<i class="icon-search icon-black"></i>
-											</a>
-											<a class="btn btn-small" href="#modificar" data-toggle="modal">
-												<i class="icon-wrench icon-black"></i>
-											</a>
-											<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-												<i class="icon-remove icon-black"></i>
-											</a>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-			    
 					</article>
 				</div>
 			</div>

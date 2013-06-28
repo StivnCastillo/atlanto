@@ -79,9 +79,9 @@ class Usuario extends CI_Controller {
 	/*
 	* Muestra formulario para la creacion de un nuevo usuario
 	 */
-	
 	public function nuevo_usuario()
 	{
+		$this->acceso_restringido();
 		//Traer los roles
 		$roles = $this->rol_model->get_todos();
 
@@ -91,6 +91,7 @@ class Usuario extends CI_Controller {
 			'content' => 'usuarios/save_view',
 			'validador' => TRUE,
 			'roles' => $roles,
+			'accion' => site_url('usuario/guardar'),
 			'accion_ubicacion' => site_url('buscar_ubicacion'),
 			'accion_departamento' => site_url('buscar_departamento'),
 			'accion_cargo' => site_url('buscar_cargo')
@@ -101,10 +102,109 @@ class Usuario extends CI_Controller {
 	/*
 	* Procesa datos de usuario y los guarda en la base de datos
 	 */
-	
 	public function guardar()
 	{
-		# code...
+
+		$this->acceso_restringido();
+		
+		//reglas de validacion de formulario, en el server
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'apellido',
+                     'label' => 'Apellido',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'telefono',
+                     'label' => 'Telefono',
+                     'rules' => 'numeric'
+                  ),   
+               array(
+                     'field' => 'email',
+                     'label' => 'Email',
+                     'rules' => 'required|valid_email'
+                  ),   
+               array(
+                     'field' => 'usuario',
+                     'label' => 'Usuario',
+                     'rules' => 'required'
+                  ),   
+               array(
+                     'field' => 'password',
+                     'label' => 'Password',
+                     'rules' => 'required'
+                  ),   
+               array(
+                     'field' => 'password2',
+                     'label' => 'Confirmar Password',
+                     'rules' => 'matches[password]'
+                  )
+        );
+
+		$this->form_validation->set_rules($config); 
+
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('usuario/nuevo_usuario', 'refresh');
+		}
+		else
+		{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			if (isset($datos_recibidos['activado'])) {
+				$activado = 1;
+			}else
+			{
+				$activado = 2;
+			}
+			
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'apellido' => $datos_recibidos['apellido'],
+				'telefono' => $datos_recibidos['telefono'],
+				'email' => $datos_recibidos['email'],
+				'usuario' => $datos_recibidos['usuario'],
+				'pass' => md5($datos_recibidos['password']),
+				'activo' => $activado,
+				'id_lugar' => $datos_recibidos['ubicacion'],
+				'id_cargo' => $datos_recibidos['cargo'],
+				'id_departamento' => $datos_recibidos['departamento'],
+				'id_rol' => $datos_recibidos['rol'],
+				'nota_interna' => $datos_recibidos['nota_interna'],
+				'fecha_actualizado' => date('Y-m-d H:i:s')
+			);
+
+			$usuario = $this->usuario_model->save($datos);
+
+			if($usuario){
+				$link = anchor('usuario/ver/'.$usuario, $datos_recibidos['nombre'].' '.$datos_recibidos['apellido']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('usuario/nuevo_usuario', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('usuario/nuevo_usuario', 'refresh');
+			}
+		}
+	}
+
+	public function acceso_restringido(){
+		if (!$this->session->userdata('ingresado')) {
+			redirect('panel', 'refresh');
+		}
 	}
 
 }

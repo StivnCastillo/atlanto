@@ -45,8 +45,13 @@ class Usuario_model extends CI_Model {
 
     //Guarda datos de usuario
     function save($datos) {
-        $this->db->insert($this->db->dbprefix($this->tabla), $datos);
-        return $this->db->insert_id();
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+        
     }
 
     //Actualiza los datos del usuario
