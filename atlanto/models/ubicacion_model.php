@@ -7,6 +7,17 @@ class Ubicacion_model extends CI_Model {
         // Call the Model constructor
         parent::__construct();
     }
+
+    //Trae ubicacion segun parametros de $data
+    function get_ubicacion($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
     
     //Guarda datos de la ubicacion
     function save($datos) {

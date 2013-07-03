@@ -2,21 +2,13 @@
 
 class Usuario_model extends CI_Model {
     private $tabla = 'usuario';
-	private $tabla_dep = 'departamento';
+    private $tabla_dep = 'departamento';
+    private $tabla_lug = 'lugar';
+	private $tabla_car = 'cargo';
+
 	function __construct() {
         // Call the Model constructor
         parent::__construct();
-    }
-
-    //Trae usuario segun parametros de $data
-    function get_usuario($data) {
-    	$this->db->where($data);
-        $query = $this->db->get($this->db->dbprefix($this->tabla));
-        if ($query->num_rows() > 0){
-        	return $query->row();
-        }else{
-        	return FALSE;
-        }
     }
 
     //Traer todos los usuarios
@@ -29,15 +21,53 @@ class Usuario_model extends CI_Model {
                                     ".$this->db->dbprefix($this->tabla).".ultimo_ingreso,
                                     ".$this->db->dbprefix($this->tabla).".fecha_actualizado,
                                     ".$this->db->dbprefix($this->tabla_dep).".nombre AS departamento,
-                                    atl_lugar.nombre AS lugar
+                                    ".$this->db->dbprefix($this->tabla_lug).".nombre AS lugar
                                     FROM ".$this->db->dbprefix($this->tabla)." 
                                     LEFT JOIN (".$this->db->dbprefix($this->tabla_dep).")
                                     ON (".$this->db->dbprefix($this->tabla).".id_departamento = ".$this->db->dbprefix($this->tabla_dep).".id)
-                                    LEFT JOIN (atl_lugar)
-                                    ON (atl_usuario.id_lugar = atl_lugar.id)
+                                    LEFT JOIN (".$this->db->dbprefix($this->tabla_lug).")
+                                    ON (".$this->db->dbprefix($this->tabla).".id_lugar = ".$this->db->dbprefix($this->tabla_lug).".id)
         ");
         if ($query->num_rows() > 0){
             return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Traer usuario segun parametros
+    function get_usuario($id_usuario = FALSE) {
+        if (!$id_usuario) {
+            $where = "WHERE ".$this->db->dbprefix($this->tabla).".id = ".$id_usuario."";
+        }else{
+            $where = "";
+        }
+        $query = $this->db->query("SELECT ".$this->db->dbprefix($this->tabla).".id,
+                                    ".$this->db->dbprefix($this->tabla).".nombre AS nom_usuario,
+                                    ".$this->db->dbprefix($this->tabla).".apellido,
+                                    ".$this->db->dbprefix($this->tabla).".usuario,
+                                    ".$this->db->dbprefix($this->tabla).".email,
+                                    ".$this->db->dbprefix($this->tabla).".telefono,
+                                    ".$this->db->dbprefix($this->tabla).".activo,
+                                    ".$this->db->dbprefix($this->tabla).".nota_interna,
+                                    ".$this->db->dbprefix($this->tabla).".id_rol,
+                                    ".$this->db->dbprefix($this->tabla_dep).".nombre AS departamento,
+                                    ".$this->db->dbprefix($this->tabla_dep).".id AS id_departamento,
+                                     ".$this->db->dbprefix($this->tabla_car).".nombre AS cargo,
+                                    ".$this->db->dbprefix($this->tabla_car).".id AS id_cargo,
+                                    ".$this->db->dbprefix($this->tabla_lug).".nombre AS lugar,
+                                    ".$this->db->dbprefix($this->tabla_lug).".id AS id_lugar
+                                    FROM ".$this->db->dbprefix($this->tabla)." 
+                                    LEFT JOIN (".$this->db->dbprefix($this->tabla_dep).")
+                                    ON (".$this->db->dbprefix($this->tabla).".id_departamento = ".$this->db->dbprefix($this->tabla_dep).".id)
+                                    LEFT JOIN (".$this->db->dbprefix($this->tabla_lug).")
+                                    ON (".$this->db->dbprefix($this->tabla).".id_lugar = ".$this->db->dbprefix($this->tabla_lug).".id)
+                                    LEFT JOIN (".$this->db->dbprefix($this->tabla_car).")
+                                    ON (".$this->db->dbprefix($this->tabla).".id_cargo = ".$this->db->dbprefix($this->tabla_car).".id)
+                                    ".$where."
+        ");
+        if ($query->num_rows() > 0){
+            return $query->row();
         }else{
             return FALSE;
         }
@@ -57,7 +87,7 @@ class Usuario_model extends CI_Model {
     //Actualiza los datos del usuario
     function update($id_usuario, $datos) {
         $this->db->where('id', $id_usuario);
-        return  $this->db->update($this->db->dbprefix($this->tabla), $datos);
+        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
     }
 
     //Elimina un usuario

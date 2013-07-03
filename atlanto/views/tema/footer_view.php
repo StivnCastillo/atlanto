@@ -11,7 +11,9 @@
 	<script src="<?php echo base_url(); ?>assets/js/jqbootstrapvalidation.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery.form.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap-switch.js"></script>
-
+	<script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/datatable-bootstrap.js"></script>
+	
 	<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
 </body>

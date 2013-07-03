@@ -1,8 +1,9 @@
 <?php 
-//Titulo de las paginas
+//Titulos
 $lang['titulo'] = 'SCI | Inicio';
 $lang['titulo_usuarios'] = 'SCI | Usuarios';
 $lang['titulo_404'] = 'SCI | Error 404';
+$lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 
 //Pagina index
 $lang['index_titulo_menu'] = 'Sistema de Control de Informática';
@@ -72,6 +73,9 @@ $lang['men_cuenta'] = 'Cuenta';
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
 		$lang['btn_entrar'] = 'Entrar';
+		$lang['btn_guardar'] = 'Guardar';
+		$lang['btn_cancelar'] = 'Cancelar';
+		$lang['btn_eliminar'] = 'Eliminar';
 		$lang['btn_enviar'] = 'Enviar';
 		$lang['btn_iniciar_sesion'] = 'Iniciar Sesión';
 		$lang['btn_ticket_rapido'] = 'Ticket Rápido';
@@ -98,9 +102,15 @@ $lang['men_cuenta'] = 'Cuenta';
 	$lang['msj_error_sesion'] = 'Eror, sus credenciales no son correctas. Intentelo de nuevo';
 	$lang['msj_error_resultado'] = 'Sin resultado';
 	$lang['msj_error_guardar_usu'] = 'Ocurrio un error al guardar el usuario';
+	$lang['msj_error_modificar_usu'] = 'Ocurrio un error al modificar el usuario';
+	$lang['msj_error_eliminar_usu'] = 'Ocurrio un error al eliminar el usuario';
 	//Exito
 	$lang['msj_exito'] = '<strong>Éxito</strong>';
 	$lang['msj_ext_guardar_usu'] = 'fue creado en la base de datos';
+	$lang['msj_ext_modificar_usu'] = 'fue modificado en la base de datos';
+	$lang['msj_ext_eliminar_usu'] = 'Usuario eliminado.';
+	//Preguntas
+	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
 	
 
 //Log

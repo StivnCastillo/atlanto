@@ -11,7 +11,7 @@ function inicio () {
 	/*
 	* Busca y reemplaza en select con las ubicaciones
 	 */
-	$("#iubicacion").on("keyup", function(url){
+	$("#iubicacion").on("keyup", function(){
 		var valor = $("#iubicacion").val();
 		var accion = $("#iubicacion").data('url');
 		var todos = 0;
@@ -30,13 +30,12 @@ function inicio () {
 				$("#ubicacion").append(datos);
 			}
 		});
-		
 	});
 
 	/*
 	* Busca y reemplaza en select con las ubicaciones
 	 */
-	$("#idepartamento").on("keyup", function(url){
+	$("#idepartamento").on("keyup", function(){
 		var valor = $("#idepartamento").val();
 		var accion = $("#idepartamento").data('url');
 		var todos = 0;
@@ -61,7 +60,7 @@ function inicio () {
 	/*
 	* Busca y reemplaza en select con las cargos
 	 */
-	$("#icargo").on("keyup", function(url){
+	$("#icargo").on("keyup", function(){
 		var valor = $("#icargo").val();
 		var accion = $("#icargo").data('url');
 		var todos = 0;
@@ -83,5 +82,29 @@ function inicio () {
 			}
 		});
 	});
+
+	/*
+	* Tablas paginadas
+	 */
+	oTable = $('#tabla').dataTable({
+		"oLanguage": {
+			"oPaginate": {
+				"sNext": "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"sSearch": "Buscar",
+			"sZeroRecords": "No se encontraron resultados",
+			"sInfo": "Mostrando _TOTAL_ de (_START_ a _END_)",
+			"sInfoEmpty": "Mostrando 0 de ",
+			"sInfoFiltered": "_MAX_"
+		},
+		"iDisplayLength": 10
+	});
+	$('#busqueda').keypress(function(){
+		oTable.fnFilter($(this).val());
+	});
+	$.extend( $.fn.dataTableExt.oStdClasses, {
+	    "sWrapper": "dataTables_wrapper form-inline"
+	} );
 
 }

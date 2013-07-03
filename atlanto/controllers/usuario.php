@@ -56,7 +56,7 @@ class Usuario extends CI_Controller {
 
 			//Guarda datos de sesion		
 			$datos_sesion = array(
-               'nombre'  => $user->nombre." ".$user->apellido,
+               'nombre'  => $user->nom_usuario,
                'id'     => $user->id,
                'ingresado' => TRUE,
                'rol' => $user->id_rol
@@ -79,23 +79,32 @@ class Usuario extends CI_Controller {
 	/*
 	* Muestra formulario para la creacion de un nuevo usuario
 	 */
-	public function nuevo_usuario()
+	public function nuevo_usuario($id_usuario = 0)
 	{
 		$this->acceso_restringido();
-		//Traer los roles
+		
+		////Traer los roles
 		$roles = $this->rol_model->get_todos();
-
 		$data = array(
 			'titulo' => $this->lang->line('titulo'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'usuarios/save_view',
 			'validador' => TRUE,
 			'roles' => $roles,
-			'accion' => site_url('usuario/guardar'),
+			'accion_guardar' => site_url('usuario/guardar'),
+			'accion_modificar' => site_url('usuario/modificar'),
 			'accion_ubicacion' => site_url('buscar_ubicacion'),
 			'accion_departamento' => site_url('buscar_departamento'),
 			'accion_cargo' => site_url('buscar_cargo')
 		);
+		//Para cargar los datos del usuario en el formulario
+		if ($id_usuario) {
+			$usuario = $this->usuario_model->get_usuario($id_usuario);
+
+			$data['usuario'] = $usuario;
+			$data['id_usuario'] = $id_usuario;
+		}
+
 		$this->load->view('template', $data);
 	}
 
@@ -199,6 +208,117 @@ class Usuario extends CI_Controller {
 				redirect('usuario/nuevo_usuario', 'refresh');
 			}
 		}
+	}
+
+	public function modificar()
+	{
+		$this->acceso_restringido();
+		$id_usuario = $this->input->post('id_usuario');
+		//reglas de validacion de formulario, en el server
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'apellido',
+                     'label' => 'Apellido',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'telefono',
+                     'label' => 'Telefono',
+                     'rules' => 'numeric'
+                  ),   
+               array(
+                     'field' => 'email',
+                     'label' => 'Email',
+                     'rules' => 'required|valid_email'
+                  ),   
+               array(
+                     'field' => 'usuario',
+                     'label' => 'Usuario',
+                     'rules' => 'required'
+                  ), 
+               array(
+                     'field' => 'password2',
+                     'label' => 'Confirmar Password',
+                     'rules' => 'matches[password]'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('usuario/nuevo_usuario/'.$id_usuario, 'refresh');
+		}
+		else
+		{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			if (isset($datos_recibidos['activado'])) {
+				$activado = 1;
+			}else
+			{
+				$activado = 2;
+			}
+			
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'apellido' => $datos_recibidos['apellido'],
+				'telefono' => $datos_recibidos['telefono'],
+				'email' => $datos_recibidos['email'],
+				'usuario' => $datos_recibidos['usuario'],
+				'activo' => $activado,
+				'id_lugar' => $datos_recibidos['ubicacion'],
+				'id_cargo' => $datos_recibidos['cargo'],
+				'id_departamento' => $datos_recibidos['departamento'],
+				'id_rol' => $datos_recibidos['rol'],
+				'nota_interna' => $datos_recibidos['nota_interna'],
+				'fecha_actualizado' => date('Y-m-d H:i:s')
+			);
+
+			if($datos_recibidos['password']){
+				$datos['pass'] = md5($datos_recibidos['password']);
+			}
+
+			$usuario = $this->usuario_model->update($id_usuario, $datos);
+
+			if($usuario){
+				$link = anchor('usuario/nuevo_usuario/'.$id_usuario, $datos_recibidos['nombre'].' '.$datos_recibidos['apellido']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('usuario/nuevo_usuario/'.$id_usuario, 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('usuario/nuevo_usuario/'.$id_usuario, 'refresh');
+			}
+		}
+	}
+
+	public function eliminar($id_usuario)
+	{
+		$this->acceso_restringido();
+		$usuario = $this->usuario_model->delete($id_usuario);
+		if(!$usuario){
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('panel/usuarios/', 'refresh');
 	}
 
 	public function acceso_restringido(){
