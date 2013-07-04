@@ -15,6 +15,7 @@ $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticke
 $lang['men_escritorio'] = 'Escritorio';
 $lang['men_inventario'] = 'Inventario';
 $lang['men_tickets'] = 'Tickets';
+$lang['men_tareas'] = 'Tareas';
 $lang['men_financiero'] = 'Financiero';
 $lang['men_administracion'] = 'Administración';
 $lang['men_reportes'] = 'Reportes';
@@ -34,6 +35,9 @@ $lang['men_cuenta'] = 'Cuenta';
 		$lang['men_sub_cerrados'] = 'Cerrados';	
 		$lang['men_sub_mis_tickets'] = 'Mis Tickets';	
 		$lang['men_sub_crear'] = 'Crear Ticket';
+	//Submenu Tareas
+		$lang['men_sub_nueva'] = 'Nueva Tarea';
+		$lang['men_sub_mis'] = 'Mis Tareas';
 	//Submenu Financiero
 		$lang['men_sub_proveedores'] = 'Proveedores';
 		$lang['men_sub_contratos'] = 'Contratos';

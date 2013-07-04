@@ -2,7 +2,7 @@
 		<!-- Sidebar -->
 		<div class="row-fluid">
 			<div class="span3">
-				<div class="well sidebar-nav">
+				<div class="sidebar-nav">
 					<ul class="nav nav-list">
 						<li class="nav-header">Tickets</li>
 						<li class="active" id="lnk-tickets-nuevos"><a href="#">Tickets Nuevos</a></li>

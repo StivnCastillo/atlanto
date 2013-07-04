@@ -60,6 +60,16 @@ $ci = &get_instance();
 							</li>
 							<li class="dropdown">
 								<a href="" class="dropdown-toggle" data-toggle="dropdown">
+									<?php echo $ci->lang->line('men_tareas') ?>
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href=""><?php echo $ci->lang->line('men_sub_nueva'); ?></a></li>
+									<li><a href=""><?php echo $ci->lang->line('men_sub_mis'); ?></a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="" class="dropdown-toggle" data-toggle="dropdown">
 									<?php echo $ci->lang->line('men_financiero') ?>
 									<b class="caret"></b>
 								</a>

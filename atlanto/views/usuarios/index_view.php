@@ -58,7 +58,7 @@ $ci = &get_instance();
 	    	<?php endif ?>
 
 		<article class="well">
-			<table class="table table-striped table-hover" id="tabla">
+			<table class="table table-striped table-hover tabla" id="tabla">
 				<thead>
 					<tr>
 						<!-- idioma -->

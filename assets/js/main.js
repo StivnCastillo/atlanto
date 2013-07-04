@@ -86,11 +86,11 @@ function inicio () {
 	/*
 	* Tablas paginadas
 	 */
-	oTable = $('#tabla').dataTable({
+	oTable = $('.tabla').dataTable({
 		"oLanguage": {
 			"oPaginate": {
-				"sNext": "Siguiente",
-				"sPrevious": "Anterior"
+				"sNext": "",
+				"sPrevious": ""
 			},
 			"sSearch": "Buscar",
 			"sZeroRecords": "No se encontraron resultados",
