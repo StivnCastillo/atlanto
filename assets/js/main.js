@@ -107,4 +107,9 @@ function inicio () {
 	    "sWrapper": "dataTables_wrapper form-inline"
 	} );
 
+	/*
+	* Tab de tablas con ajax
+	*/
+	//$("#tab-tablas").ajaxTab();
+
 }

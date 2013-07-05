@@ -86,7 +86,7 @@ class Usuario extends CI_Controller {
 		////Traer los roles
 		$roles = $this->rol_model->get_todos();
 		$data = array(
-			'titulo' => $this->lang->line('titulo'),
+			'titulo' => $this->lang->line('titulo_nuevo_usuario'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'usuarios/save_view',
 			'validador' => TRUE,

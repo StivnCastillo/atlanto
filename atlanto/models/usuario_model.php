@@ -81,7 +81,6 @@ class Usuario_model extends CI_Model {
         }else{
             return $guarda;
         }
-        
     }
 
     //Actualiza los datos del usuario

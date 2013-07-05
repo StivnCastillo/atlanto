@@ -55,7 +55,7 @@ $ci = &get_instance();
 		            </div>
 	            <?php endif ?>
 
-	    	<?php endif ?>
+	    <?php endif ?>
 
 		<article class="well">
 			<table class="table table-striped table-hover tabla" id="tabla">

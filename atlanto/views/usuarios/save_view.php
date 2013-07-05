@@ -181,4 +181,4 @@ $ci = &get_instance();
 					</article>
 				</div>
 			</div>
-		</div>
+</div>

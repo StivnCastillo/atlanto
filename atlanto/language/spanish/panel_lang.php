@@ -2,6 +2,8 @@
 //Titulos
 $lang['titulo'] = 'SCI | Inicio';
 $lang['titulo_usuarios'] = 'SCI | Usuarios';
+$lang['titulo_nuevo_usuario'] = 'SCI | Nuevo Usuario';
+$lang['titulo_tablas'] = 'SCI | Tablas';
 $lang['titulo_404'] = 'SCI | Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 
@@ -54,6 +56,11 @@ $lang['men_cuenta'] = 'Cuenta';
 		$lang['men_sub_configuracion'] = 'Configuracion';
 		$lang['men_sub_salir'] = 'Salir';
 
+//Menu Tablas
+	$lang['men_tab_cargos'] = 'Cargos';
+	$lang['men_tab_dep'] = 'Departamentos';
+	$lang['men_tab_ubicacion'] = 'Ubicaciones';
+
 //Formularios
 	//Labels
 		$lang['lbl_usuario'] = 'Usuario';
@@ -73,6 +80,7 @@ $lang['men_cuenta'] = 'Cuenta';
 		$lang['lbl_activado'] = 'Activado';
 		$lang['lbl_rol'] = 'Rol de Usuario';
 		$lang['lbl_notas'] = 'Nota';
+		$lang['lbl_descripcion'] = 'Descripcion';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -91,6 +99,7 @@ $lang['men_cuenta'] = 'Cuenta';
 	//Placeholder
 		$lang['plc_buscar'] = 'Buscar...';
 		$lang['plc_nota_interna'] = 'Las notas internas solo son visualizadas por los administradores.';
+		$lang['plc_descripcion'] = 'Pequeña descripcion';
 
 	//Selects
 		$lang['slc_imp_pdf'] = 'Imprimir PDF';
@@ -98,6 +107,7 @@ $lang['men_cuenta'] = 'Cuenta';
 
 	//Tabs
 		$lang['tab_usu_usuario'] = 'Usuario';
+		$lang['tab_car_cargos'] = 'Cargos';
 
 		
 
@@ -105,16 +115,19 @@ $lang['men_cuenta'] = 'Cuenta';
 	//Error
 	$lang['msj_error_sesion'] = 'Eror, sus credenciales no son correctas. Intentelo de nuevo';
 	$lang['msj_error_resultado'] = 'Sin resultado';
-	$lang['msj_error_guardar_usu'] = 'Ocurrio un error al guardar el usuario';
-	$lang['msj_error_modificar_usu'] = 'Ocurrio un error al modificar el usuario';
-	$lang['msj_error_eliminar_usu'] = 'Ocurrio un error al eliminar el usuario';
+	$lang['msj_error_guardar_usu'] = 'Ocurrio un error al tratar de guardar';
+	$lang['msj_error_modificar_usu'] = 'Ocurrio un error al tratar modificar';
+	$lang['msj_error_eliminar_usu'] = 'Ocurrio un error al tratar eliminar';
+	$lang['msj_error_eliminar_car'] = 'Ocurrio un error al tratar eliminar';
 	//Exito
 	$lang['msj_exito'] = '<strong>Éxito</strong>';
 	$lang['msj_ext_guardar_usu'] = 'fue creado en la base de datos';
 	$lang['msj_ext_modificar_usu'] = 'fue modificado en la base de datos';
 	$lang['msj_ext_eliminar_usu'] = 'Usuario eliminado.';
+	$lang['msj_ext_eliminar_car'] = 'Cargo eliminado.';
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
+	$lang['msj_eliminar_car'] = '¿Desea eliminar el cargo ';
 	
 
 //Log
@@ -129,6 +142,8 @@ $lang['men_cuenta'] = 'Cuenta';
 //Tablas
 	$lang['tab_empty'] = '&nbsp;';
 	$lang['tab_nombre'] = 'Nombre';
+	$lang['tab_nombre'] = 'Nombre';
+	$lang['tab_descripcion'] = 'Descripcion';
 	$lang['tab_departamento'] = 'Departamento';
 	$lang['tab_lugar'] = 'Lugar/Ubicación';
 	$lang['tab_mail'] = 'Email';
