@@ -8,13 +8,17 @@ class Departamento_model extends CI_Model {
         parent::__construct();
     }
     
-    //Guarda datos de la ubicacion
+    //Guarda datos del departamento
     function save($datos) {
-        $this->db->insert($this->db->dbprefix($this->tabla), $datos);
-        return $this->db->insert_id();
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
     }
 
-    //Traer permisos
+    //Traer todos los registros
     function get_todos() {
         $query = $this->db->get($this->db->dbprefix($this->tabla));
         if ($query->num_rows() > 0){
@@ -31,6 +35,12 @@ class Departamento_model extends CI_Model {
         }else{
             return FALSE;
         }
+    }
+
+    //Elimina un departamento
+    function delete($id_departamento) {
+        $this->db->where('id', $id_departamento);
+        $this->db->delete($this->db->dbprefix($this->tabla));
     }
 }
 

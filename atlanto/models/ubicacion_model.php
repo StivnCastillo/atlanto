@@ -21,8 +21,12 @@ class Ubicacion_model extends CI_Model {
     
     //Guarda datos de la ubicacion
     function save($datos) {
-        $this->db->insert($this->db->dbprefix($this->tabla), $datos);
-        return $this->db->insert_id();
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
     }
 
     //Traer permisos
@@ -33,6 +37,12 @@ class Ubicacion_model extends CI_Model {
         }else{
             return FALSE;
         }        
+    }
+
+    //Elimina una ubicaion
+    function delete($id_ubicacion) {
+        $this->db->where('id', $id_ubicacion);
+        $this->db->delete($this->db->dbprefix($this->tabla));
     }
 
     function buscar($valor){

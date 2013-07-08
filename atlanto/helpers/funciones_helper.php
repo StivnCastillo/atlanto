@@ -14,10 +14,4 @@ if(!function_exists('get_ip_cliente'))
 
 		return $_SERVER['REMOTE_ADDR']; 
     }
-
-	function aacceso_restringido(){
-		if (!$this->session->userdata('ingresado')) {
-			redirect('panel', 'refresh');
-		}
-	}
 }

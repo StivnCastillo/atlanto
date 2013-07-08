@@ -81,6 +81,7 @@ $lang['men_cuenta'] = 'Cuenta';
 		$lang['lbl_rol'] = 'Rol de Usuario';
 		$lang['lbl_notas'] = 'Nota';
 		$lang['lbl_descripcion'] = 'Descripcion';
+		$lang['lbl_debajo'] = 'Debajo de';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -125,9 +126,13 @@ $lang['men_cuenta'] = 'Cuenta';
 	$lang['msj_ext_modificar_usu'] = 'fue modificado en la base de datos';
 	$lang['msj_ext_eliminar_usu'] = 'Usuario eliminado.';
 	$lang['msj_ext_eliminar_car'] = 'Cargo eliminado.';
+	$lang['msj_ext_eliminar_dep'] = 'Departamento eliminado.';
+	$lang['msj_ext_eliminar_ubi'] = 'Ubicación eliminada.';
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
 	$lang['msj_eliminar_car'] = '¿Desea eliminar el cargo ';
+	$lang['msj_eliminar_dep'] = '¿Desea eliminar el departamento ';
+	$lang['msj_eliminar_ubi'] = '¿Desea eliminar la ubicación ';
 	
 
 //Log

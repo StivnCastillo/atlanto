@@ -59,13 +59,6 @@ class Cargo extends CI_Controller {
 		else
 		{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
-
-			if (isset($datos_recibidos['activado'])) {
-				$activado = 1;
-			}else
-			{
-				$activado = 2;
-			}
 			
 			$datos = array(
 				'nombre' => $datos_recibidos['nombre'],
@@ -73,7 +66,8 @@ class Cargo extends CI_Controller {
 			);
 
 			$cargo = $this->cargo_model->save($datos);
-
+			//Para abrir la pestaña
+			$this->session->set_flashdata('seccion', 'cargo');
 			if($cargo){
 				
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
