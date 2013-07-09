@@ -56,7 +56,7 @@ class Usuario extends CI_Controller {
 
 			//Guarda datos de sesion		
 			$datos_sesion = array(
-               'nombre'  => $user->nom_usuario,
+               'nombre'  => $user->nombre." ".$user->apellido,
                'id'     => $user->id,
                'ingresado' => TRUE,
                'rol' => $user->id_rol
@@ -98,7 +98,7 @@ class Usuario extends CI_Controller {
 			'accion_cargo' => site_url('buscar_cargo')
 		);
 		//Para cargar los datos del usuario en el formulario
-		if ($id_usuario) {
+		if ($id_usuario>0) {
 			$usuario = $this->usuario_model->get_usuario($id_usuario);
 
 			$data['usuario'] = $usuario;

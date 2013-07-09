@@ -59,11 +59,12 @@ $ci = &get_instance();
 								</ul>
 							</li>
 							<li class="dropdown">
-								<a href="" class="dropdown-toggle" data-toggle="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<?php echo $ci->lang->line('men_tareas') ?>
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
+									<li><a href="<?php echo base_url().'panel/tareas' ?>"><?php echo $ci->lang->line('men_sub_todo'); ?></a></li>
 									<li><a href=""><?php echo $ci->lang->line('men_sub_nueva'); ?></a></li>
 									<li><a href=""><?php echo $ci->lang->line('men_sub_mis'); ?></a></li>
 								</ul>
@@ -106,7 +107,7 @@ $ci = &get_instance();
 						<ul class="nav pull-right">
 							<li class="dropdown">
 								<a href="" class="dropdown-toggle" data-toggle="dropdown">
-									Cuenta
+									<?php echo $this->session->userdata('nombre'); ?>
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">

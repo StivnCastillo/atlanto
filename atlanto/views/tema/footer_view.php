@@ -14,6 +14,7 @@
 	<script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/datatable-bootstrap.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap-tab-ajax.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
 	
 	<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 

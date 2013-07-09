@@ -35,9 +35,30 @@ class Usuario_model extends CI_Model {
         }
     }
 
+    function get_administradores() {
+        $this->db->where(array('id_rol' => 1));
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }        
+    }
+
+    //Trae usuario segun parametros de $data
+    function get_usuario($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
     //Traer usuario segun parametros
-    function get_usuario($id_usuario = FALSE) {
-        if (!$id_usuario) {
+    function get_usuarios($id_usuario = FALSE) {
+        if ($id_usuario) {
             $where = "WHERE ".$this->db->dbprefix($this->tabla).".id = ".$id_usuario."";
         }else{
             $where = "";
@@ -53,7 +74,7 @@ class Usuario_model extends CI_Model {
                                     ".$this->db->dbprefix($this->tabla).".id_rol,
                                     ".$this->db->dbprefix($this->tabla_dep).".nombre AS departamento,
                                     ".$this->db->dbprefix($this->tabla_dep).".id AS id_departamento,
-                                     ".$this->db->dbprefix($this->tabla_car).".nombre AS cargo,
+                                    ".$this->db->dbprefix($this->tabla_car).".nombre AS cargo,
                                     ".$this->db->dbprefix($this->tabla_car).".id AS id_cargo,
                                     ".$this->db->dbprefix($this->tabla_lug).".nombre AS lugar,
                                     ".$this->db->dbprefix($this->tabla_lug).".id AS id_lugar

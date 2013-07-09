@@ -3,6 +3,33 @@ $(document).on("ready", inicio);
 function inicio () {
 
 	/*
+	* swicth, verificando estado
+	*/
+	$('.terminada').on('switch-change', function (e, data) {
+	    var value = data.value;
+	    var id = $(this).data('id');
+	    var accion = $(this).data('accion');
+	    if(value){
+	    	var valor = 1;
+	    }else{
+	    	var valor = 0;
+	    }
+	    //pasar por ajax
+	    var parametros = {"id":id, "valor":valor}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+		});
+    });
+
+	/*
+	* Calendario
+	*/
+	$('.fecha').datetimepicker({});
+
+	/*
 	* Validacion
 	 */
 	

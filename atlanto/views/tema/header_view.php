@@ -17,8 +17,8 @@
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet" media="screen" />
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap-responsive.css" rel="stylesheet" />
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap-switch.css" rel="stylesheet" />
-	<link href="<?php echo base_url(); ?>assets/css/bootstrap-switch.css" rel="stylesheet" />
 	<link href="<?php echo base_url(); ?>assets/css/datatable-bootstrap.css" rel="stylesheet" />
+	<link href="<?php echo base_url(); ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 	
 	<link href="<?php echo base_url(); ?>assets/css/main.css" rel="stylesheet" />
 </head>

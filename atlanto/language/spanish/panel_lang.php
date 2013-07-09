@@ -4,6 +4,7 @@ $lang['titulo'] = 'SCI | Inicio';
 $lang['titulo_usuarios'] = 'SCI | Usuarios';
 $lang['titulo_nuevo_usuario'] = 'SCI | Nuevo Usuario';
 $lang['titulo_tablas'] = 'SCI | Tablas';
+$lang['titulo_tareas'] = 'SCI | Tareas';
 $lang['titulo_404'] = 'SCI | Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 
@@ -40,6 +41,7 @@ $lang['men_cuenta'] = 'Cuenta';
 	//Submenu Tareas
 		$lang['men_sub_nueva'] = 'Nueva Tarea';
 		$lang['men_sub_mis'] = 'Mis Tareas';
+		$lang['men_sub_todo'] = 'Todas';
 	//Submenu Financiero
 		$lang['men_sub_proveedores'] = 'Proveedores';
 		$lang['men_sub_contratos'] = 'Contratos';
@@ -81,7 +83,12 @@ $lang['men_cuenta'] = 'Cuenta';
 		$lang['lbl_rol'] = 'Rol de Usuario';
 		$lang['lbl_notas'] = 'Nota';
 		$lang['lbl_descripcion'] = 'Descripcion';
+		$lang['lbl_nota'] = 'Nota';
 		$lang['lbl_debajo'] = 'Debajo de';
+		$lang['lbl_titulo'] = 'Titulo';
+		$lang['lbl_fecha_inicio'] = 'Fecha Inicio';
+		$lang['lbl_fecha_fin'] = 'Fecha Fin';
+		$lang['lbl_asignar'] = 'Asignar a Usuario';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -95,7 +102,10 @@ $lang['men_cuenta'] = 'Cuenta';
 
 	//links
 		$lang['lnk_agregar'] = 'Agregar Nuevo';
+		$lang['lnk_agregar_a'] = 'Agregar Nueva';
 		$lang['lnk_new_plantilla'] = 'Nueva Plantilla';
+		$lang['lnk_mis_tareas'] = 'Mis Tareas';
+		$lang['lnk_todas'] = 'Todas';
 
 	//Placeholder
 		$lang['plc_buscar'] = 'Buscar...';
@@ -108,6 +118,7 @@ $lang['men_cuenta'] = 'Cuenta';
 
 	//Tabs
 		$lang['tab_usu_usuario'] = 'Usuario';
+		$lang['tab_usu_tarea'] = 'Tarea';
 		$lang['tab_car_cargos'] = 'Cargos';
 
 		
@@ -146,11 +157,17 @@ $lang['men_cuenta'] = 'Cuenta';
 
 //Tablas
 	$lang['tab_empty'] = '&nbsp;';
+	$lang['tab_numero'] = 'Numero';
+	$lang['tab_estado'] = 'Terminada';
 	$lang['tab_nombre'] = 'Nombre';
-	$lang['tab_nombre'] = 'Nombre';
+	$lang['tab_titulo'] = 'Titulo';
 	$lang['tab_descripcion'] = 'Descripcion';
 	$lang['tab_departamento'] = 'Departamento';
 	$lang['tab_lugar'] = 'Lugar/Ubicación';
 	$lang['tab_mail'] = 'Email';
 	$lang['tab_acciones'] = 'Acciones';
+	$lang['tab_usuario_asignado'] = 'Usuario Asignado';
+	$lang['tab_duracion'] = 'Duración';
+	$lang['tab_fecha_inicio'] = 'Fecha Inicio';
+	$lang['tab_fecha_fin'] = 'Fecha Fin';
 	

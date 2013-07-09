@@ -7,7 +7,7 @@ class Panel extends CI_Controller {
 		$this->load->helper(array('form'));
 		//$this->load->helper(array('form'));
 		//$this->load->library('form_validation');
-		$this->load->model(array('usuario_model'));
+		$this->load->model(array('usuario_model', 'tarea_model'));
 	}
 
 	public function index()
@@ -66,6 +66,24 @@ class Panel extends CI_Controller {
 			'content' => 'usuarios/index_view',
 			'validador' => $validador,
 			'usuarios' => $usuarios
+		);
+		$this->load->view('template', $data);
+	}
+
+	//id de usuario se le pasa para ver las tareas propias
+	public function tareas($id_usuario = FALSE)
+	{
+		$this->acceso_restringido();
+		$validador = TRUE;
+
+		$tareas = $this->tarea_model->get_todos($id_usuario);
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_tareas'),
+			'titulo_menu' => $this->lang->line('index_titulo_menu'),
+			'content' => 'tareas/index_view',
+			'validador' => $validador,
+			'tareas' => $tareas
 		);
 		$this->load->view('template', $data);
 	}

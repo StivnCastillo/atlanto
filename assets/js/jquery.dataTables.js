@@ -777,10 +777,11 @@
 			{
 				if ( oSettings.iDrawError != oSettings.iDraw && oCol.sDefaultContent === null )
 				{
-					_fnLog( oSettings, 0, "Requested unknown parameter "+
+					//FUCK
+					/**_fnLog( oSettings, 0, "Requested nose parameter "+
 						(typeof oCol.mData=='function' ? '{mData function}' : "'"+oCol.mData+"'")+
 						" from the data source for row "+iRow );
-					oSettings.iDrawError = oSettings.iDraw;
+					oSettings.iDrawError = oSettings.iDraw;*/
 				}
 				return oCol.sDefaultContent;
 			}
