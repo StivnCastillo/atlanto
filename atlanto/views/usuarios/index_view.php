@@ -13,15 +13,6 @@ $ci = &get_instance();
 					<input class="span2" name="busqueda" id="busqueda" type="text" placeholder="<?php echo $ci->lang->line('plc_buscar'); ?>">
 					<button class="btn btn-inverse disabled" type="button"><i class="icon-search icon-white"></i></button>
 				</div>
-				<label for="ordenar" class="offset1"><?php echo $ci->lang->line('lbl_mostrar'); ?></label>
-				<select class="span1" name="mostrar" id="mostrar">
-					<option value="1">10</option>
-					<option value="2">20</option>
-					<option value="3">30</option>
-					<option value="4">40</option>
-					<option value="5">50</option>
-					<option value="todo">Todo/All</option>
-				</select>
 				<label for="ordenar" class="offset1"><?php echo $ci->lang->line('lbl_imprimir'); ?></label>
 				<select class="span2" name="mostrar" id="">
 					<option value="1"><?php echo $ci->lang->line('slc_imp_pdf'); ?></option>

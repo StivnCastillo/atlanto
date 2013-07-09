@@ -2,8 +2,10 @@ $(document).on("ready", inicio);
 
 function inicio () {
 
+	$('.popover-tarea').popover({trigger:'hover'})
+
 	/*
-	* swicth, verificando estado
+	* swicth, verificando estado y enviando para modificarlo
 	*/
 	$('.terminada').on('switch-change', function (e, data) {
 	    var value = data.value;
@@ -30,9 +32,8 @@ function inicio () {
 	$('.fecha').datetimepicker({});
 
 	/*
-	* Validacion
-	 */
-	
+	* Validacion de formularios en la vista
+	 */	
 	$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 
 	/*

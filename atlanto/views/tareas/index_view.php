@@ -19,15 +19,6 @@ $ci = &get_instance();
 					<input class="span2" name="busqueda" id="busqueda" placeholder="<?php echo $ci->lang->line('plc_buscar'); ?>" type="text">
 					<button class="btn btn-inverse disabled" type="button"><i class="icon-search icon-white"></i></button>
 				</div>
-				<label for="ordenar" class="offset1"><?php echo $ci->lang->line('lbl_mostrar'); ?></label>
-				<select class="span1" name="mostrar" id="mostrar">
-					<option value="1">10</option>
-					<option value="2">20</option>
-					<option value="3">30</option>
-					<option value="4">40</option>
-					<option value="5">50</option>
-					<option value="todo">Todo/All</option>
-				</select>
 				<label for="ordenar" class="offset1"><?php echo $ci->lang->line('lbl_imprimir'); ?></label>
 				<select class="span2" name="mostrar" id="">
 					<option value="1"><?php echo $ci->lang->line('slc_imp_pdf'); ?></option>
@@ -92,7 +83,7 @@ $ci = &get_instance();
 										<input type="checkbox" <?php if ($row->estado == 1): ?>checked="checked"<?php endif ?> name="activado" id="activado"/>
 									</div>
 								</td>
-								<td><a href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>"><?php echo $row->titulo; ?></a></td>
+								<td><a href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>" class="popover-tarea" data-content="<?php echo $row->nota; ?>" data-original-title="<?php echo $row->descripcion; ?>" rel="popover"><?php echo $row->titulo; ?></a></td>
 								<td><a href="<?php echo base_url().'usuario/nuevo_usuario/'.$row->id_usuario ?>"><?php echo $row->nombre." ".$row->apellido; ?></a></td>
 								<td><?php echo $row->fecha_inicio; ?></td>
 								<td><?php echo $row->fecha_fin; ?></td>

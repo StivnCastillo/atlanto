@@ -38,6 +38,7 @@ class Tarea extends CI_Controller {
 
 			$data['tarea'] = $tarea;
 			$data['id_tarea'] = $id_tarea;
+			$data['modificar'] = TRUE;
 		}
 
 		$this->load->view('template', $data);
@@ -61,11 +62,6 @@ class Tarea extends CI_Controller {
 				array(
 					'field' => 'descripcion',
 					'label' => 'Descripcion',
-					'rules' => 'required'
-				),
-				array(
-					'field' => 'nota',
-					'label' => 'Nota',
 					'rules' => 'required'
 				)
         );
@@ -92,7 +88,7 @@ class Tarea extends CI_Controller {
 				$this->clasefechas->setMySQLDateTime($datos_recibidos['fecha_inicio']);
 	    		$tiempo = $this->clasefechas->diff_MySQL($datos_recibidos['fecha_fin']);
 	    		//Duracion separada por comas (,). meses,dias,horas,minutos
-	    		$duracion = round($tiempo['weeks'],0,PHP_ROUND_HALF_DOWN).",".round($tiempo['days'],0,PHP_ROUND_HALF_DOWN).",".round($tiempo['hours'],0,PHP_ROUND_HALF_DOWN).",".round($tiempo['minutes'],0,PHP_ROUND_HALF_DOWN);
+	    		$duracion = floor($tiempo['weeks']).",".floor($tiempo['days']).",".floor($tiempo['hours']).",".floor($tiempo['minutes'],0,PHP_ROUND_HALF_DOWN);
 			}
 
 			$datos = array(

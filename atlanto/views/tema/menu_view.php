@@ -65,8 +65,8 @@ $ci = &get_instance();
 								</a>
 								<ul class="dropdown-menu">
 									<li><a href="<?php echo base_url().'panel/tareas' ?>"><?php echo $ci->lang->line('men_sub_todo'); ?></a></li>
-									<li><a href=""><?php echo $ci->lang->line('men_sub_nueva'); ?></a></li>
-									<li><a href=""><?php echo $ci->lang->line('men_sub_mis'); ?></a></li>
+									<li><a href="<?php echo base_url().'tarea/nueva_tarea'; ?>"><?php echo $ci->lang->line('men_sub_nueva'); ?></a></li>
+									<li><a href="<?php echo base_url().'panel/tareas/'.$this->session->userdata('id'); ?>"><?php echo $ci->lang->line('men_sub_mis'); ?></a></li>
 								</ul>
 							</li>
 							<li class="dropdown">

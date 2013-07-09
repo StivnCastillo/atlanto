@@ -50,7 +50,7 @@ $ci = &get_instance();
 								<div class="control-group">
 									<label class="control-label" for="titulo"><?php echo $ci->lang->line('lbl_titulo') ?></label>
 									<div class="controls">
-										<input type="text" class="span3" id="titulo" name="titulo" value="<?php echo (isset($tarea)) ? $tarea->titulo : ''; ?>" required />
+										<input type="text" class="span3" id="titulo" name="titulo" value="<?php echo (isset($tarea)) ? $tarea->titulo : ''; ?>" required  />
 									</div>
 								</div>
 
@@ -94,7 +94,7 @@ $ci = &get_instance();
 								<div class="control-group">
 									<label class="control-label" for="descripcion"><?php echo $ci->lang->line('lbl_descripcion') ?></label>
 									<div class="controls">
-										<textarea class="span3" rows="4" name="descripcion" id="descripcion"><?php echo (isset($tarea)) ? $tarea->descripcion : ''; ?></textarea>
+										<textarea class="span3" rows="4" name="descripcion" id="descripcion" required><?php echo (isset($tarea)) ? $tarea->descripcion : ''; ?></textarea>
 									</div>
 								</div>
 
