@@ -3,7 +3,7 @@
 $lang['titulo'] = 'SCI | Inicio';
 $lang['titulo_usuarios'] = 'SCI | Usuarios';
 $lang['titulo_nuevo_usuario'] = 'SCI | Nuevo Usuario';
-$lang['titulo_tablas'] = 'SCI | Tablas';
+$lang['titulo_tablas'] = 'SCI | Titulos';
 $lang['titulo_tareas'] = 'SCI | Tareas';
 $lang['titulo_404'] = 'SCI | Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
@@ -13,17 +13,16 @@ $lang['index_titulo_menu'] = 'Sistema de Control de Informática';
 $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
 
-
 //Menu Principal
-$lang['men_escritorio'] = 'Escritorio';
-$lang['men_inventario'] = 'Inventario';
-$lang['men_tickets'] = 'Tickets';
-$lang['men_tareas'] = 'Tareas';
-$lang['men_financiero'] = 'Financiero';
-$lang['men_administracion'] = 'Administración';
-$lang['men_reportes'] = 'Reportes';
-$lang['men_config'] = 'Configuración';
-$lang['men_cuenta'] = 'Cuenta';
+	$lang['men_escritorio'] = 'Escritorio';
+	$lang['men_inventario'] = 'Inventario';
+	$lang['men_tickets'] = 'Tickets';
+	$lang['men_tareas'] = 'Tareas';
+	$lang['men_financiero'] = 'Financiero';
+	$lang['men_administracion'] = 'Administración';
+	$lang['men_reportes'] = 'Reportes';
+	$lang['men_config'] = 'Configuración';
+	$lang['men_cuenta'] = 'Cuenta';
 	//Submenu Inventario
 		$lang['men_sub_compu'] = 'Computadores';
 		$lang['men_sub_monitores'] = 'Monitores';
@@ -48,7 +47,7 @@ $lang['men_cuenta'] = 'Cuenta';
 	//Submenu Administracion
 		$lang['men_sub_usuarios'] = 'Usuarios';
 		$lang['men_sub_perfiles'] = 'Perfiles';
-		$lang['men_sub_tablas'] = 'Tablas';
+		$lang['men_sub_tablas'] = 'Titulos';
 		$lang['men_sub_resp'] = 'Respuestas Automaticas';
 	//Submenu Configuracion
 		$lang['men_sub_general'] = 'General';
@@ -170,4 +169,5 @@ $lang['men_cuenta'] = 'Cuenta';
 	$lang['tab_duracion'] = 'Duración';
 	$lang['tab_fecha_inicio'] = 'Fecha Inicio';
 	$lang['tab_fecha_fin'] = 'Fecha Fin';
-	
+//Tareas
+	$lang['tar_sin_nota'] = 'No tiene notas/solucion';

@@ -40,7 +40,7 @@ $ci = &get_instance();
 	    	<div class="tab-content">
 	    		<div class="tab-pane active" id="tab1">
 					<article class="row">
-						<form class="form-horizontal" id="frmTarea" name="frmTarea" action="<?php echo $accion_guardar; ?>" method="POST">
+						<form class="form-horizontal" id="frmTarea" name="frmTarea" action="<?php echo  (isset($tarea)) ? $accion_modificar : $accion_guardar; ?>" method="POST">
 							<?php if (isset($tarea)): ?>
 								<!-- ID TAREA PARA MODIFICAR -->
 	    						<input type="hidden" name="id_tarea" value="<?php echo $id_tarea; ?>">
