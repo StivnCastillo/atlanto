@@ -3,7 +3,7 @@
 class Usuario_model extends CI_Model {
     private $tabla = 'usuario';
     private $tabla_dep = 'departamento';
-    private $tabla_lug = 'lugar';
+    private $tabla_lug = 'ubicacion';
 	private $tabla_car = 'cargo';
 
 	function __construct() {

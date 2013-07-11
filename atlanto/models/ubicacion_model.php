@@ -1,7 +1,7 @@
 <?php 
 
 class Ubicacion_model extends CI_Model {
-	private $tabla = 'lugar';
+	private $tabla = 'ubicacion';
 
 	function __construct() {
         // Call the Model constructor
@@ -29,7 +29,7 @@ class Ubicacion_model extends CI_Model {
         }
     }
 
-    //Traer permisos
+    //Traer todas las ubicaciones
     function get_todos() {
         $query = $this->db->get($this->db->dbprefix($this->tabla));
         if ($query->num_rows() > 0){
@@ -52,6 +52,12 @@ class Ubicacion_model extends CI_Model {
         }else{
             return FALSE;
         }
+    }
+
+    //Actualiza los datos del usuario
+    function update($id_usuario, $datos) {
+        $this->db->where('id', $id_usuario);
+        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
     }
 }
 

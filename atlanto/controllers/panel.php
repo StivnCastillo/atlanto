@@ -88,6 +88,18 @@ class Panel extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
+	public function titulos()
+	{
+		$this->acceso_restringido();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_titulos'),
+			'content' => 'titulos/index_view',
+			'validador' => TRUE
+		);
+		$this->load->view('template', $data);
+	}
+
 
 
 	public function acceso_restringido(){

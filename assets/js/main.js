@@ -1,6 +1,18 @@
 $(document).on("ready", inicio);
 
 function inicio () {
+	/*
+	* Toltip para botones de secciones
+	*/
+	$('#btn_agregar, #btn_imprimir').tooltip();
+
+	/*
+	* Evento para cuando hacen click en el boton imprimir de las secciones
+	*/
+	$('#btn_imprimir').on('click', function () {
+		$('#slc_imprimir').fadeToggle(200);
+		console.log('imprimir');
+	});
 
 	$('.popover-tarea').popover({trigger:'hover'})
 
@@ -127,9 +139,6 @@ function inicio () {
 			"sInfoFiltered": "_MAX_"
 		},
 		"iDisplayLength": 10
-	});
-	$('#busqueda').keypress(function(){
-		oTable.fnFilter($(this).val());
 	});
 	$.extend( $.fn.dataTableExt.oStdClasses, {
 	    "sWrapper": "dataTables_wrapper form-inline"
