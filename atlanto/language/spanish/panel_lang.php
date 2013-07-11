@@ -11,6 +11,7 @@ $lang['titulo_tareas'] = 'SCI | Tareas';
 $lang['titulo_titulos'] = 'SCI | Titulos';
 $lang['titulo_usuarios'] = 'SCI | Usuarios';
 $lang['titulo_ubicaciones'] = 'SCI | Ubicaciones';
+$lang['titulo_departamentos'] = 'SCI | Departamentos';
 $lang['titulo_cargos'] = 'SCI | Cargos';
 
 //Pagina index

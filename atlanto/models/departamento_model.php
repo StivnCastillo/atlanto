@@ -7,6 +7,17 @@ class Departamento_model extends CI_Model {
         // Call the Model constructor
         parent::__construct();
     }
+
+    //Trae departamento segun parametros de $data
+    function get_departamento($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
     
     //Guarda datos del departamento
     function save($datos) {
@@ -41,6 +52,12 @@ class Departamento_model extends CI_Model {
     function delete($id_departamento) {
         $this->db->where('id', $id_departamento);
         $this->db->delete($this->db->dbprefix($this->tabla));
+    }
+
+    //Actualiza los datos del usuario
+    function update($id_usuario, $datos) {
+        $this->db->where('id', $id_usuario);
+        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
     }
 }
 
