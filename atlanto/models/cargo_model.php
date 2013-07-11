@@ -28,6 +28,17 @@ class Cargo_model extends CI_Model {
         }        
     }
 
+    //Trae cargo segun parametros de $data
+    function get_cargo($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
     function buscar($valor){
     	$query = $this->db->query("SELECT id, nombre FROM ".$this->db->dbprefix($this->tabla)." WHERE nombre LIKE '%".$valor."%'");
         if ($query->num_rows() > 0){
@@ -41,6 +52,12 @@ class Cargo_model extends CI_Model {
     function delete($id_cargo) {
         $this->db->where('id', $id_cargo);
         $this->db->delete($this->db->dbprefix($this->tabla));
+    }
+
+    //Actualiza los datos del usuario
+    function update($id_usuario, $datos) {
+        $this->db->where('id', $id_usuario);
+        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
     }
 }
 

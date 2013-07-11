@@ -16,7 +16,7 @@ class Ubicacion extends CI_Controller {
 		$ubicaciones = $this->ubicacion_model->get_todos();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_titulos'),
+			'titulo' => $this->lang->line('titulo_ubicaciones'),
 			'content' => 'ubicaciones/index_view',
 			'validador' => TRUE,
 			'ubicaciones' => $ubicaciones

@@ -11,7 +11,17 @@ class Cargo extends CI_Controller {
 
 	public function index()
 	{
+		$this->acceso_restringido();
 
+		$cargos = $this->cargo_model->get_todos();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_cargos'),
+			'content' => 'cargos/index_view',
+			'validador' => TRUE,
+			'cargos' => $cargos
+		);
+		$this->load->view('template', $data);
 	}
 
 	//Busca departamento segun el parametro $valor y las manda a la vista para ser agregado al select
@@ -35,6 +45,27 @@ class Cargo extends CI_Controller {
 		}
 	}
 
+	public function nuevo($id_cargo = FALSE)
+	{
+		$this->acceso_restringido();
+		$data = array(
+			'titulo' => $this->lang->line('titulo_titulos'),
+			'content' => 'cargos/save_view',
+			'validador' => TRUE,
+			'accion_guardar' => site_url('cargo/guardar'),
+			'accion_modificar' => site_url('cargo/modificar')
+		);
+
+		$data['cargos'] = $this->cargo_model->get_todos();
+
+		if($id_cargo){
+			$data['cargo'] = $this->cargo_model->get_cargo(array('id' => $id_cargo));
+			$data['id_cargo'] = $id_cargo;
+		}
+
+		$this->load->view('template', $data);
+	}
+
 	public function guardar()
 	{
 		$this->acceso_restringido();
@@ -54,7 +85,7 @@ class Cargo extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('tabla', 'refresh');
+			redirect('cargo', 'refresh');
 		}
 		else
 		{
@@ -73,13 +104,63 @@ class Cargo extends CI_Controller {
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('tabla', 'refresh');
+				redirect('cargo', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('tabla', 'refresh');
+				redirect('cargo', 'refresh');
+			}
+		}
+	}
+
+	public function modificar()
+	{
+		$this->acceso_restringido();
+		$id_cargo = $this->input->post('id_cargo');
+		//reglas de validacion de formulario, en el server
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('cargo', 'refresh');
+		}
+		else
+		{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'descripcion' => $datos_recibidos['descripcion']
+			);
+
+			$cargo = $this->cargo_model->update($id_cargo, $datos);
+
+			if($cargo){
+				$link = anchor('cargo/nuevo/'.$id_cargo, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('cargo', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('cargo', 'refresh');
 			}
 		}
 	}
@@ -98,7 +179,7 @@ class Cargo extends CI_Controller {
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 		}
 
-		redirect('tabla', 'refresh');
+		redirect('cargo', 'refresh');
 	}
 
 	public function acceso_restringido(){

@@ -4,12 +4,14 @@ $lang['titulo'] = 'SCI | Inicio';
 $lang['titulo_404'] = 'SCI | Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
+$lang['titulo_eliminar_car'] = 'Eliminar Cargo';
 $lang['titulo_nuevo_usuario'] = 'SCI | Nuevo Usuario';
 $lang['titulo_tablas'] = 'SCI | Titulos';
 $lang['titulo_tareas'] = 'SCI | Tareas';
 $lang['titulo_titulos'] = 'SCI | Titulos';
 $lang['titulo_usuarios'] = 'SCI | Usuarios';
 $lang['titulo_ubicaciones'] = 'SCI | Ubicaciones';
+$lang['titulo_cargos'] = 'SCI | Cargos';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
