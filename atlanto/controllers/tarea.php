@@ -5,13 +5,22 @@ class Tarea extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		//$this->load->helper(array('form'));
-		$this->load->library('clasefechas');
-		$this->load->model(array('tarea_model', 'rol_model', 'usuario_model'));
+		$this->load->library(array('clasefechas', 'email'));
+		$this->load->model(array('tarea_model', 'usuario_model', 'mail_model'));
 	}
 
 	public function index()
 	{
-		
+		/*$config = $this->config_model->get(array('id' => 1));
+		$predefinido = $this->mail_model->get_predefinido(array('id' => 1, 'id_tipo' => 1));
+		echo $config->nombre_sistema;
+		echo "<br>";
+		echo $config->correo_sistema;
+		echo "<br>";
+		echo $predefinido->mensaje;
+		echo "<br>";	
+		echo $config->firma_sistema;
+		echo "<br>";*/
 	}
 
 	/*
@@ -89,7 +98,7 @@ class Tarea extends CI_Controller {
 				$this->clasefechas->setMySQLDateTime($datos_recibidos['fecha_inicio']);
 	    		$tiempo = $this->clasefechas->diff_MySQL($datos_recibidos['fecha_fin']);
 	    		//Duracion separada por comas (,). meses,dias,horas,minutos
-	    		$duracion = floor($tiempo['weeks']).",".floor($tiempo['days']).",".floor($tiempo['hours']).",".floor($tiempo['minutes'],0,PHP_ROUND_HALF_DOWN);
+	    		$duracion = floor($tiempo['weeks']).",".floor($tiempo['days']).",".floor($tiempo['hours']).",".floor($tiempo['minutes']);
 			}
 
 			$datos = array(
@@ -106,6 +115,19 @@ class Tarea extends CI_Controller {
 			$tarea = $this->tarea_model->save($datos);
 
 			if($tarea){
+
+				$usuario = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
+				//Enviar correo a usuario asignado
+
+				//variables para archivo de configuracion
+				$this->email->from('informatica@blancoynegromasivo.com.co', 'informatica');
+				$this->email->to($usuario->email);
+
+				$this->email->subject('Alerta Nueva Tarea');
+				$this->email->message($datos_recibidos['descripcion']);
+
+				$this->email->send();
+
 				$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
@@ -119,6 +141,11 @@ class Tarea extends CI_Controller {
 				redirect('panel/tareas', 'refresh');
 			}
 		}
+	}
+
+	public function enviar()
+	{
+		# code...
 	}
 
 	public function modificar()

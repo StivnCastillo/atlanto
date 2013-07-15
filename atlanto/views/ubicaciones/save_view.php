@@ -15,7 +15,7 @@ $ci = &get_instance();
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" for="nombre"><?php echo $ci->lang->line('lbl_debajo'); ?></label>
+						<label class="control-label" for="id_padre"><?php echo $ci->lang->line('lbl_debajo'); ?></label>
 						<div class="controls">
 							<select name="id_padre" id="id_padre" class="input-xlarge">
 								<option value="0">Ninguno</option>
@@ -27,7 +27,7 @@ $ci = &get_instance();
 					</div>
 
 					<div class="control-group">
-						<label class="control-label" for="nombre"><?php echo $ci->lang->line('lbl_piso'); ?></label>
+						<label class="control-label" for="piso"><?php echo $ci->lang->line('lbl_piso'); ?></label>
 						<div class="controls">
 							<!-- colocar el numero de pisos segun configuracion -->
 							<select name="piso" id="piso" class="input-xlarge">

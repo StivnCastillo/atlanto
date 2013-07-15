@@ -1,0 +1,113 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Reporte extends CI_Controller {
+
+	function __construct() {
+		parent::__construct();
+		//$this->load->helper(array('form'));
+		$this->load->library(array('pdf', 'table'));
+		$this->load->model(array('tarea_model', 'config_model'));
+	}
+
+	public function index()
+	{
+		$this->acceso_restringido();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_departamentos'),
+			'content' => 'reportes/index_view',
+			'validador' => TRUE
+		);
+		$this->load->view('template', $data);
+	}
+
+	public function tareas_lista()
+	{
+		$this->acceso_restringido();
+		//traigo configuraciones generales
+		$config = $this->config_model->get(array('id' => 1));
+		$data = array(
+			'titulo' => $this->lang->line('titulo_departamentos'),
+			'content' => 'reportes/tareas/lista_view',
+			'validador' => TRUE,
+			'accion' => site_url('reporte/gen_tareas_lista'),
+			'config' => $config
+		);
+		$this->load->view('template', $data);
+	}
+
+	public function gen_tareas_lista()
+	{
+		//traigo configuraciones generales
+		$config = $this->config_model->get(array('id' => 1));
+		//COLOCAR TODO DESDE LAS CONFIGURACIONES DE LOS REPORTES
+		//crear instancia de la clase y propiedades del archivo
+		$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+		$pdf->SetCreator($this->input->post('creador'));
+        $pdf->SetAuthor($this->input->post('autor'));
+        $pdf->SetTitle($this->input->post('titulo'));
+        $pdf->SetSubject($this->input->post('titulo'));
+
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $this->lang->line('rep_tareas_lista').' '.date("Y-m-d"), $this->input->post('leyenda'), array(0, 0, 0), array(0, 0, 0));
+        $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
+
+        //fuente de los titulos de la tabla y el cuerpo
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', 10));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 8));
+ 
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+ 
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+ 
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+ 
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        // establecer el modo de fuente por defecto
+        $pdf->setFontSubsetting(true);
+  
+		// Añadir una página
+		// Este método tiene varias opciones, consulta la documentación para más información.
+
+        $pdf->AddPage($this->input->post('horientacion'));
+
+        //preparamos y maquetamos el contenido a crear
+        $html = '';
+        $html .= "<style type=text/css>";
+        $html .= "table{width: 100%;boder: solid 1px; font-size: 8px;}";
+        $html .= "th{color: #fff; font-weight: bold; background-color: #222;font-size: 10px;}";
+        $html .= "</style>";
+         "<h2>".$this->input->post('titulo')."</h2>";
+
+        $tareas = $this->tarea_model->get_todos(FALSE);
+        if ($tareas) {
+        	$this->table->set_heading($this->lang->line('tab_estado'), $this->lang->line('tab_titulo'), $this->lang->line('tab_usuario_asignado'), $this->lang->line('tab_fecha_inicio'), $this->lang->line('tab_fecha_fin'));		
+			foreach ($tareas as $row) {
+				($row->estado == 1) ? $estado = 'Si' : $estado = 'No';
+				$this->table->add_row($estado, $row->titulo, $row->nombre." ".$row->apellido, $row->fecha_inicio, $row->fecha_fin);
+			}
+        }else{
+        	$this->table->set_heading('No se encontraron Resultados');
+			$this->table->add_row('0 filas');
+        }
+
+        $html .= $this->table->generate();
+ 
+		// Imprimimos el texto con writeHTMLCell()
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+		// Cerrar el documento PDF y preparamos la salida
+        $nombre_archivo = utf8_decode($this->lang->line('rep_tareas_lista')."_".date('Y-m-d').".pdf");
+        $pdf->Output($nombre_archivo, 'I');
+    }
+
+	public function acceso_restringido(){
+		if (!$this->session->userdata('ingresado')) {
+			redirect('panel', 'refresh');
+		}
+	}
+}
+
+/* End of file welcome.php */
+/* Location: ./application/controllers/welcome.php */

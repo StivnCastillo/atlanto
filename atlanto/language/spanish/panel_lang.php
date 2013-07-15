@@ -1,5 +1,7 @@
 <?php 
 //Titulos
+$lang['construccion'] = 'En construcción';
+
 $lang['titulo'] = 'SCI | Inicio';
 $lang['titulo_404'] = 'SCI | Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
@@ -95,6 +97,11 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_fecha_fin'] = 'Fecha Fin';
 		$lang['lbl_asignar'] = 'Asignar a Usuario';
 		$lang['lbl_piso'] = 'Piso';
+		$lang['lbl_horientacion'] = 'Horientación';
+		$lang['lbl_formato'] = 'Formato';
+		$lang['lbl_creador'] = 'Creador';
+		$lang['lbl_autor'] = 'Autor';
+		$lang['lbl_leyenda'] = 'Subtitulo';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -109,6 +116,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	//links
 		$lang['lnk_agregar'] = 'Agregar Nuevo';
 		$lang['lnk_imprimir'] = 'Imprimir';
+		$lang['lnk_reporte'] = 'Reportes';
 		$lang['lnk_agregar_a'] = 'Agregar Nueva';
 		$lang['lnk_new_plantilla'] = 'Nueva Plantilla';
 		$lang['lnk_mis_tareas'] = 'Mis Tareas';
@@ -183,7 +191,14 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 
 //Seccion Titulos
 	$lang['tit_men_general'] = 'General';
+	$lang['tit_men_tareas'] = 'Tareas';
+	$lang['tit_men_lista'] = 'Lista completa';
 	$lang['tit_men_ubicaciones'] = 'Ubicaciones';
 	$lang['tit_men_estados'] = 'Estados de los componentes';
 	$lang['tit_men_cargos'] = 'Cargos de usuarios';
 	$lang['tit_men_departamentos'] = 'Departamentos';
+
+//Reportes
+	$lang['rep_tareas_lista'] = 'Lista de tareas';
+	$lang['rep_vertical'] = 'Vertical';
+	$lang['rep_horizontal'] = 'Horizontal';

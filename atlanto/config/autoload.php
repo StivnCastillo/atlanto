@@ -108,7 +108,7 @@ $autoload['language'] = array('panel');
 |	$autoload['model'] = array('model1', 'model2');
 |
 */
-$autoload['model'] = array('log_model');
+$autoload['model'] = array('log_model', 'config_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

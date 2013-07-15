@@ -7,9 +7,9 @@ $ci = &get_instance();
 				<ul class="nav nav-tabs nav-stacked">
 
 					<li class="active"><a href=""><?php echo $ci->lang->line('tit_men_general'); ?></a></li>
-					<li><a href="<?php echo base_url().'ubicacion' ?>"><?php echo $ci->lang->line('tit_men_ubicaciones'); ?></a></li>
-					<li><a href="<?php echo base_url().'cargo' ?>"><?php echo $ci->lang->line('tit_men_cargos'); ?></a></li>
-					<li><a href="<?php echo base_url().'departamento' ?>"><?php echo $ci->lang->line('tit_men_departamentos'); ?></a></li>
+					<li><a href="<?php echo base_url().'ubicacion' ?>"><?php echo $ci->lang->line('tit_men_ubicaciones'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
+					<li><a href="<?php echo base_url().'cargo' ?>"><?php echo $ci->lang->line('tit_men_cargos'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
+					<li><a href="<?php echo base_url().'departamento' ?>"><?php echo $ci->lang->line('tit_men_departamentos'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 					<li><a href=""><?php echo $ci->lang->line('tit_men_estados'); ?></a></li>
 
 					<li class="active"><a href="">Tipos</a></li>
