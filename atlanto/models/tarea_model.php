@@ -52,6 +52,50 @@ class Tarea_model extends CI_Model {
         }        
     }
 
+    //Trae tareas segun parametros de $data
+    function get_tareas($data) {
+        $where = '1';
+
+        //Si definio el rango de fechas
+        if($data['fecha_inicio'] != '' and $data['fecha_fin'] != ''){
+            $where .= " AND fecha_fin BETWEEN '".$data['fecha_inicio']."' AND '".$data['fecha_fin']."'";
+        }
+
+        //Si definio el usuario
+        if($data['id_usuario'] != 'all'){
+            $where .= " AND ".$this->db->dbprefix($this->tabla).".id_usuario_asignado = ".$data['id_usuario'];
+        }
+
+        //Si definio el estado
+        if($data['estado'] != 'all'){
+            $where .= " AND ".$this->db->dbprefix($this->tabla).".estado = ".$data['estado'];
+        }
+
+        $query = $this->db->query("SELECT ".$this->db->dbprefix($this->tabla).".id,
+                                ".$this->db->dbprefix($this->tabla).".titulo,
+                                ".$this->db->dbprefix($this->tabla).".fecha_inicio,
+                                ".$this->db->dbprefix($this->tabla).".descripcion,
+                                ".$this->db->dbprefix($this->tabla).".nota,
+                                ".$this->db->dbprefix($this->tabla).".duracion,
+                                ".$this->db->dbprefix($this->tabla).".fecha_fin,
+                                ".$this->db->dbprefix($this->tabla).".estado,
+                                ".$this->db->dbprefix($this->tabla_usu).".id AS id_usuario,
+                                ".$this->db->dbprefix($this->tabla_usu).".nombre,
+                                ".$this->db->dbprefix($this->tabla_usu).".apellido
+
+                                FROM ".$this->db->dbprefix($this->tabla)."
+                                LEFT JOIN(".$this->db->dbprefix($this->tabla_usu).")
+                                ON
+                                (".$this->db->dbprefix($this->tabla_usu).".id = ".$this->db->dbprefix($this->tabla).".id_usuario_asignado)
+                                WHERE ".$where." ORDER BY ".$this->db->dbprefix($this->tabla).".id DESC"
+        );
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
     //Guarda datos de tarea
     function save($datos) {
         $guarda = $this->db->insert($this->db->dbprefix($this->tabla), $datos);

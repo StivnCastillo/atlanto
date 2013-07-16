@@ -3,7 +3,7 @@ $ci = &get_instance();
 ?>
 		<article class="well">
 			<form class="form-inline">			
-				<a href="<?php echo base_url().'cargo/nuevo'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_agregar') ?>"><i class="icon icon-plus icon-white"></i></a>
+				<a href="<?php echo base_url().'tarea/nueva_tarea'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_agregar') ?>"><i class="icon icon-plus icon-white"></i></a>
 				<a href="<?php echo base_url().'panel/tareas/'.$this->session->userdata('id'); ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_mis_tareas') ?>"><i class="icon icon-th icon-white"></i></a>
 				<a href="<?php echo base_url().'panel/tareas'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_todas'); ?>"><i class="icon icon-th-list icon-white"></i></a>
 				<a href="<?php echo base_url().'reporte'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_reporte') ?>"><i class="icon icon-print icon-white"></i></a>

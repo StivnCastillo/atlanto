@@ -102,6 +102,9 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_creador'] = 'Creador';
 		$lang['lbl_autor'] = 'Autor';
 		$lang['lbl_leyenda'] = 'Subtitulo';
+		$lang['lbl_estado'] = 'Estado';
+		$lang['lbl_columna'] = 'Columnas';
+		$lang['lbl_nombre_archivo'] = 'Nombre para el archivo';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -130,6 +133,9 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	//Selects
 		$lang['slc_imp_pdf'] = 'Imprimir PDF';
 		$lang['slc_imp_excel'] = 'Imprimir Excel';
+		$lang['slc_todos'] = 'Todos';
+		$lang['slc_terminada'] = 'Terminada';
+		$lang['slc_no_terminada'] = 'No Terminada';
 
 	//Tabs
 		$lang['tab_usu_usuario'] = 'Usuario';
@@ -192,13 +198,15 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 //Seccion Titulos
 	$lang['tit_men_general'] = 'General';
 	$lang['tit_men_tareas'] = 'Tareas';
-	$lang['tit_men_lista'] = 'Lista completa';
+	
 	$lang['tit_men_ubicaciones'] = 'Ubicaciones';
 	$lang['tit_men_estados'] = 'Estados de los componentes';
 	$lang['tit_men_cargos'] = 'Cargos de usuarios';
 	$lang['tit_men_departamentos'] = 'Departamentos';
 
 //Reportes
+	$lang['rep_men_lista'] = 'Lista completa';
+	$lang['rep_men_personalizar'] = 'Personalizada';
 	$lang['rep_tareas_lista'] = 'Lista de tareas';
 	$lang['rep_vertical'] = 'Vertical';
 	$lang['rep_horizontal'] = 'Horizontal';
