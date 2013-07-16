@@ -6,14 +6,6 @@ function inicio () {
 	*/
 	$('#btn_agregar, #btn_imprimir').tooltip();
 
-	/*
-	* Evento para cuando hacen click en el boton imprimir de las secciones
-	*/
-	$('#btn_imprimir').on('click', function () {
-		$('#slc_imprimir').fadeToggle(200);
-		console.log('imprimir');
-	});
-
 	$('.popover-tarea').popover({trigger:'hover'})
 
 	/*

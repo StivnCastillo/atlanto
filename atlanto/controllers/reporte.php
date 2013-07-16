@@ -20,7 +20,7 @@ class Reporte extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
+	/* Vista */
 	public function tareas_lista()
 	{
 		$this->acceso_restringido();
@@ -35,7 +35,7 @@ class Reporte extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
+	/* Accion */
 	public function gen_tareas_lista()
 	{
 		//traigo configuraciones generales
@@ -83,10 +83,24 @@ class Reporte extends CI_Controller {
 
         $tareas = $this->tarea_model->get_todos(FALSE);
         if ($tareas) {
-        	$this->table->set_heading($this->lang->line('tab_estado'), $this->lang->line('tab_titulo'), $this->lang->line('tab_usuario_asignado'), $this->lang->line('tab_fecha_inicio'), $this->lang->line('tab_fecha_fin'));		
+        	$this->table->set_heading($this->lang->line('tab_estado'), $this->lang->line('tab_titulo'), $this->lang->line('tab_usuario_asignado'), $this->lang->line('tab_fecha_inicio'), $this->lang->line('tab_fecha_fin'), $this->lang->line('tab_duracion'));		
 			foreach ($tareas as $row) {
 				($row->estado == 1) ? $estado = 'Si' : $estado = 'No';
-				$this->table->add_row($estado, $row->titulo, $row->nombre." ".$row->apellido, $row->fecha_inicio, $row->fecha_fin);
+				//Calcular duracion
+				if ($row->duracion != '') {
+					$duracion = explode(',', $row->duracion);
+					$duracion_total = '';
+					$duracion_total .= ($duracion[0] != 0) ? $duracion[0].' Meses ' : '';
+					$duracion_total .= ($duracion[1] != 0) ? $duracion[1].' Dias ' : '';
+					$duracion_total .= ($duracion[2] != 0) ? $duracion[2].' Hrs ' : '';
+					$duracion_total .= ($duracion[3] != 0) ? $duracion[3].' Mins ' : '';
+				}else{
+					$duracion_total = 'Sin terminar';
+				}
+					
+
+				//$duracion_total = $duracion[0].' Meses'.$duracion[1].' Dias'.$duracion[2].' Hrs'.$duracion[3].' Min';
+				$this->table->add_row($estado, $row->titulo, $row->nombre." ".$row->apellido, $row->fecha_inicio, $row->fecha_fin, $duracion_total);
 			}
         }else{
         	$this->table->set_heading('No se encontraron Resultados');

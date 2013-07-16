@@ -99,7 +99,7 @@ class Usuario extends CI_Controller {
 		);
 		//Para cargar los datos del usuario en el formulario
 		if ($id_usuario>0) {
-			$usuario = $this->usuario_model->get_usuario($id_usuario);
+			$usuario = $this->usuario_model->get_usuarios($id_usuario);
 
 			$data['usuario'] = $usuario;
 			$data['id_usuario'] = $id_usuario;

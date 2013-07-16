@@ -21,6 +21,7 @@ class Tarea_model extends CI_Model {
                                 ".$this->db->dbprefix($this->tabla).".fecha_inicio,
                                 ".$this->db->dbprefix($this->tabla).".descripcion,
                                 ".$this->db->dbprefix($this->tabla).".nota,
+                                ".$this->db->dbprefix($this->tabla).".duracion,
                                 ".$this->db->dbprefix($this->tabla).".fecha_fin,
                                 ".$this->db->dbprefix($this->tabla).".estado,
                                 ".$this->db->dbprefix($this->tabla_usu).".id AS id_usuario,
