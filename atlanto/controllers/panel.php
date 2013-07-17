@@ -33,11 +33,14 @@ class Panel extends CI_Controller {
 	public function escritorio()
 	{
 		$this->acceso_restringido();
-		$validador = TRUE;
+		//Traer tareas
+		$tareas = $this->tarea_model->get_todos($this->session->userdata('id'), 0);
+
 		$data = array(
 			'titulo' => $this->lang->line('titulo'),
 			'content' => 'escritorio_view',
-			'validador' => $validador
+			'validador' => TRUE,
+			'tareas' => $tareas
 		);
 		$this->load->view('template', $data);
 	}

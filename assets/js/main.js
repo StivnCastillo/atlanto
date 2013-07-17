@@ -2,6 +2,17 @@ $(document).on("ready", inicio);
 
 function inicio () {
 	/*
+	* Scroll escritorio, menu
+	*/
+	$('.lnk').on('click', function () {
+		$('.lnk').parent().removeClass();
+		$(this).parent().addClass('active');
+		var href = $(this).attr('href');
+		var posi = $(href).offset().top-60;
+		$('html, body').animate({scrollTop:posi}, 'slow');
+	});
+
+	/*
 	* Toltip para botones de secciones
 	*/
 	$('#btn_agregar, #btn_imprimir').tooltip();

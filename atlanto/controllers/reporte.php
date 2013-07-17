@@ -48,13 +48,13 @@ class Reporte extends CI_Controller {
 		$config = $this->config_model->get(array('id' => 1));
 		//COLOCAR TODO DESDE LAS CONFIGURACIONES DE LOS REPORTES
 		//crear instancia de la clase y propiedades del archivo
-		$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+		$pdf = new Pdf('P', 'mm', $config->repo_formato, true, 'UTF-8', false);
 		$pdf->SetCreator($this->input->post('creador'));
         $pdf->SetAuthor($this->input->post('autor'));
         $pdf->SetTitle($this->input->post('titulo'));
         $pdf->SetSubject($this->input->post('titulo'));
 
-        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $this->lang->line('rep_tareas_lista').' '.date("Y-m-d"), $this->input->post('leyenda'), array(0, 0, 0), array(0, 0, 0));
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $this->lang->line('rep_tareas_lista').' '.date("Y-m-d"), $config->repo->leyenda, array(0, 0, 0), array(0, 0, 0));
         $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
 
         //fuente de los titulos de la tabla y el cuerpo
@@ -77,7 +77,7 @@ class Reporte extends CI_Controller {
 		// Añadir una página
 		// Este método tiene varias opciones, consulta la documentación para más información.
 
-        $pdf->AddPage($this->input->post('horientacion'));
+        $pdf->AddPage($config->repo_horientacion);
 
         //preparamos y maquetamos el contenido a crear
         $html = '';

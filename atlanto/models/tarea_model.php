@@ -10,12 +10,17 @@ class Tarea_model extends CI_Model {
     }
 
     //Traer todos las tareas
-    function get_todos($id_usuario = FALSE) {
+    function get_todos($id_usuario = FALSE, $estado = 2) {
+        $where = "1";
+
         if($id_usuario){
-            $where = " ".$this->db->dbprefix($this->tabla).".id_usuario_asignado = ".$id_usuario;
-        }else{
-            $where = "1";
+            $where .= " AND ".$this->db->dbprefix($this->tabla).".id_usuario_asignado = ".$id_usuario;
         }
+
+        if ($estado != 2) {
+            $where .= " AND ".$this->db->dbprefix($this->tabla).".estado = ".$estado;
+        }
+
         $query = $this->db->query("SELECT ".$this->db->dbprefix($this->tabla).".id,
                                 ".$this->db->dbprefix($this->tabla).".titulo,
                                 ".$this->db->dbprefix($this->tabla).".fecha_inicio,
