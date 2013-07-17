@@ -12,6 +12,11 @@ class Ubicacion extends CI_Controller {
 	public function index()
 	{
 		$this->acceso_restringido();
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_ubicacion'), '/ubicacion');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
 
 		$ubicaciones = $this->ubicacion_model->get_todos();
 
@@ -19,6 +24,7 @@ class Ubicacion extends CI_Controller {
 			'titulo' => $this->lang->line('titulo_ubicaciones'),
 			'content' => 'ubicaciones/index_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'ubicaciones' => $ubicaciones
 		);
 		$this->load->view('template', $data);
@@ -48,10 +54,19 @@ class Ubicacion extends CI_Controller {
 	public function nuevo($id_ubicacion = FALSE)
 	{
 		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_ubicacion'), '/ubicacion');
+		$this->breadcrumbs->push($this->lang->line('bre_nueva_ubicacion'), '/ubicacion/nueva');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+		
 		$data = array(
 			'titulo' => $this->lang->line('titulo_titulos'),
 			'content' => 'ubicaciones/save_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'accion_guardar' => site_url('ubicacion/guardar'),
 			'accion_modificar' => site_url('ubicacion/modificar')
 		);

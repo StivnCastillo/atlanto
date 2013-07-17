@@ -13,12 +13,19 @@ class Cargo extends CI_Controller {
 	{
 		$this->acceso_restringido();
 
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_cargo'), '/cargo');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
 		$cargos = $this->cargo_model->get_todos();
 
 		$data = array(
 			'titulo' => $this->lang->line('titulo_cargos'),
 			'content' => 'cargos/index_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'cargos' => $cargos
 		);
 		$this->load->view('template', $data);
@@ -48,10 +55,19 @@ class Cargo extends CI_Controller {
 	public function nuevo($id_cargo = FALSE)
 	{
 		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_cargo'), '/cargo');
+		$this->breadcrumbs->push($this->lang->line('bre_nuevo_cargo'), '/cargo/nuevo');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
 		$data = array(
 			'titulo' => $this->lang->line('titulo_titulos'),
 			'content' => 'cargos/save_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'accion_guardar' => site_url('cargo/guardar'),
 			'accion_modificar' => site_url('cargo/modificar')
 		);

@@ -29,6 +29,12 @@ class Tarea extends CI_Controller {
 	public function nueva_tarea($id_tarea = 0)
 	{
 		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_tareas'), '/panel/tareas');
+		$this->breadcrumbs->push($this->lang->line('bre_nueva_tarea'), '/tarea/nueva_tarea');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
 		
 		//Traer los usuarios administradores
 		$usuarios = $this->usuario_model->get_administradores();
@@ -38,6 +44,7 @@ class Tarea extends CI_Controller {
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'tareas/save_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'usuarios' => $usuarios,
 			'accion_guardar' => site_url('tarea/guardar'),
 			'accion_modificar' => site_url('tarea/modificar')

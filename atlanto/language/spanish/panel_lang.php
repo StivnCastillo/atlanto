@@ -210,3 +210,18 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['rep_tareas_lista'] = 'Lista de tareas';
 	$lang['rep_vertical'] = 'Vertical';
 	$lang['rep_horizontal'] = 'Horizontal';
+
+//Breadcrumbs
+	$lang['bre_inicio'] = 'Escritorio';
+	$lang['bre_tareas'] = 'Tareas';
+	$lang['bre_usuarios'] = 'Usuarios';
+	$lang['bre_nueva_tarea'] = 'Nueva Tarea';
+	$lang['bre_nuevo_usuario'] = 'Nuevo Usuario';
+	$lang['bre_titulos'] = 'Titulos';
+	$lang['bre_ubicacion'] = 'Ubicaciones';
+	$lang['bre_nueva_ubicacion'] = 'Nueva Ubicacion';
+	$lang['bre_cargo'] = 'Cargos';
+	$lang['bre_nuevo_cargo'] = 'Nuevo Cargo';
+	$lang['bre_departemento'] = 'Departamento';
+	$lang['bre_nuevo_departamento'] = 'Nuevo Departamento';
+	$lang['bre_reporte'] = 'Reportes';

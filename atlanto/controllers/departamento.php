@@ -13,12 +13,19 @@ class Departamento extends CI_Controller {
 	{
 		$this->acceso_restringido();
 
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_departamento'), '/departamento');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
 		$departamentos = $this->departamento_model->get_todos();
 
 		$data = array(
 			'titulo' => $this->lang->line('titulo_departamentos'),
 			'content' => 'departamentos/index_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'departamentos' => $departamentos
 		);
 		$this->load->view('template', $data);
@@ -27,10 +34,19 @@ class Departamento extends CI_Controller {
 	public function nuevo($id_departamento = FALSE)
 	{
 		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_departamento'), '/departamento');
+		$this->breadcrumbs->push($this->lang->line('bre_nuevo_departamento'), '/departamento/nuevo');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
 		$data = array(
 			'titulo' => $this->lang->line('titulo_titulos'),
 			'content' => 'departamentos/save_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'accion_guardar' => site_url('departamento/guardar'),
 			'accion_modificar' => site_url('departamento/modificar')
 		);

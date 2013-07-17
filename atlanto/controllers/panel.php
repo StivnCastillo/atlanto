@@ -56,15 +56,19 @@ class Panel extends CI_Controller {
 	public function usuarios()
 	{
 		$this->acceso_restringido();
-		$validador = TRUE;
-
 		$usuarios = $this->usuario_model->get_todos_usuarios();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_usuarios'), '/panel/usuarios');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
 
 		$data = array(
 			'titulo' => $this->lang->line('titulo_usuarios'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'usuarios/index_view',
-			'validador' => $validador,
+			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'usuarios' => $usuarios
 		);
 		$this->load->view('template', $data);
@@ -74,7 +78,10 @@ class Panel extends CI_Controller {
 	public function tareas($id_usuario = FALSE)
 	{
 		$this->acceso_restringido();
-		$validador = TRUE;
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_tareas'), '/panel/tareas');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
 
 		$tareas = $this->tarea_model->get_todos($id_usuario);
 
@@ -82,7 +89,8 @@ class Panel extends CI_Controller {
 			'titulo' => $this->lang->line('titulo_tareas'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'tareas/index_view',
-			'validador' => $validador,
+			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'tareas' => $tareas
 		);
 		$this->load->view('template', $data);
@@ -92,10 +100,16 @@ class Panel extends CI_Controller {
 	{
 		$this->acceso_restringido();
 
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
 		$data = array(
 			'titulo' => $this->lang->line('titulo_titulos'),
 			'content' => 'titulos/index_view',
-			'validador' => TRUE
+			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs
 		);
 		$this->load->view('template', $data);
 	}

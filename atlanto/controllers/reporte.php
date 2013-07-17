@@ -13,10 +13,16 @@ class Reporte extends CI_Controller {
 	{
 		$this->acceso_restringido();
 
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_reporte'), '/reporte');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
 		$data = array(
 			'titulo' => $this->lang->line('titulo_departamentos'),
 			'content' => 'reportes/index_view',
-			'validador' => TRUE
+			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs
 		);
 		$this->load->view('template', $data);
 	}

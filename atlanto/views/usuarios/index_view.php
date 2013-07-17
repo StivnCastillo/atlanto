@@ -1,24 +1,16 @@
 <?php 
 $ci = &get_instance();
 ?>
-		<!-- MENU COMPONENTES -->
-	    <ul class="breadcrumb">
-		    <li><a href="<?php echo base_url().'usuario/nuevo_usuario' ?>"><?php echo $ci->lang->line('lnk_agregar'); ?></a> <span class="divider">/</span></li>
-		</ul>
-
 		<article class="well">
 			<form class="form-inline">			
-				<div class="input-append">
-					<!-- idioma -->
-					<input class="span2" name="busqueda" id="busqueda" type="text" placeholder="<?php echo $ci->lang->line('plc_buscar'); ?>">
-					<button class="btn btn-inverse disabled" type="button"><i class="icon-search icon-white"></i></button>
-				</div>
-				<label for="ordenar" class="offset1"><?php echo $ci->lang->line('lbl_imprimir'); ?></label>
-				<select class="span2" name="mostrar" id="">
+				<a href="<?php echo base_url().'usuario/nuevo_usuario'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_agregar') ?>"><i class="icon icon-plus icon-white"></i></a>
+				<a href="<?php echo base_url().'reporte'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_reporte') ?>"><i class="icon icon-print icon-white"></i></a>
+				
+				<select class="span2" name="imprimir" id="slc_imprimir" style="display: none;">
 					<option value="1"><?php echo $ci->lang->line('slc_imp_pdf'); ?></option>
 					<option value="2"><?php echo $ci->lang->line('slc_imp_excel'); ?></option>
 				</select>
-				<a href="#" class="btn btn-inverse"><i class="icon-print icon-white"></i></a>
+				
 			</form>
 		</article>
 

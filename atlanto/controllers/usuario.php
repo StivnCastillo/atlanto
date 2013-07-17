@@ -15,12 +15,7 @@ class Usuario extends CI_Controller {
 	
 	public function index()
 	{
-		$data = array(
-			'titulo' => $this->lang->line('titulo'),
-			'titulo_menu' => $this->lang->line('index_titulo_menu'),
-			'content' => 'index_view',
-		);
-		$this->load->view('template', $data);
+		
 	}
 
 	/*
@@ -82,6 +77,12 @@ class Usuario extends CI_Controller {
 	public function nuevo_usuario($id_usuario = 0)
 	{
 		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_usuarios'), '/panel/usuarios');
+		$this->breadcrumbs->push($this->lang->line('bre_nuevo_usuario'), '/usuario/nuevo_usuario');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
 		
 		////Traer los roles
 		$roles = $this->rol_model->get_todos();
@@ -90,6 +91,7 @@ class Usuario extends CI_Controller {
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'usuarios/save_view',
 			'validador' => TRUE,
+			'breadcrumbs' => $breadcrumbs,
 			'roles' => $roles,
 			'accion_guardar' => site_url('usuario/guardar'),
 			'accion_modificar' => site_url('usuario/modificar'),
