@@ -2,19 +2,19 @@
 //Titulos
 $lang['construccion'] = 'En construcción';
 
-$lang['titulo'] = 'SCI | Inicio';
-$lang['titulo_404'] = 'SCI | Error 404';
+$lang['titulo'] = 'Inicio';
+$lang['titulo_404'] = 'Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
 $lang['titulo_eliminar_car'] = 'Eliminar Cargo';
-$lang['titulo_nuevo_usuario'] = 'SCI | Nuevo Usuario';
-$lang['titulo_tablas'] = 'SCI | Titulos';
-$lang['titulo_tareas'] = 'SCI | Tareas';
-$lang['titulo_titulos'] = 'SCI | Titulos';
-$lang['titulo_usuarios'] = 'SCI | Usuarios';
-$lang['titulo_ubicaciones'] = 'SCI | Ubicaciones';
-$lang['titulo_departamentos'] = 'SCI | Departamentos';
-$lang['titulo_cargos'] = 'SCI | Cargos';
+$lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
+$lang['titulo_tablas'] = 'Titulos';
+$lang['titulo_tareas'] = 'Tareas';
+$lang['titulo_titulos'] = 'Titulos';
+$lang['titulo_usuarios'] = 'Usuarios';
+$lang['titulo_ubicaciones'] = 'Ubicaciones';
+$lang['titulo_departamentos'] = 'Departamentos';
+$lang['titulo_cargos'] = 'Cargos';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -105,6 +105,9 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_estado'] = 'Estado';
 		$lang['lbl_columna'] = 'Columnas';
 		$lang['lbl_nombre_archivo'] = 'Nombre para el archivo';
+		$lang['lbl_nombre_sistema'] = 'Nombre del Sistema';
+		$lang['lbl_texto_inicio'] = 'Texto del Inicio';
+		$lang['lbl_pie_pagina'] = 'Texto de Pie de Pagina';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -160,6 +163,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_ext_eliminar_car'] = 'Cargo eliminado.';
 	$lang['msj_ext_eliminar_dep'] = 'Departamento eliminado.';
 	$lang['msj_ext_eliminar_ubi'] = 'Ubicación eliminada.';
+	$lang['msj_ext_config'] = 'Configuración guardada.';
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
 	$lang['msj_eliminar_car'] = '¿Desea eliminar el cargo ';
@@ -225,3 +229,4 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_departemento'] = 'Departamento';
 	$lang['bre_nuevo_departamento'] = 'Nuevo Departamento';
 	$lang['bre_reporte'] = 'Reportes';
+	$lang['bre_config'] = 'Configuracion';

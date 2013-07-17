@@ -78,7 +78,7 @@ $ci = &get_instance();
 								<td><?php echo $row->fecha_fin; ?></td>
 								<td class="tabla-center">
 									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
+										<a class="btn btn-small" href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>" data-toggle="modal">
 											<i class="icon-search icon-black"></i>
 										</a>
 										<a class="btn btn-small" href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>" data-toggle="modal">

@@ -1,17 +1,12 @@
 <?php 
-$ci = &get_instance();
+	$ci = &get_instance();
 ?>
 		<article class="row span6 offset3" id="logo">
 			<img src="<?php echo base_url(); ?>assets/img/logo_informatica.png" />
 		</article>
 
 		<article class="row span8 offset2" id="logo">
-			<h3>Bienvenido</h3>
-			<!-- Que sea de la base de datos -->
-			<p>Con el fin de llevar un control completo de la infraestructura informática de la compañía 
-				implementamos el Sistema de Control de Informática, donde el personal de la empresa puede 
-				solicitar soporte en caso de alguna incidencia o eventualidad. Además podrá consultar el 
-				registro historio de su equipo de computo o elementos de comunicación asignados.</p>
+			<?php echo $config->texto_inicio; ?>
 		</article>
 
 		<article class="row span4 offset4">

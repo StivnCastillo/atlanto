@@ -8,7 +8,6 @@ $ci = &get_instance();
 					<a href="#tab1" data-toggle="tab"><?php echo $ci->lang->line('tab_usu_usuario') ?></a>
 				</li>
 			</ul>
-			<br>
 
 	    	<?php if ($this->session->flashdata('mensaje')): ?>
 	    		<!-- mensaje, error, completado, peligro -->

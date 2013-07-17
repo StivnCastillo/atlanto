@@ -28,4 +28,10 @@ class Config_model extends CI_Model {
             return FALSE;
         }        
     }
+
+     //Actualiza los datos
+    function update($id_config, $datos) {
+        $this->db->where('id', $id_config);
+        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
+    }
 }

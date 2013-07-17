@@ -92,17 +92,7 @@ $ci = &get_instance();
 								</ul>
 							</li>
 							<li><a href="<?php echo base_url()."reporte" ?>"><?php echo $ci->lang->line('men_reportes') ?></a></li>
-							<li class="dropdown">
-								<a href="" class="dropdown-toggle" data-toggle="dropdown">
-									<?php echo $ci->lang->line('men_config') ?>
-									<b class="caret"></b>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a href=""><a href=""><?php echo $ci->lang->line('men_sub_general') ?></a></li>
-									<li><a href=""><a href=""><?php echo $ci->lang->line('men_sub_noti') ?></a></li>
-									<li><a href=""><a href=""><?php echo $ci->lang->line('men_sub_rol') ?></a></li>
-								</ul>
-							</li>			
+							<li><a href="<?php echo base_url()."configuracion" ?>"><?php echo $ci->lang->line('men_config') ?></a></li>			
 						</ul>
 						<ul class="nav pull-right">
 							<li class="dropdown">
