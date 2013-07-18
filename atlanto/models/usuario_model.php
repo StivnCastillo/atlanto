@@ -120,4 +120,23 @@ class Usuario_model extends CI_Model {
         $this->db->insert($this->db->dbprefix($this->tabla), $datos);
         return $this->db->insert_id();
     }
+
+    //Traer todas los usuarios
+    function get_todos() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    function buscar($valor){
+        $query = $this->db->query("SELECT id, CONCAT(nombre, ' ', apellido) AS nombre FROM ".$this->db->dbprefix($this->tabla)." WHERE nombre LIKE '%".$valor."%' OR apellido LIKE '%".$valor."%'");
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
 }

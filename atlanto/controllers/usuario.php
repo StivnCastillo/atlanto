@@ -308,6 +308,27 @@ class Usuario extends CI_Controller {
 		}
 	}
 
+	//Busca usuarios segun el parametro $valor y las manda a la vista para ser agregado al select
+	public function usuario_select()
+	{
+		$nombre = $this->input->post('valor');
+		$todos = $this->input->post('todos');
+		
+		if ($todos == 1) {
+			$usuarios = $this->usuario_model->get_todos();
+		}else{
+			$usuarios = $this->usuario_model->buscar($nombre);
+		}
+
+		if(!$usuarios){
+			echo '<option value="">'.$this->lang->line('msj_error_resultado').'</option>';
+		}else{
+			foreach ($usuarios as $row) {
+				echo '<option value="'.$row->id.'">'.$row->nombre.' '.$row->apellido.'</option>';
+			}
+		}
+	}
+
 	public function eliminar($id_usuario)
 	{
 		$this->acceso_restringido();

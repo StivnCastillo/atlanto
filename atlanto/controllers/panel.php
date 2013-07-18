@@ -19,8 +19,6 @@ class Panel extends CI_Controller {
 			$validador = FALSE;
 		}
 
-		$config = $this->config_model->get(array('id' => 1));
-
 		$data = array(
 			'titulo' => $this->lang->line('titulo'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
@@ -28,7 +26,7 @@ class Panel extends CI_Controller {
 			'validador' => $validador,
 			'accion_login' => site_url('usuario/login'),
 			'accion_ticket' => site_url('ticket/save'),
-			'config' => $config
+			'config' => config_general()
 		);
 		$this->load->view('template', $data);
 	}

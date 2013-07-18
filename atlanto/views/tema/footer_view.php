@@ -1,13 +1,8 @@
-<?php 
-	$ci = &get_instance();
-	$ci->load->model('config_model');
-	$config = $this->config_model->get(array('id' => 1));
-?>
 	</section>
 	<hr />
 
 	<footer id="pie">
-		<?php echo $config->texto_pie_pagina; ?>
+		<?php echo config_general()->texto_pie_pagina; ?>
 	</footer>
 
 	<script src="<?php echo base_url(); ?>assets/js/jquery-2.0.0.min.js"></script>

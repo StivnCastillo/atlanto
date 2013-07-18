@@ -46,7 +46,7 @@ class Ubicacion extends CI_Controller {
 			echo '<option value="">'.$this->lang->line('msj_error_resultado').'</option>';
 		}else{
 			foreach ($ubicaciones as $row) {
-				echo '<option value="'.$row->id.'">'.$row->nombre.'</option>';
+				echo '<option value="'.$row->id.'">'.$row->nombre.' '.$row->apellido.'</option>';
 			}
 		}
 	}

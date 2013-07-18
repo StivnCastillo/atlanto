@@ -141,6 +141,30 @@ function inicio () {
 	});
 
 	/*
+	* Busca y reemplaza en select con las ubicaciones
+	 */
+	$("#iusuario").on("keyup", function(){
+		var valor = $("#iusuario").val();
+		var accion = $("#iusuario").data('url');
+		var todos = 0;
+
+		if(valor == String.fromCharCode(42)){
+			todos = 1;
+		}
+		var parametros = {"valor":valor, "todos":todos}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+	        success: function(datos){
+				$("#usuario").children().remove();
+				$("#usuario").append(datos);
+			}
+		});
+	});
+
+	/*
 	* Tablas paginadas
 	 */
 	oTable = $('.tabla').dataTable({
@@ -160,10 +184,4 @@ function inicio () {
 	$.extend( $.fn.dataTableExt.oStdClasses, {
 	    "sWrapper": "dataTables_wrapper form-inline"
 	} );
-
-	/*
-	* Tab de tablas con ajax
-	*/
-	//$("#tab-tablas").ajaxTab();
-
 }

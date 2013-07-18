@@ -30,14 +30,13 @@ class Reporte extends CI_Controller {
 	public function tareas_lista()
 	{
 		$this->acceso_restringido();
-		//traigo configuraciones generales
-		$config = $this->config_model->get(array('id' => 1));
+
 		$data = array(
 			'titulo' => $this->lang->line('titulo_departamentos'),
 			'content' => 'reportes/tareas/lista_view',
 			'validador' => TRUE,
 			'accion' => site_url('reporte/gen_tareas_lista'),
-			'config' => $config
+			'config' => config_general()
 		);
 		$this->load->view('template', $data);
 	}
@@ -126,17 +125,15 @@ class Reporte extends CI_Controller {
 	public function tareas_personalizada()
 	{
 		$this->acceso_restringido();
-		//traigo configuraciones generales
-		$config = $this->config_model->get(array('id' => 1));
-		//Traer los usuarios administradores
 
+		//Traer los usuarios administradores
 		$usuarios = $this->usuario_model->get_administradores();
 		$data = array(
 			'titulo' => $this->lang->line('titulo_departamentos'),
 			'content' => 'reportes/tareas/personalizar_view',
 			'validador' => TRUE,
 			'accion' => site_url('reporte/gen_tareas_personalizada'),
-			'config' => $config,
+			'config' => config_general(),
 			'usuarios' => $usuarios
 		);
 		$this->load->view('template', $data);

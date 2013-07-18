@@ -11,16 +11,7 @@ class Tarea extends CI_Controller {
 
 	public function index()
 	{
-		/*$config = $this->config_model->get(array('id' => 1));
-		$predefinido = $this->mail_model->get_predefinido(array('id' => 1, 'id_tipo' => 1));
-		echo $config->nombre_sistema;
-		echo "<br>";
-		echo $config->correo_sistema;
-		echo "<br>";
-		echo $predefinido->mensaje;
-		echo "<br>";	
-		echo $config->firma_sistema;
-		echo "<br>";*/
+		
 	}
 
 	/*

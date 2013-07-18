@@ -407,7 +407,7 @@ $ci = &get_instance();
 								<?php endforeach ?>	
 							<?php else: ?>
 								<tr>
-									<td colspan="6">Sin Resultados</td>
+									<td colspan="3">Sin Resultados</td>
 								</tr>
 							<?php endif ?>							
 						</tbody>

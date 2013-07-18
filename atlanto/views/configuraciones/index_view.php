@@ -34,7 +34,7 @@
 				    <li><a href="#tab3" data-toggle="tab">Reportes</a></li>
 			    </ul>
 			    <div class="tab-content">
-				    <div class="tab-pane active" id="tab1">
+				    <div class="tab-pane fade in active" id="tab1">
 				    	<form class="form-horizontal" id="frmUsuario" name="frmUsuario" action="<?php echo $accion_general; ?>" method="POST">
 					    	<div class="row-fluid">
 
@@ -66,10 +66,10 @@
 							</div>
 						</form>
 				    </div>
-				    <div class="tab-pane" id="tab2">
+				    <div class="tab-pane fade" id="tab2">
 				    	<p>Howdy, I'm in Section 2.</p>
 				    </div>
-				    <div class="tab-pane" id="tab3">
+				    <div class="tab-pane fade" id="tab3">
 				    	<p>Howdy, I'm in Section 3.</p>
 				    </div>
 			    </div>

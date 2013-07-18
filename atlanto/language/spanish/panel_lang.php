@@ -7,6 +7,7 @@ $lang['titulo_404'] = 'Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
 $lang['titulo_eliminar_car'] = 'Eliminar Cargo';
+$lang['titulo_eliminar_com'] = 'Eliminar Computador';
 $lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
 $lang['titulo_tablas'] = 'Titulos';
 $lang['titulo_tareas'] = 'Tareas';
@@ -144,6 +145,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_usu_usuario'] = 'Usuario';
 		$lang['tab_usu_tarea'] = 'Tarea';
 		$lang['tab_car_cargos'] = 'Cargos';
+		$lang['tab_car_computador'] = 'Computador';
 
 		
 
@@ -169,7 +171,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_car'] = '¿Desea eliminar el cargo ';
 	$lang['msj_eliminar_dep'] = '¿Desea eliminar el departamento ';
 	$lang['msj_eliminar_ubi'] = '¿Desea eliminar la ubicación ';
-	
+	$lang['msj_eliminar_com'] = '¿Desea eliminar el computador ';	
 
 //Log
 	//tipos
@@ -184,6 +186,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tab_empty'] = '&nbsp;';
 	$lang['tab_numero'] = 'Numero';
 	$lang['tab_estado'] = 'Terminada';
+	$lang['tab_estado_com'] = 'Estado';
 	$lang['tab_nombre'] = 'Nombre';
 	$lang['tab_titulo'] = 'Titulo';
 	$lang['tab_descripcion'] = 'Descripcion';
@@ -192,9 +195,11 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tab_mail'] = 'Email';
 	$lang['tab_acciones'] = 'Acciones';
 	$lang['tab_usuario_asignado'] = 'Usuario Asignado';
+	$lang['tab_usuario'] = 'Usuario';
 	$lang['tab_duracion'] = 'Duración';
 	$lang['tab_fecha_inicio'] = 'Fecha Inicio';
 	$lang['tab_fecha_fin'] = 'Fecha Fin';
+	$lang['tab_serie'] = '# Serie';
 
 //Seccion Tareas
 	$lang['tar_sin_nota'] = 'No tiene notas/solucion';
@@ -230,3 +235,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_nuevo_departamento'] = 'Nuevo Departamento';
 	$lang['bre_reporte'] = 'Reportes';
 	$lang['bre_config'] = 'Configuracion';
+	$lang['bre_computador'] = 'Computadores';
+	$lang['bre_nuevo_computador'] = 'Nuevo Computador';
