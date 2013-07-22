@@ -1,14 +1,14 @@
 <?php 
 
-class Dominio_model extends CI_Model {
-	private $tabla = 'dominio';
+class Estadocomputador_model extends CI_Model {
+	private $tabla = 'computador_estado';
 
 	function __construct() {
         // Call the Model constructor
         parent::__construct();
     }
     
-    //Guarda datos de cargo
+    //Guarda datos
     function save($datos) {
         $guarda = $this->db->insert($this->db->dbprefix($this->tabla), $datos);
         if ($guarda) {
@@ -18,7 +18,7 @@ class Dominio_model extends CI_Model {
         }
     }
 
-    //Traer permisos
+    //Traer datos
     function get_todos() {
         $query = $this->db->get($this->db->dbprefix($this->tabla));
         if ($query->num_rows() > 0){

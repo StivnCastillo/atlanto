@@ -35,7 +35,7 @@ class Computador_model extends CI_Model {
         $query = $this->db->query("SELECT 
                 ".$this->db->dbprefix($this->tabla).".id,
                 ".$this->db->dbprefix($this->tabla).".nombre AS nombre_computador,
-                ".$this->db->dbprefix($this->tabla).".fabritante,
+                ".$this->db->dbprefix($this->tabla).".fabricante,
                 ".$this->db->dbprefix($this->tabla).".modelo,
                 ".$this->db->dbprefix($this->tabla).".fecha_modificacion,
                 ".$this->db->dbprefix($this->tabla).".comentarios,
@@ -85,6 +85,26 @@ class Computador_model extends CI_Model {
             }else{
                 return $query->result();
             }            
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Traer tipos
+    function get_tipos() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla_com_tipo));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Traer so
+    function get_so() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla_so));
+        if ($query->num_rows() > 0){
+            return $query->result();
         }else{
             return FALSE;
         }

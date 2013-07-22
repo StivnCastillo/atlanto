@@ -1,7 +1,7 @@
 <?php 
 
-class Dominio_model extends CI_Model {
-	private $tabla = 'dominio';
+class Red_model extends CI_Model {
+	private $tabla = 'red';
 
 	function __construct() {
         // Call the Model constructor

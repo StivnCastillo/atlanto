@@ -9,6 +9,7 @@ $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
 $lang['titulo_eliminar_car'] = 'Eliminar Cargo';
 $lang['titulo_eliminar_com'] = 'Eliminar Computador';
 $lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
+$lang['titulo_nuevo_com'] = 'Nuevo Computador';
 $lang['titulo_tablas'] = 'Titulos';
 $lang['titulo_tareas'] = 'Tareas';
 $lang['titulo_titulos'] = 'Titulos';
@@ -16,6 +17,7 @@ $lang['titulo_usuarios'] = 'Usuarios';
 $lang['titulo_ubicaciones'] = 'Ubicaciones';
 $lang['titulo_departamentos'] = 'Departamentos';
 $lang['titulo_cargos'] = 'Cargos';
+$lang['titulo_computadores'] = 'Computadores';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -104,11 +106,21 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_autor'] = 'Autor';
 		$lang['lbl_leyenda'] = 'Subtitulo';
 		$lang['lbl_estado'] = 'Estado';
+		$lang['lbl_tipo'] = 'Tipo';
 		$lang['lbl_columna'] = 'Columnas';
 		$lang['lbl_nombre_archivo'] = 'Nombre para el archivo';
 		$lang['lbl_nombre_sistema'] = 'Nombre del Sistema';
 		$lang['lbl_texto_inicio'] = 'Texto del Inicio';
 		$lang['lbl_pie_pagina'] = 'Texto de Pie de Pagina';
+		$lang['lbl_dominio'] = 'Dominio';
+		$lang['lbl_fabricante'] = 'Fabricante';
+		$lang['lbl_serie'] = 'No. de Serie';
+		$lang['lbl_activo'] = 'No. de Activo';
+		$lang['lbl_so'] = 'Sistema Operativo';
+		$lang['lbl_so_tipo'] = 'Tipo de SO';
+		$lang['lbl_modelo'] = 'Modelo';
+		$lang['lbl_red'] = 'Red';
+		$lang['lbl_comentario'] = 'Comentarios';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -140,6 +152,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['slc_todos'] = 'Todos';
 		$lang['slc_terminada'] = 'Terminada';
 		$lang['slc_no_terminada'] = 'No Terminada';
+		$lang['slc_ninguno'] = 'Ninguno';
 
 	//Tabs
 		$lang['tab_usu_usuario'] = 'Usuario';
