@@ -2,13 +2,16 @@
 
 class Cargo extends CI_Controller {
 
-	function __construct() {
+	function __construct() 
+	{
 		parent::__construct();
-		//$this->load->helper(array('form'));
-		//$this->load->library('form_validation');
+		/* Cargar modelos */
 		$this->load->model(array('cargo_model', 'rol_model'));
 	}
 
+	/*
+	* funcion inicial del controlador, datos tabulados
+	*/
 	public function index()
 	{
 		$this->acceso_restringido();
@@ -31,7 +34,9 @@ class Cargo extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
-	//Busca departamento segun el parametro $valor y las manda a la vista para ser agregado al select
+	/*
+	* Busca departamento segun el parametro $valor y las manda a la vista para ser agregado al select
+	*/
 	public function cargo_select()
 	{
 		$nombre = $this->input->post('valor');
@@ -52,6 +57,9 @@ class Cargo extends CI_Controller {
 		}
 	}
 
+	/*
+	* Muestra formulario para agregar nuevo elemento
+	*/
 	public function nuevo($id_cargo = FALSE)
 	{
 		$this->acceso_restringido();
@@ -82,6 +90,9 @@ class Cargo extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
+	/*
+	* Procesa los datos y los envia al modelo que guarda en la base de datos
+	*/
 	public function guardar()
 	{
 		$this->acceso_restringido();
@@ -131,6 +142,9 @@ class Cargo extends CI_Controller {
 		}
 	}
 
+	/*
+	* Procesa los datos y los envia al modelo para que actualice la informacion
+	*/
 	public function modificar()
 	{
 		$this->acceso_restringido();
@@ -181,8 +195,9 @@ class Cargo extends CI_Controller {
 		}
 	}
 
-	//modificar va en la siguiente version
-
+	/*
+	* Procesa los datos y envia la peticion para eliminar el registro
+	*/
 	public function eliminar($id_cargo)
 	{
 		$this->acceso_restringido();

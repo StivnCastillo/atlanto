@@ -63,7 +63,7 @@ function inicio () {
 	/*
 	* Validacion de formularios en la vista
 	 */	
-	$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+	$("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
 
 	/*
 	* Busca y reemplaza en select con las ubicaciones

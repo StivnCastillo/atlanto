@@ -12,7 +12,6 @@ class Usuario extends CI_Controller {
 	/*
 	* Funcion index, aun sin funcionar
 	 */
-	
 	public function index()
 	{
 		
@@ -21,7 +20,6 @@ class Usuario extends CI_Controller {
 	/*
 	* Crea una sesion del usuario
 	 */
-
 	public function login()
 	{
 		$datos = array(

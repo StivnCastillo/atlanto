@@ -3,6 +3,7 @@
 $lang['construccion'] = 'En construcción';
 
 $lang['titulo'] = 'Inicio';
+$lang['titulo_correo'] = 'Correo Corporativo';
 $lang['titulo_404'] = 'Error 404';
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';

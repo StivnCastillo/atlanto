@@ -11,11 +11,7 @@ $ci = &get_instance();
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
-				</a>
-				
-				<?php if (!$validador): ?>
-					<a href="" class="brand"><?php echo $titulo_menu; ?></a>
-				<?php endif ?>				
+				</a>		
 				<?php if ($validador): ?>
 					<!-- MENU ADMINISTRADOR -->
 					<?php if ($ci->session->userdata('rol') == 1): ?>
@@ -107,9 +103,19 @@ $ci = &get_instance();
 							</li>
 						</ul>
 					</div>
+					
 					<?php endif ?>
 					<!-- MENU USUARIO -->
+					<?php else: ?>
+						<div class="nav-collapse collapse">
+							<ul class="nav">
+								<li>
+									<a href="<?php echo base_url().'panel/correo_corporativo' ?>">Correo Corporativo</a>
+								</li>
+							</ul>
+						</div>
 				<?php endif ?>
+
 			</div>
 		</div>
 	</nav>

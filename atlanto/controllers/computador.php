@@ -2,13 +2,25 @@
 
 class Computador extends CI_Controller {
 
-	function __construct() {
+	function __construct()
+	{
 		parent::__construct();
-		//$this->load->helper(array('form'));
-		//$this->load->library('form_validation');
-		$this->load->model(array('computador_model', 'dominio_model', 'estadocomputador_model', 'tipocomputador_model', 'so_model', 'red_model'));
+		/* Cargar modelos */
+		$this->load->model(
+			array(
+					'computador_model', 
+					'dominio_model', 
+					'estadocomputador_model', 
+					'tipocomputador_model', 
+					'so_model', 
+					'red_model'
+				)
+		);
 	}
 
+	/*
+	* funcion inicial del controlador, datos tabulados
+	*/
 	public function index()
 	{
 		$this->acceso_restringido();
@@ -30,6 +42,9 @@ class Computador extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
+	/*
+	* Muestra formulario para agregar nuevo elemento
+	*/
 	public function nuevo($id_computador = FALSE)
 	{
 		$this->acceso_restringido();
@@ -70,6 +85,9 @@ class Computador extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
+	/*
+	* Procesa los datos y los envia al modelo que guarda en la base de datos
+	*/
 	public function guardar()
 	{
 		$this->acceso_restringido();
@@ -160,6 +178,9 @@ class Computador extends CI_Controller {
 		}
 	}
 
+	/*
+	* Procesa los datos y los envia al modelo para que actualice la informacion
+	*/
 	public function modificar($tipo)
 	{
 		$this->acceso_restringido();
@@ -219,6 +240,9 @@ class Computador extends CI_Controller {
 
 	}
 
+	/*
+	* Procesa los datos y envia la peticion para eliminar el registro
+	*/
 	public function eliminar($id_cargo)
 	{
 		
