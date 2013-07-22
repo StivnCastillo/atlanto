@@ -35,6 +35,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['men_reportes'] = 'Reportes';
 	$lang['men_tareas'] = 'Tareas';
 	$lang['men_tickets'] = 'Tickets';
+	$lang['men_correos'] = 'Correos Corporativos';
 	//Submenu Inventario
 		$lang['men_sub_compu'] = 'Computadores';
 		$lang['men_sub_monitores'] = 'Monitores';

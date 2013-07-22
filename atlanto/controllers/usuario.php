@@ -30,29 +30,21 @@ class Usuario extends CI_Controller {
 		//verificar los datos del usuario
 		$user = $this->usuario_model->get_usuario($datos);
 		if(!$user){
-			//Si el usuario es incorrecto
-			//Guardar log de error
-			$datos_log = array(
-				'tipo' => $this->lang->line('log_tipo_error'),
-				'titulo' => $this->lang->line('log_error_login'),
-				'descripcion' => 'Usuario: '.$this->input->post('usuario').' IP: '.get_ip_cliente(),
-				'direccion_ip' => get_ip_cliente(),
-				'fecha' => date("Y-m-d H:i:s")
-			);
-			$this->log_model->save($datos_log);
-			//redireccionar
 			$this->session->set_flashdata('error_login', TRUE);
 			redirect('panel', 'refresh');
 		}else{
 			$id_usuario = $user->id;
 			$this->usuario_model->update($id_usuario, array('ultimo_ingreso' => date("Y-m-d H:i:s")));
 
+			//traer roles
+			$rol = $this->usuario_model->get_rol(array('id' => $user->id_rol));
+
 			//Guarda datos de sesion		
 			$datos_sesion = array(
                'nombre'  => $user->nombre." ".$user->apellido,
                'id'     => $user->id,
                'ingresado' => TRUE,
-               'rol' => $user->id_rol
+               'roles' => $rol
 			);
 			$this->session->set_userdata($datos_sesion); 
 

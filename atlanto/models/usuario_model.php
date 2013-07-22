@@ -4,10 +4,10 @@ class Usuario_model extends CI_Model {
     private $tabla = 'usuario';
     private $tabla_dep = 'departamento';
     private $tabla_lug = 'ubicacion';
-	private $tabla_car = 'cargo';
+    private $tabla_car = 'cargo';
+	private $tabla_rol = 'rol';
 
 	function __construct() {
-        // Call the Model constructor
         parent::__construct();
     }
 
@@ -35,6 +35,7 @@ class Usuario_model extends CI_Model {
         }
     }
 
+    //Trae solo administradores
     function get_administradores() {
         $this->db->where(array('id_rol' => 1));
         $query = $this->db->get($this->db->dbprefix($this->tabla));
@@ -45,12 +46,33 @@ class Usuario_model extends CI_Model {
         }        
     }
 
-    //Trae usuario segun parametros de $data
+    //Trae usuario segun parametros de $data (login)
     function get_usuario($data) {
         $this->db->where($data);
         $query = $this->db->get($this->db->dbprefix($this->tabla));
         if ($query->num_rows() > 0){
             return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Trae el rol y a donde puede ingresar
+    function get_rol($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla_rol));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
+     //Traer todas los usuarios
+    function get_todos() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->result();
         }else{
             return FALSE;
         }
@@ -103,7 +125,7 @@ class Usuario_model extends CI_Model {
             return $guarda;
         }
     }
-
+   
     //Actualiza los datos del usuario
     function update($id_usuario, $datos) {
         $this->db->where('id', $id_usuario);
@@ -114,21 +136,6 @@ class Usuario_model extends CI_Model {
     function delete($id_usuario) {
         $this->db->where('id', $id_usuario);
         $this->db->delete($this->db->dbprefix($this->tabla));
-    }
-
-    function save_sesion_log($datos) {
-        $this->db->insert($this->db->dbprefix($this->tabla), $datos);
-        return $this->db->insert_id();
-    }
-
-    //Traer todas los usuarios
-    function get_todos() {
-        $query = $this->db->get($this->db->dbprefix($this->tabla));
-        if ($query->num_rows() > 0){
-            return $query->result();
-        }else{
-            return FALSE;
-        }
     }
 
     function buscar($valor){
