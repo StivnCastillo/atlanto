@@ -20,17 +20,6 @@
 					</fieldset>
 				</form>
 			</div>
-			<div class="span6">
-				<form action="<?php echo $accion_entrar; ?>">
-					<fieldset>
-						<legend>Administrar correos</legend>
-						    <div class="input-append">
-								<input class="span2" type="password" name="pass_entrar">
-								<button type="submit" class="btn btn-info"><i class="icon-wrench icon-white"></i>Entrar</button>
-							</div>
-					</fieldset>
-				</form>
-			</div>
 		</div>
 		<?php if (isset($correo)): ?>
 			<hr>

@@ -1,6 +1,78 @@
 $(document).on("ready", inicio);
 
+	/*Funcion para limpiar ca*/
+var normalizar = (function() {
+	var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
+	to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+	mapping = {};
+
+	for(var i = 0, j = from.length; i < j; i++ )
+		mapping[ from.charAt( i ) ] = to.charAt( i );
+
+	return function( str ) {
+		var ret = [];
+		for( var i = 0, j = str.length; i < j; i++ ) {
+			var c = str.charAt( i );
+			if( mapping.hasOwnProperty( str.charAt( i ) ) )
+				ret.push( mapping[ c ] );
+			else
+				ret.push( c );
+		}
+		return ret.join( '' );
+	}
+
+})();
+
 function inicio () {
+	/*
+	* Generador de correos
+	*/
+
+	$('#frmCorreo #crear-correo').on('click', function(){
+		//recojo los valores para procesarlos
+		var nombre1 = normalizar($('#frmCorreo #nombre1').val()).replace(" ", "").toLowerCase();
+		var nombre2 = normalizar($('#frmCorreo #nombre2').val()).replace(" ", "").toLowerCase();
+		var apellido1 = normalizar($('#frmCorreo #apellido1').val()).replace(" ", "").toLowerCase();
+		var apellido2 = normalizar($('#frmCorreo #apellido2').val()).replace(" ", "").toLowerCase();
+
+		var j = 0;
+		var combinaciones = new Array();
+		var correo = '@blancoynegromasivo.com.co';
+		var accion = $(this).data('url');
+		var validador = true;
+
+		combinaciones[j++] = nombre1 +'.'+ apellido1;
+		combinaciones[j++] = nombre1 +'.'+ apellido2;
+		//si tiene segundo nombre
+		if(nombre2.length > 0){
+			combinaciones[j++] = nombre2 +'.'+ apellido1;
+			combinaciones[j++] = nombre2 +'.'+ apellido2;
+		}
+		for(var i = 0; i<combinaciones.length; i++){
+			if(validador){
+				correoparcial = combinaciones[i]+correo;
+				var parametros = {"correo":correoparcial}
+				//envio la peticion ajax
+				$.ajax({
+			        type: "POST",
+			        url: accion,
+			        data: parametros,
+			        dataType: "html",
+			        async: false,
+			        success: function(datos){
+			        	if(datos == 0){
+			        		validador = false;
+			        	}
+			        }
+				});
+			}
+		}
+		//muestro el mensaje para crear
+		$('#correo-final').empty();
+		$('#correo-final').append(correoparcial);
+		$('#correo-final2').val(correoparcial);
+		$('#informacion-correo').fadeIn(500);
+	});
 
 	/*
 	* Textareas con un editor de texto html
@@ -34,7 +106,7 @@ function inicio () {
 	$('.popover-tarea').popover({trigger:'hover'})
 
 	/*
-	* swicth, verificando estado y enviando para modificarlo
+	* swicth, verificando estado y enviando para modificarlo (tareas)
 	*/
 	$('.terminada').on('switch-change', function (e, data) {
 	    var value = data.value;
@@ -52,6 +124,31 @@ function inicio () {
 	        url: accion,
 	        data: parametros,
 	        dataType: "html",
+		});
+    });
+
+    /*
+	* swicth, verificando estado y enviando para modificarlo (tareas)
+	*/
+	$('.correo-creado').on('switch-change', function (e, data) {
+	    var value = data.value;
+	    var id = $(this).data('id');
+	    var accion = $(this).data('accion');
+	    if(value){
+	    	var valor = 1;
+	    }else{
+	    	var valor = 0;
+	    }
+	    //pasar por ajax
+	    var parametros = {"id":id, "valor":valor}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+	        success: function(datos){
+				console.log('Tarea = ' + datos);
+			}
 		});
     });
 

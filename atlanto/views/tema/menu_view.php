@@ -86,20 +86,25 @@
 							<?php endif ?>
 
 							<!-- administracion -->
-							<?php if ($ci->session->userdata('roles')->administracion): ?>
+							
 								<li class="dropdown">
 									<a href="" class="dropdown-toggle" data-toggle="dropdown">
 										<?php echo $ci->lang->line('men_administracion') ?>
 										<b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="<?php echo base_url()."panel/usuarios" ?>"><?php echo $ci->lang->line('men_sub_usuarios') ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_perfiles') ?></a></li>
-										<li><a href="<?php echo base_url().'panel/titulos' ?>"><?php echo $ci->lang->line('men_sub_tablas') ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_resp') ?></a></li>
+										<?php if ($ci->session->userdata('roles')->administracion): ?>
+											<li><a href="<?php echo base_url()."panel/usuarios" ?>"><?php echo $ci->lang->line('men_sub_usuarios') ?></a></li>
+											<li><a href=""><?php echo $ci->lang->line('men_sub_perfiles') ?></a></li>
+											<li><a href="<?php echo base_url().'panel/titulos' ?>"><?php echo $ci->lang->line('men_sub_tablas') ?></a></li>
+											<li><a href=""><?php echo $ci->lang->line('men_sub_resp') ?></a></li>
+										<?php endif ?>
+										<!-- administrador de correos -->
+										<?php if ($ci->session->userdata('roles')->admin_correos): ?>
+											<li><a href="<?php echo base_url().'correo/correos' ?>"><?php echo $ci->lang->line('men_correos') ?></a></li>
+										<?php endif ?>
 									</ul>
 								</li>
-							<?php endif ?>
 
 							<!-- reportes -->
 							<?php if ($ci->session->userdata('roles')->reportes): ?>
@@ -111,13 +116,17 @@
 								<li><a href="<?php echo base_url()."configuracion" ?>"><?php echo $ci->lang->line('men_config') ?></a></li>			
 							<?php endif ?>
 
-							<!-- administrador de correos -->
-							<?php if ($ci->session->userdata('roles')->admin_correos): ?>
-								<li><a href="#"><?php echo $ci->lang->line('men_correos') ?></a></li>
-							<?php endif ?>
-
 						<?php else: ?>
-							<li><a href="#">Servicios</a></li>
+							<li>
+								<a href="" class="dropdown-toggle" data-toggle="dropdown">
+									<?php echo $ci->lang->line('men_servicios') ?>
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="<?php echo base_url().'correo' ?>"><?php echo $ci->lang->line('men_sub_correo') ?></a></li>
+									<li><a href="#"><?php echo $ci->lang->line('men_sub_manuales') ?></a></li>
+								</ul>
+							</li>
 						<?php endif ?>
 					</ul>
 					<?php if ($ci->session->userdata('ingresado')): ?>

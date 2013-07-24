@@ -31,38 +31,6 @@ class Panel extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
-	public function correo_corporativo()
-	{
-		$data = array(
-			'titulo' => $this->lang->line('titulo_correo'),
-			'titulo_menu' => $this->lang->line('index_titulo_menu'),
-			'content' => 'correo_view',
-			'validador' => FALSE,
-			'accion' => site_url('panel/correo_corporativo'),
-			'accion_entrar' => site_url('panel/correo_administrar'),
-			'config' => config_general()
-		);
-
-		if($this->input->post('cedula')){
-			$this->load->model('correo_model');
-
-			$datos = array('cedula' => $this->input->post('cedula'));
-			$correo = $this->correo_model->get($datos);
-
-			$data['correo'] = $correo;
-
-			if($correo){
-				$exito = TRUE;
-			}else{
-				$exito = FALSE;
-			}
-
-			$data['exito'] = $exito;
-		}
-
-		$this->load->view('template', $data);
-	}
-
 	public function escritorio()
 	{
 		$this->acceso_restringido();

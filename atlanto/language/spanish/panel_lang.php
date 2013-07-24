@@ -36,6 +36,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['men_tareas'] = 'Tareas';
 	$lang['men_tickets'] = 'Tickets';
 	$lang['men_correos'] = 'Correos Corporativos';
+	$lang['men_servicios'] = 'Servicios';
 	//Submenu Inventario
 		$lang['men_sub_compu'] = 'Computadores';
 		$lang['men_sub_monitores'] = 'Monitores';
@@ -69,6 +70,9 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	//Submenu Cuenta
 		$lang['men_sub_configuracion'] = 'Configuracion';
 		$lang['men_sub_salir'] = 'Salir';
+	//Servicios
+		$lang['men_sub_correo'] = 'Correo Corporativo';
+		$lang['men_sub_manuales'] = 'Manuales';
 
 //Menu Tablas
 	$lang['men_tab_cargos'] = 'Cargos';
@@ -161,6 +165,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_usu_tarea'] = 'Tarea';
 		$lang['tab_car_cargos'] = 'Cargos';
 		$lang['tab_car_computador'] = 'Computador';
+		$lang['tab_cor_correo'] = 'Correos';
 
 		
 
@@ -215,6 +220,8 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tab_fecha_inicio'] = 'Fecha Inicio';
 	$lang['tab_fecha_fin'] = 'Fecha Fin';
 	$lang['tab_serie'] = '# Serie';
+	$lang['tab_cargo'] = 'Cargo';
+	$lang['tab_pendiente'] = 'Pendiente';
 
 //Seccion Tareas
 	$lang['tar_sin_nota'] = 'No tiene notas/solucion';
@@ -252,3 +259,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_config'] = 'Configuracion';
 	$lang['bre_computador'] = 'Computadores';
 	$lang['bre_nuevo_computador'] = 'Nuevo Computador';
+	$lang['bre_correo'] = 'Correo Corporativo';
+	$lang['bre_correo_nuevo'] = 'Nuevo';
