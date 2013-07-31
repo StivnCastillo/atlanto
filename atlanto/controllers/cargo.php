@@ -6,7 +6,7 @@ class Cargo extends CI_Controller {
 	{
 		parent::__construct();
 		/* Cargar modelos */
-		$this->load->model(array('cargo_model', 'rol_model'));
+		$this->load->model(array('cargo_model'));
 	}
 
 	/*
@@ -27,7 +27,6 @@ class Cargo extends CI_Controller {
 		$data = array(
 			'titulo' => $this->lang->line('titulo_cargos'),
 			'content' => 'cargos/index_view',
-			'validador' => TRUE,
 			'breadcrumbs' => $breadcrumbs,
 			'cargos' => $cargos
 		);
@@ -79,8 +78,6 @@ class Cargo extends CI_Controller {
 			'accion_guardar' => site_url('cargo/guardar'),
 			'accion_modificar' => site_url('cargo/modificar')
 		);
-
-		$data['cargos'] = $this->cargo_model->get_todos();
 
 		if($id_cargo){
 			$data['cargo'] = $this->cargo_model->get_cargo(array('id' => $id_cargo));

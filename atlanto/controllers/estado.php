@@ -6,7 +6,7 @@ class Estado extends CI_Controller {
 	{
 		parent::__construct();
 		/* Cargar modelos */
-		$this->load->model(array('estadocomputador_model', 'rol_model'));
+		$this->load->model(array('estadocomputador_model'));
 	}
 
 	public function index()

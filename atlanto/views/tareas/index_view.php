@@ -47,7 +47,8 @@ $ci = &get_instance();
 			<table class="table table-bordered tabla">
 				<thead>
 					<tr>
-						<th class="tabla-center"><?php echo $ci->lang->line('tab_estado'); ?></th>
+						<th class="tabla-center"><?php echo $ci->lang->line('tab_numero'); ?></th>
+						<th><?php echo $ci->lang->line('tab_estado'); ?></th>
 						<th><?php echo $ci->lang->line('tab_titulo'); ?></th>
 						<th><?php echo $ci->lang->line('tab_usuario_asignado'); ?></th>
 						<th><?php echo $ci->lang->line('tab_fecha_inicio'); ?></th>
@@ -60,6 +61,7 @@ $ci = &get_instance();
 					<?php if ($tareas): ?>
 						<?php foreach ($tareas as $row): ?>
 							<tr>
+								<td><a href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>"><?php echo $row->id; ?></a></td>
 								<td class="tabla-center">
 									<div 
 										class="switch switch-mini terminada" 

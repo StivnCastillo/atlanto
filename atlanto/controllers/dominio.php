@@ -6,7 +6,7 @@ class Dominio extends CI_Controller {
 	{
 		parent::__construct();
 		/* Cargar modelos */
-		$this->load->model(array('dominio_model', 'rol_model'));
+		$this->load->model(array('dominio_model'));
 	}
 
 	public function index()

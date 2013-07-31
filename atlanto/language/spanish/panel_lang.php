@@ -5,12 +5,15 @@ $lang['construccion'] = 'En construcción';
 $lang['titulo'] = 'Inicio';
 $lang['titulo_correo'] = 'Correo Corporativo';
 $lang['titulo_404'] = 'Error 404';
+
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
 $lang['titulo_eliminar_car'] = 'Eliminar Cargo';
 $lang['titulo_eliminar_com'] = 'Eliminar Computador';
 $lang['titulo_eliminar_est'] = 'Eliminar Estado';
 $lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
+$lang['titulo_eliminar_red'] = 'Eliminar Red';
+
 $lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
 $lang['titulo_nuevo_com'] = 'Nuevo Computador';
 $lang['titulo_tablas'] = 'Titulos';
@@ -23,6 +26,7 @@ $lang['titulo_cargos'] = 'Cargos';
 $lang['titulo_estados'] = 'Estados';
 $lang['titulo_computadores'] = 'Computadores';
 $lang['titulo_dominios'] = 'Dominios';
+$lang['titulo_redes'] = 'Redes';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -201,6 +205,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_com'] = '¿Desea eliminar el computador ';	
 	$lang['msj_eliminar_est'] = '¿Desea eliminar el estado ';	
 	$lang['msj_eliminar_dom'] = '¿Desea eliminar el dominio ';	
+	$lang['msj_eliminar_red'] = '¿Desea eliminar la red ';	
 
 //Log
 	//tipos
@@ -247,6 +252,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_cargos'] = 'Cargos de usuarios';
 	$lang['tit_men_departamentos'] = 'Departamentos';
 	$lang['tit_men_dominios'] = 'Dominios';
+	$lang['tit_men_redes'] = 'Redes';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -278,3 +284,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_estados_nuevo'] = 'Nuevo Estado';
 	$lang['bre_dominios'] = 'Dominios';
 	$lang['bre_dominios_nuevo'] = 'Nuevo Dominio';
+	$lang['bre_red'] = 'Redes';
+	$lang['bre_red_nuevo'] = 'Nueva Red';

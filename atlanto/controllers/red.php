@@ -1,66 +1,71 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Departamento extends CI_Controller {
+class Red extends CI_Controller {
 
-	function __construct() {
+	function __construct() 
+	{
 		parent::__construct();
-		//$this->load->helper(array('form'));
-		//$this->load->library('form_validation');
-		$this->load->model(array('departamento_model'));
+		/* Cargar modelos */
+		$this->load->model(array('red_model'));
 	}
 
+	/*
+	* funcion inicial del controlador, datos tabulados
+	*/
 	public function index()
 	{
 		$this->acceso_restringido();
 
 		//Breadcrumbs
 		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
-		$this->breadcrumbs->push($this->lang->line('bre_departamento'), '/departamento');
+		$this->breadcrumbs->push($this->lang->line('bre_red'), '/red');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
-		$departamentos = $this->departamento_model->get_todos();
+		$redes = $this->red_model->get_todos();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_departamentos'),
-			'content' => 'departamentos/index_view',
-			'validador' => TRUE,
+			'titulo' => $this->lang->line('titulo_redes'),
+			'content' => 'redes/index_view',
 			'breadcrumbs' => $breadcrumbs,
-			'departamentos' => $departamentos
+			'redes' => $redes
 		);
 		$this->load->view('template', $data);
 	}
 
-	public function nuevo($id_departamento = FALSE)
+	/*
+	* Muestra formulario para agregar nuevo elemento
+	*/
+	public function nuevo($id_red = FALSE)
 	{
 		$this->acceso_restringido();
 
 		//Breadcrumbs
 		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
-		$this->breadcrumbs->push($this->lang->line('bre_departamento'), '/departamento');
-		$this->breadcrumbs->push($this->lang->line('bre_nuevo_departamento'), '/departamento/nuevo');
+		$this->breadcrumbs->push($this->lang->line('bre_red'), '/red');
+		$this->breadcrumbs->push($this->lang->line('bre_red_nuevo'), '/red/nuevo');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_titulos'),
-			'content' => 'departamentos/save_view',
-			'validador' => TRUE,
+			'titulo' => $this->lang->line('titulo_redes'),
+			'content' => 'redes/save_view',
 			'breadcrumbs' => $breadcrumbs,
-			'accion_guardar' => site_url('departamento/guardar'),
-			'accion_modificar' => site_url('departamento/modificar')
+			'accion_guardar' => site_url('red/guardar'),
+			'accion_modificar' => site_url('red/modificar')
 		);
 
-		$data['departamentos'] = $this->departamento_model->get_todos();
-
-		if($id_departamento){
-			$data['departamento'] = $this->departamento_model->get_departamento(array('id' => $id_departamento));
-			$data['id_departamento'] = $id_departamento;
+		if($id_red){
+			$data['red'] = $this->red_model->get_red(array('id' => $id_red));
+			$data['id_red'] = $id_red;
 		}
 
 		$this->load->view('template', $data);
 	}
 
+	/*
+	* Procesa los datos y los envia al modelo que guarda en la base de datos
+	*/
 	public function guardar()
 	{
 		$this->acceso_restringido();
@@ -80,40 +85,43 @@ class Departamento extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('departamento', 'refresh');
+			redirect('red', 'refresh');
 		}
 		else
 		{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
-
+			
 			$datos = array(
 				'nombre' => $datos_recibidos['nombre'],
 				'descripcion' => $datos_recibidos['descripcion']
 			);
 
-			$departamento = $this->departamento_model->save($datos);
+			$red = $this->red_model->save($datos);
 			//Para abrir la pestaña
-			$this->session->set_flashdata('seccion', 'departamento');
-			if($departamento){
+			$this->session->set_flashdata('seccion', 'red');
+			if($red){
 				
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('departamento', 'refresh');
+				redirect('red', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('departamento', 'refresh');
+				redirect('red', 'refresh');
 			}
 		}
 	}
 
+	/*
+	* Procesa los datos y los envia al modelo para que actualice la informacion
+	*/
 	public function modificar()
 	{
 		$this->acceso_restringido();
-		$id_departamento = $this->input->post('id_departamento');
+		$id_red = $this->input->post('id_red');
 		//reglas de validacion de formulario, en el server
 		$config = array(
                array(
@@ -130,7 +138,7 @@ class Departamento extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('departamento', 'refresh');
+			redirect('red', 'refresh');
 		}
 		else
 		{
@@ -141,30 +149,33 @@ class Departamento extends CI_Controller {
 				'descripcion' => $datos_recibidos['descripcion']
 			);
 
-			$departamento = $this->departamento_model->update($id_departamento, $datos);
+			$red = $this->red_model->update($id_red, $datos);
 
-			if($departamento){
-				$link = anchor('departamento/nuevo/'.$id_departamento, $datos_recibidos['nombre']);
+			if($red){
+				$link = anchor('red/nuevo/'.$id_red, $datos_recibidos['nombre']);
 				
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('departamento', 'refresh');
+				redirect('red', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('departamento', 'refresh');
+				redirect('red', 'refresh');
 			}
 		}
 	}
 
-	public function eliminar($id_departamento)
+	/*
+	* Procesa los datos y envia la peticion para eliminar el registro
+	*/
+	public function eliminar($id_red)
 	{
 		$this->acceso_restringido();
-		$usuario = $this->departamento_model->delete($id_departamento);
-		if(!$usuario){
+		$red = $this->red_model->delete($id_red);
+		if(!$red){
 			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_car'));
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -172,28 +183,7 @@ class Departamento extends CI_Controller {
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 		}
 
-		redirect('departamento', 'refresh');
-	}
-
-	//Busca departamento segun el parametro $valor y las manda a la vista para ser agregado al select
-	public function departamento_select()
-	{
-		$nombre = $this->input->post('valor');
-		$todos = $this->input->post('todos');
-		
-		if ($todos == 1) {
-			$departamentos = $this->departamento_model->get_todos();
-		}else{
-			$departamentos = $this->departamento_model->buscar($nombre);
-		}		
-		
-		if(!$departamentos){
-			echo '<option value="">'.$this->lang->line('msj_error_resultado').'</option>';
-		}else{
-			foreach ($departamentos as $row) {
-				echo '<option value="'.$row->id.'">'.$row->nombre.'</option>';
-			}
-		}
+		redirect('red', 'refresh');
 	}
 
 	public function acceso_restringido(){

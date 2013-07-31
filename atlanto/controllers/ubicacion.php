@@ -6,7 +6,7 @@ class Ubicacion extends CI_Controller {
 		parent::__construct();
 		//$this->load->helper(array('form'));
 		//$this->load->library('form_validation');
-		$this->load->model(array('ubicacion_model', 'rol_model'));
+		$this->load->model(array('ubicacion_model'));
 	}
 
 	public function index()

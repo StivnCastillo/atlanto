@@ -23,6 +23,7 @@
 				<ul class="nav nav-tabs nav-stacked">
 					<li class="active"><a href=""><?php echo $ci->lang->line('tit_men_red'); ?></a></li>
 					<li><a href="<?php echo base_url().'dominio' ?>"><?php echo $ci->lang->line('tit_men_dominios'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
+					<li><a href="<?php echo base_url().'red' ?>"><?php echo $ci->lang->line('tit_men_redes'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 
 					<li class="active"><a href="">menu 1</a></li>
 					<li><a href="">menu 2</a></li>
