@@ -10,7 +10,7 @@ $ci = &get_instance();
 					<li><a href="<?php echo base_url().'ubicacion' ?>"><?php echo $ci->lang->line('tit_men_ubicaciones'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 					<li><a href="<?php echo base_url().'cargo' ?>"><?php echo $ci->lang->line('tit_men_cargos'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 					<li><a href="<?php echo base_url().'departamento' ?>"><?php echo $ci->lang->line('tit_men_departamentos'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
-					<li><a href=""><?php echo $ci->lang->line('tit_men_estados'); ?></a></li>
+					<li><a href="<?php echo base_url().'estado' ?>"><?php echo $ci->lang->line('tit_men_estados'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 
 					<li class="active"><a href="">Tipos</a></li>
 					<li><a href="">Tipos de memoria</a></li>

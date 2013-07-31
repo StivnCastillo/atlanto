@@ -9,6 +9,7 @@ $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
 $lang['titulo_eliminar_car'] = 'Eliminar Cargo';
 $lang['titulo_eliminar_com'] = 'Eliminar Computador';
+$lang['titulo_eliminar_est'] = 'Eliminar Estado';
 $lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
 $lang['titulo_nuevo_com'] = 'Nuevo Computador';
 $lang['titulo_tablas'] = 'Titulos';
@@ -18,6 +19,7 @@ $lang['titulo_usuarios'] = 'Usuarios';
 $lang['titulo_ubicaciones'] = 'Ubicaciones';
 $lang['titulo_departamentos'] = 'Departamentos';
 $lang['titulo_cargos'] = 'Cargos';
+$lang['titulo_estados'] = 'Estados';
 $lang['titulo_computadores'] = 'Computadores';
 
 //Pagina index
@@ -192,6 +194,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_dep'] = '¿Desea eliminar el departamento ';
 	$lang['msj_eliminar_ubi'] = '¿Desea eliminar la ubicación ';
 	$lang['msj_eliminar_com'] = '¿Desea eliminar el computador ';	
+	$lang['msj_eliminar_est'] = '¿Desea eliminar el estado ';	
 
 //Log
 	//tipos
@@ -260,4 +263,6 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_computador'] = 'Computadores';
 	$lang['bre_nuevo_computador'] = 'Nuevo Computador';
 	$lang['bre_correo'] = 'Correo Corporativo';
-	$lang['bre_correo_nuevo'] = 'Nuevo';
+	$lang['bre_correo_nuevo'] = 'Nuevo Correo';
+	$lang['bre_estados'] = 'Estados de Componentes';
+	$lang['bre_estados_nuevo'] = 'Nuevo Estado';

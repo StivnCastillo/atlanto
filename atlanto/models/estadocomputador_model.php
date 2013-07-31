@@ -27,6 +27,17 @@ class Estadocomputador_model extends CI_Model {
             return FALSE;
         }        
     }
+
+    //Trae estado segun parametros de $data
+    function get_estado($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
 }
 
 
