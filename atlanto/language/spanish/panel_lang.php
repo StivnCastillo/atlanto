@@ -5,15 +5,6 @@ $lang['construccion'] = 'En construcción';
 $lang['titulo'] = 'Inicio';
 $lang['titulo_correo'] = 'Correo Corporativo';
 $lang['titulo_404'] = 'Error 404';
-
-$lang['titulo_eliminar_usu'] = 'Eliminar usuario';
-$lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
-$lang['titulo_eliminar_car'] = 'Eliminar Cargo';
-$lang['titulo_eliminar_com'] = 'Eliminar Computador';
-$lang['titulo_eliminar_est'] = 'Eliminar Estado';
-$lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
-$lang['titulo_eliminar_red'] = 'Eliminar Red';
-
 $lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
 $lang['titulo_nuevo_com'] = 'Nuevo Computador';
 $lang['titulo_tablas'] = 'Titulos';
@@ -27,6 +18,16 @@ $lang['titulo_estados'] = 'Estados';
 $lang['titulo_computadores'] = 'Computadores';
 $lang['titulo_dominios'] = 'Dominios';
 $lang['titulo_redes'] = 'Redes';
+$lang['titulo_tipos_com'] = 'Tipos de computador';
+
+$lang['titulo_eliminar_usu'] = 'Eliminar usuario';
+$lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
+$lang['titulo_eliminar_car'] = 'Eliminar Cargo';
+$lang['titulo_eliminar_com'] = 'Eliminar Computador';
+$lang['titulo_eliminar_est'] = 'Eliminar Estado';
+$lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
+$lang['titulo_eliminar_red'] = 'Eliminar Red';
+$lang['titulo_eliminar_tipo_com'] = 'Eliminar Tipo de computador';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -173,9 +174,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_usu_tarea'] = 'Tarea';
 		$lang['tab_car_cargos'] = 'Cargos';
 		$lang['tab_car_computador'] = 'Computador';
-		$lang['tab_cor_correo'] = 'Correos';
-
-		
+		$lang['tab_cor_correo'] = 'Correos';		
 
 //Mensajes
 	//Error
@@ -192,10 +191,11 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_ext_modificar_usu'] = 'fue modificado exitosamente';
 	$lang['msj_ext_eliminar_usu'] = 'Usuario eliminado.';
 	$lang['msj_ext_eliminar_car'] = 'Cargo eliminado.';
+	$lang['msj_ext_eliminar_tip'] = 'Tipo eliminado.';
 	$lang['msj_ext_eliminar_dep'] = 'Departamento eliminado.';
 	$lang['msj_ext_eliminar_ubi'] = 'Ubicación eliminada.';
 	$lang['msj_ext_eliminar_est'] = 'Estado eliminado.';
-	$lang['msj_ext_eliminar_est'] = 'Dominio eliminado.';
+	$lang['msj_ext_eliminar_dom'] = 'Dominio eliminado.';
 	$lang['msj_ext_config'] = 'Configuración guardada.';
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
@@ -206,6 +206,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_est'] = '¿Desea eliminar el estado ';	
 	$lang['msj_eliminar_dom'] = '¿Desea eliminar el dominio ';	
 	$lang['msj_eliminar_red'] = '¿Desea eliminar la red ';	
+	$lang['msj_eliminar_tipo'] = '¿Desea eliminar el tipo ';	
 
 //Log
 	//tipos
@@ -246,6 +247,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_general'] = 'General';
 	$lang['tit_men_tareas'] = 'Tareas';
 	$lang['tit_men_red'] = 'Red';
+	$lang['tit_men_tipos'] = 'Tipos';
 	
 	$lang['tit_men_ubicaciones'] = 'Ubicaciones';
 	$lang['tit_men_estados'] = 'Estados de los componentes';
@@ -253,6 +255,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_departamentos'] = 'Departamentos';
 	$lang['tit_men_dominios'] = 'Dominios';
 	$lang['tit_men_redes'] = 'Redes';
+	$lang['tit_men_tipos_com'] = 'Tipos de Computador';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -286,3 +289,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_dominios_nuevo'] = 'Nuevo Dominio';
 	$lang['bre_red'] = 'Redes';
 	$lang['bre_red_nuevo'] = 'Nueva Red';
+	$lang['bre_tipo_com'] = 'Tipos de Computadores';
+	$lang['bre_tipo_nuevo'] = 'Nuevo Tipo';

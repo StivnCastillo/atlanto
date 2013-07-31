@@ -12,11 +12,11 @@
 					<li><a href="<?php echo base_url().'departamento' ?>"><?php echo $ci->lang->line('tit_men_departamentos'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 					<li><a href="<?php echo base_url().'estado' ?>"><?php echo $ci->lang->line('tit_men_estados'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 
-					<li class="active"><a href="">Tipos</a></li>
+					<li class="active"><a href=""><?php echo $ci->lang->line('tit_men_tipos'); ?></a></li>
+					<li><a href="<?php echo base_url().'tipo/tipo_computadores' ?>"><?php echo $ci->lang->line('tit_men_tipos_com'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 					<li><a href="">Tipos de memoria</a></li>
 					<li><a href="">Tipos de interfaz</a></li>
 					<li><a href="">Tipos de impresoras</a></li>
-					<li><a href="">Tipos de telefonos</a></li>
 				</ul>
 			</div>
 			<div class="span6">
