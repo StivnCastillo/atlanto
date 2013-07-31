@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Estado extends CI_Controller {
+class Dominio extends CI_Controller {
 
 	function __construct() 
 	{
 		parent::__construct();
 		/* Cargar modelos */
-		$this->load->model(array('estadocomputador_model', 'rol_model'));
+		$this->load->model(array('dominio_model', 'rol_model'));
 	}
 
 	public function index()
@@ -15,17 +15,17 @@ class Estado extends CI_Controller {
 
 		//Breadcrumbs
 		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
-		$this->breadcrumbs->push($this->lang->line('bre_estados'), '/estado');
+		$this->breadcrumbs->push($this->lang->line('bre_dominios'), '/dominio');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
-		$estados = $this->estadocomputador_model->get_todos();
+		$dominios = $this->dominio_model->get_todos();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_estados'),
-			'content' => 'estados/index_view',
+			'titulo' => $this->lang->line('titulo_dominios'),
+			'content' => 'dominios/index_view',
 			'breadcrumbs' => $breadcrumbs,
-			'estados' => $estados
+			'dominios' => $dominios
 		);
 		$this->load->view('template', $data);
 	}
@@ -33,28 +33,28 @@ class Estado extends CI_Controller {
 	/*
 	* Muestra formulario para agregar nuevo elemento
 	*/
-	public function nuevo($id_estado = FALSE)
+	public function nuevo($id_dominio = FALSE)
 	{
 		$this->acceso_restringido();
 
 		//Breadcrumbs
 		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
-		$this->breadcrumbs->push($this->lang->line('bre_estados'), '/estado');
-		$this->breadcrumbs->push($this->lang->line('bre_estados_nuevo'), '/estado/nuevo');
+		$this->breadcrumbs->push($this->lang->line('bre_dominios'), '/dominio');
+		$this->breadcrumbs->push($this->lang->line('bre_dominios_nuevo'), '/dominio/nuevo');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_estados'),
-			'content' => 'estados/save_view',
+			'titulo' => $this->lang->line('titulo_dominios'),
+			'content' => 'dominios/save_view',
 			'breadcrumbs' => $breadcrumbs,
-			'accion_guardar' => site_url('estado/guardar'),
-			'accion_modificar' => site_url('estado/modificar')
+			'accion_guardar' => site_url('dominio/guardar'),
+			'accion_modificar' => site_url('dominio/modificar')
 		);
 
-		if($id_estado){
-			$data['estado'] = $this->estadocomputador_model->get_estado(array('id' => $id_estado));
-			$data['id_estado'] = $id_estado;
+		if($id_dominio){
+			$data['dominio'] = $this->dominio_model->get_dominio(array('id' => $id_dominio));
+			$data['id_dominio'] = $id_dominio;
 		}
 
 		$this->load->view('template', $data);
@@ -72,6 +72,11 @@ class Estado extends CI_Controller {
                      'field' => 'nombre',
                      'label' => 'Nombre',
                      'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'ip_server',
+                     'label' => 'IP Server',
+                     'rules' => 'required'
                   )
         );
 
@@ -82,7 +87,7 @@ class Estado extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('estado', 'refresh');
+			redirect('dominio', 'refresh');
 		}
 		else
 		{
@@ -90,24 +95,26 @@ class Estado extends CI_Controller {
 			
 			$datos = array(
 				'nombre' => $datos_recibidos['nombre'],
+				'ip_server' => $datos_recibidos['ip_server'],
+				'ip_server_opcional' => $datos_recibidos['ip_server_opcional'],
 				'descripcion' => $datos_recibidos['descripcion']
 			);
 
-			$estado = $this->estadocomputador_model->save($datos);
+			$dominio = $this->dominio_model->save($datos);
 			//Para abrir la pestaña
-			$this->session->set_flashdata('seccion', 'estado');
-			if($estado){
+			$this->session->set_flashdata('seccion', 'dominio');
+			if($dominio){
 				
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('estado', 'refresh');
+				redirect('dominio', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('estado', 'refresh');
+				redirect('dominio', 'refresh');
 			}
 		}
 	}
@@ -118,12 +125,17 @@ class Estado extends CI_Controller {
 	public function modificar()
 	{
 		$this->acceso_restringido();
-		$id_estado = $this->input->post('id_estado');
+		$id_dominio = $this->input->post('id_dominio');
 		//reglas de validacion de formulario, en el server
 		$config = array(
                array(
                      'field' => 'nombre',
                      'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'ip_server',
+                     'label' => 'IP Server',
                      'rules' => 'required'
                   )
         );
@@ -135,7 +147,7 @@ class Estado extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('estado', 'refresh');
+			redirect('dominio', 'refresh');
 		}
 		else
 		{
@@ -143,33 +155,35 @@ class Estado extends CI_Controller {
 
 			$datos = array(
 				'nombre' => $datos_recibidos['nombre'],
+				'ip_server' => $datos_recibidos['ip_server'],
+				'ip_server_opcional' => $datos_recibidos['ip_server_opcional'],
 				'descripcion' => $datos_recibidos['descripcion']
 			);
 
-			$estado = $this->estadocomputador_model->update($id_estado, $datos);
+			$dominio = $this->dominio_model->update($id_dominio, $datos);
 
-			if($estado){
-				$link = anchor('estado/nuevo/'.$id_estado, $datos_recibidos['nombre']);
+			if($dominio){
+				$link = anchor('dominio/nuevo/'.$id_dominio, $datos_recibidos['nombre']);
 				
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('estado', 'refresh');
+				redirect('dominio', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('estado', 'refresh');
+				redirect('dominio', 'refresh');
 			}
 		}
 	}
 
-	public function eliminar($id_estado)
+	public function eliminar($id_dominio)
 	{
 		$this->acceso_restringido();
-		$estado = $this->estadocomputador_model->delete($id_estado);
-		if(!$estado){
+		$dominio = $this->dominio_model->delete($id_dominio);
+		if(!$dominio){
 			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_est'));
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -177,7 +191,7 @@ class Estado extends CI_Controller {
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 		}
 
-		redirect('estado', 'refresh');
+		redirect('dominio', 'refresh');
 	}
 
 	public function acceso_restringido(){
@@ -185,6 +199,5 @@ class Estado extends CI_Controller {
 			redirect('panel', 'refresh');
 		}
 	}
-}
 
-/* End of file welcome.php */
+}

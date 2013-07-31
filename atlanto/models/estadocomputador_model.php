@@ -38,6 +38,18 @@ class Estadocomputador_model extends CI_Model {
             return FALSE;
         }
     }
+
+    //Elimina un estado
+    function delete($id_estado) {
+        $this->db->where('id', $id_estado);
+        $this->db->delete($this->db->dbprefix($this->tabla));
+    }
+
+    //Actualiza los datos del usuario
+    function update($id_estado, $datos) {
+        $this->db->where('id', $id_estado);
+        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
+    }
 }
 
 

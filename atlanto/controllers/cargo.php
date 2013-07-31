@@ -201,8 +201,8 @@ class Cargo extends CI_Controller {
 	public function eliminar($id_cargo)
 	{
 		$this->acceso_restringido();
-		$usuario = $this->cargo_model->delete($id_cargo);
-		if(!$usuario){
+		$cargo = $this->cargo_model->delete($id_cargo);
+		if(!$cargo){
 			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_car'));
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{

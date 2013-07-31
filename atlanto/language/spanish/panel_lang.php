@@ -10,6 +10,7 @@ $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
 $lang['titulo_eliminar_car'] = 'Eliminar Cargo';
 $lang['titulo_eliminar_com'] = 'Eliminar Computador';
 $lang['titulo_eliminar_est'] = 'Eliminar Estado';
+$lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
 $lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
 $lang['titulo_nuevo_com'] = 'Nuevo Computador';
 $lang['titulo_tablas'] = 'Titulos';
@@ -21,6 +22,7 @@ $lang['titulo_departamentos'] = 'Departamentos';
 $lang['titulo_cargos'] = 'Cargos';
 $lang['titulo_estados'] = 'Estados';
 $lang['titulo_computadores'] = 'Computadores';
+$lang['titulo_dominios'] = 'Dominios';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -179,6 +181,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_error_modificar_usu'] = 'Ocurrio un error al tratar modificar';
 	$lang['msj_error_eliminar_usu'] = 'Ocurrio un error al tratar eliminar';
 	$lang['msj_error_eliminar_car'] = 'Ocurrio un error al tratar eliminar';
+	$lang['msj_error_eliminar'] = 'Ocurrio un error al tratar eliminar';
 	//Exito
 	$lang['msj_exito'] = '<strong>Éxito</strong>';
 	$lang['msj_ext_guardar_usu'] = 'fue creado en la base de datos';
@@ -187,6 +190,8 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_ext_eliminar_car'] = 'Cargo eliminado.';
 	$lang['msj_ext_eliminar_dep'] = 'Departamento eliminado.';
 	$lang['msj_ext_eliminar_ubi'] = 'Ubicación eliminada.';
+	$lang['msj_ext_eliminar_est'] = 'Estado eliminado.';
+	$lang['msj_ext_eliminar_est'] = 'Dominio eliminado.';
 	$lang['msj_ext_config'] = 'Configuración guardada.';
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
@@ -195,6 +200,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_ubi'] = '¿Desea eliminar la ubicación ';
 	$lang['msj_eliminar_com'] = '¿Desea eliminar el computador ';	
 	$lang['msj_eliminar_est'] = '¿Desea eliminar el estado ';	
+	$lang['msj_eliminar_dom'] = '¿Desea eliminar el dominio ';	
 
 //Log
 	//tipos
@@ -225,6 +231,8 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tab_serie'] = '# Serie';
 	$lang['tab_cargo'] = 'Cargo';
 	$lang['tab_pendiente'] = 'Pendiente';
+	$lang['tab_ip_server'] = 'IP Servidor';
+	$lang['tab_ip_server_2'] = 'IP Servidor Opcional';
 
 //Seccion Tareas
 	$lang['tar_sin_nota'] = 'No tiene notas/solucion';
@@ -232,11 +240,13 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 //Seccion Titulos
 	$lang['tit_men_general'] = 'General';
 	$lang['tit_men_tareas'] = 'Tareas';
+	$lang['tit_men_red'] = 'Red';
 	
 	$lang['tit_men_ubicaciones'] = 'Ubicaciones';
 	$lang['tit_men_estados'] = 'Estados de los componentes';
 	$lang['tit_men_cargos'] = 'Cargos de usuarios';
 	$lang['tit_men_departamentos'] = 'Departamentos';
+	$lang['tit_men_dominios'] = 'Dominios';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -266,3 +276,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_correo_nuevo'] = 'Nuevo Correo';
 	$lang['bre_estados'] = 'Estados de Componentes';
 	$lang['bre_estados_nuevo'] = 'Nuevo Estado';
+	$lang['bre_dominios'] = 'Dominios';
+	$lang['bre_dominios_nuevo'] = 'Nuevo Dominio';

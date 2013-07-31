@@ -27,6 +27,29 @@ class Dominio_model extends CI_Model {
             return FALSE;
         }        
     }
+
+    //Trae dominio segun parametros de $data
+    function get_dominio($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Elimina un dominio
+    function delete($id_dominio) {
+        $this->db->where('id', $id_dominio);
+        $this->db->delete($this->db->dbprefix($this->tabla));
+    }
+
+    //Actualiza los datos del dominio
+    function update($id_dominio, $datos) {
+        $this->db->where('id', $id_dominio);
+        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
+    }
 }
 
 

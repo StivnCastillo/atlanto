@@ -1,5 +1,5 @@
 <?php 
-$ci = &get_instance();
+	$ci = &get_instance();
 ?>
 
 		<div class="row-fluid">
@@ -21,6 +21,9 @@ $ci = &get_instance();
 			</div>
 			<div class="span6">
 				<ul class="nav nav-tabs nav-stacked">
+					<li class="active"><a href=""><?php echo $ci->lang->line('tit_men_red'); ?></a></li>
+					<li><a href="<?php echo base_url().'dominio' ?>"><?php echo $ci->lang->line('tit_men_dominios'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
+
 					<li class="active"><a href="">menu 1</a></li>
 					<li><a href="">menu 2</a></li>
 					<li><a href="">menu 3</a></li>
