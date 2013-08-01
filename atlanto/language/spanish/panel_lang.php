@@ -20,6 +20,7 @@ $lang['titulo_dominios'] = 'Dominios';
 $lang['titulo_redes'] = 'Redes';
 $lang['titulo_tipos_com'] = 'Tipos de computador';
 $lang['titulo_tipos_so'] = 'Tipos de Sistema Operativo';
+$lang['titulo_so'] = 'Sistema Operativo';
 
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
@@ -30,6 +31,7 @@ $lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
 $lang['titulo_eliminar_red'] = 'Eliminar Red';
 $lang['titulo_eliminar_tipo_com'] = 'Eliminar Tipo de computador';
 $lang['titulo_eliminar_tipo_so'] = 'Eliminar Tipo de Sistema Operativo';
+$lang['titulo_eliminar_so'] = 'Eliminar Sistema Operativo';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -138,6 +140,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_modelo'] = 'Modelo';
 		$lang['lbl_red'] = 'Red';
 		$lang['lbl_comentario'] = 'Comentarios';
+		$lang['lbl_version'] = 'Versión';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -198,6 +201,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_ext_eliminar_ubi'] = 'Ubicación eliminada.';
 	$lang['msj_ext_eliminar_est'] = 'Estado eliminado.';
 	$lang['msj_ext_eliminar_dom'] = 'Dominio eliminado.';
+	$lang['msj_ext_eliminar_so'] = 'Sistema Operativo Eliminado.';
 	$lang['msj_ext_config'] = 'Configuración guardada.';
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
@@ -209,6 +213,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_dom'] = '¿Desea eliminar el dominio ';	
 	$lang['msj_eliminar_red'] = '¿Desea eliminar la red ';	
 	$lang['msj_eliminar_tipo'] = '¿Desea eliminar el tipo ';	
+	$lang['msj_eliminar_so'] = '¿Desea eliminar Sistema operativo ';	
 
 //Log
 	//tipos
@@ -241,6 +246,8 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tab_pendiente'] = 'Pendiente';
 	$lang['tab_ip_server'] = 'IP Servidor';
 	$lang['tab_ip_server_2'] = 'IP Servidor Opcional';
+	$lang['tab_version'] = 'Versión';
+	$lang['tab_tipo'] = 'Tipo';
 
 //Seccion Tareas
 	$lang['tar_sin_nota'] = 'No tiene notas/solucion';
@@ -250,6 +257,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_tareas'] = 'Tareas';
 	$lang['tit_men_red'] = 'Red';
 	$lang['tit_men_tipos'] = 'Tipos';
+	$lang['tit_men_software'] = 'Software';
 	
 	$lang['tit_men_ubicaciones'] = 'Ubicaciones';
 	$lang['tit_men_estados'] = 'Estados de los componentes';
@@ -259,6 +267,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_redes'] = 'Redes';
 	$lang['tit_men_tipos_com'] = 'Tipos de Computador';
 	$lang['tit_men_tipos_so'] = 'Tipos de Sistema Operativo';
+	$lang['tit_men_so'] = 'Sistema Operativo';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -295,3 +304,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_tipo_com'] = 'Tipos de Computadores';
 	$lang['bre_tipo_so'] = 'Tipos de Sistema Operativo';
 	$lang['bre_tipo_nuevo'] = 'Nuevo Tipo';
+	$lang['bre_so'] = 'Sistema Operativo';
+	$lang['bre_so_nuevo'] = 'Nuevo Sistema Operativo';
