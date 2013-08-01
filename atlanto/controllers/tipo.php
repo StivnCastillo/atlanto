@@ -56,7 +56,7 @@ class Tipo extends CI_Controller {
 		$breadcrumbs = $this->breadcrumbs->show();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_redes'),
+			'titulo' => $this->lang->line('titulo_tipos_com'),
 			'content' => 'tipos/save_tipocom_view',
 			'breadcrumbs' => $breadcrumbs,
 			'accion_guardar' => site_url('tipo/guardar_com'),
@@ -124,7 +124,7 @@ class Tipo extends CI_Controller {
 	/*
 	* Procesa los datos y los envia al modelo para que actualice la informacion
 	*/
-	public function modificar_Com()
+	public function modificar_com()
 	{
 		$this->acceso_restringido();
 		$id_tipo = $this->input->post('id_tipo');
@@ -191,6 +191,183 @@ class Tipo extends CI_Controller {
 
 		redirect('tipo/tipo_computadores', 'refresh');
 	}
+
+
+	public function tipo_so()
+	{
+		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_tipo_so'), '/tipo/tipo_so');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$tipos = $this->tipo_model->get_so_todos();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_tipos_com'),
+			'content' => 'tipos/index_tiposo_view',
+			'breadcrumbs' => $breadcrumbs,
+			'tipos' => $tipos
+		);
+		$this->load->view('template', $data);
+	}
+
+	/*
+	* Muestra formulario para agregar nuevo elemento
+	*/
+	public function nuevo_so($id_tipo = FALSE)
+	{
+		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_titulos'), '/panel/titulos');
+		$this->breadcrumbs->push($this->lang->line('bre_tipo_so'), '/tipo/tipo_so');
+		$this->breadcrumbs->push($this->lang->line('bre_tipo_nuevo'), '/tipo/nuevo_so');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_tipos_so'),
+			'content' => 'tipos/save_tiposo_view',
+			'breadcrumbs' => $breadcrumbs,
+			'accion_guardar' => site_url('tipo/guardar_so'),
+			'accion_modificar' => site_url('tipo/modificar_so')
+		);
+
+		if($id_tipo){
+			$data['tipo'] = $this->tipo_model->get_tiposo(array('id' => $id_tipo));
+			$data['id_tipo'] = $id_tipo;
+		}
+
+		$this->load->view('template', $data);
+	}
+
+	/*
+	* Procesa los datos y los envia al modelo que guarda en la base de datos
+	*/
+	public function guardar_so()
+	{
+		$this->acceso_restringido();
+		//reglas de validacion de formulario, en el server
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config); 
+
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('tipo/tipo_so', 'refresh');
+		}
+		else
+		{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+			
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'descripcion' => $datos_recibidos['descripcion']
+			);
+
+			$tipo = $this->tipo_model->save_so($datos);
+			if($tipo){
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('tipo/tipo_so', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('tipo/tipo_so', 'refresh');
+			}
+		}
+	}
+
+	/*
+	* Procesa los datos y los envia al modelo para que actualice la informacion
+	*/
+	public function modificar_so()
+	{
+		$this->acceso_restringido();
+		$id_tipo = $this->input->post('id_tipo');
+		//reglas de validacion de formulario, en el server
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('tipo/tipo_so', 'refresh');
+		}
+		else
+		{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'descripcion' => $datos_recibidos['descripcion']
+			);
+
+			$tipo = $this->tipo_model->update_so($id_tipo, $datos);
+
+			if($tipo){
+				$link = anchor('tipo/nuevo_so/'.$id_tipo, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('tipo/tipo_so', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('tipo/tipo_so', 'refresh');
+			}
+		}
+	}
+
+
+	/*
+	* Procesa los datos y envia la peticion para eliminar el registro
+	*/
+	public function eliminar_so($id_tipo)
+	{
+		$this->acceso_restringido();
+		$tipo = $this->tipo_model->delete_so($id_tipo);
+		if(!$tipo){
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_tip'));
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('tipo/tipo_so', 'refresh');
+	}
+
+
+
 
 	public function acceso_restringido(){
 		if (!$this->session->userdata('ingresado')) {

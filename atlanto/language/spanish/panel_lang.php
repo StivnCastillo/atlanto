@@ -19,6 +19,7 @@ $lang['titulo_computadores'] = 'Computadores';
 $lang['titulo_dominios'] = 'Dominios';
 $lang['titulo_redes'] = 'Redes';
 $lang['titulo_tipos_com'] = 'Tipos de computador';
+$lang['titulo_tipos_so'] = 'Tipos de Sistema Operativo';
 
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
@@ -28,6 +29,7 @@ $lang['titulo_eliminar_est'] = 'Eliminar Estado';
 $lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
 $lang['titulo_eliminar_red'] = 'Eliminar Red';
 $lang['titulo_eliminar_tipo_com'] = 'Eliminar Tipo de computador';
+$lang['titulo_eliminar_tipo_so'] = 'Eliminar Tipo de Sistema Operativo';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -256,6 +258,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_dominios'] = 'Dominios';
 	$lang['tit_men_redes'] = 'Redes';
 	$lang['tit_men_tipos_com'] = 'Tipos de Computador';
+	$lang['tit_men_tipos_so'] = 'Tipos de Sistema Operativo';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -290,4 +293,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_red'] = 'Redes';
 	$lang['bre_red_nuevo'] = 'Nueva Red';
 	$lang['bre_tipo_com'] = 'Tipos de Computadores';
+	$lang['bre_tipo_so'] = 'Tipos de Sistema Operativo';
 	$lang['bre_tipo_nuevo'] = 'Nuevo Tipo';
