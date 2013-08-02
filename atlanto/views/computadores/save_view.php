@@ -49,7 +49,7 @@ $ci = &get_instance();
 								<div class="control-group">
 									<label class="control-label" for="nombre"><?php echo $ci->lang->line('lbl_nombre') ?></label>
 									<div class="controls">
-										<input type="text" class="span3" id="nombre" name="nombre" value="<?php echo (isset($computador)) ? $computador->nom_usuario : ''; ?>" required />
+										<input type="text" class="span3" id="nombre" name="nombre" value="<?php echo (isset($computador)) ? $computador->nombre_computador : ''; ?>" required />
 									</div>
 								</div>
 
@@ -60,7 +60,7 @@ $ci = &get_instance();
 										<input type="text" class="span1" id="iubicacion" name="iubicacion" data-url="<?php echo $accion_ubicacion; ?>" />
 										<select class="span2" name="ubicacion" id="ubicacion">
 											<?php if (isset($computador)): ?>
-												<option value="<?php echo $computador->id_ubicacion ?>"><?php echo $computador->lugar ?></option>											
+												<option value="<?php echo $computador->idubicacion ?>"><?php echo $computador->ubicacion ?></option>											
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
 											<?php endif ?>
@@ -75,7 +75,7 @@ $ci = &get_instance();
 										<input type="text" class="span1" id="iusuario" name="iusuario" data-url="<?php echo $accion_usuario; ?>" />
 										<select class="span2" name="usuario" id="usuario">
 											<?php if (isset($computador)): ?>
-												<option value="<?php echo $computador->id_usuario ?>"><?php echo $computador->nombre_usuario ?></option>											
+												<option value="<?php echo $computador->idusuario ?>"><?php echo $computador->nombre_usuario ?></option>											
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
 											<?php endif ?>
@@ -91,7 +91,7 @@ $ci = &get_instance();
 											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($estados)): ?>
 												<?php foreach ($estados as $row): ?>
-													<option value="<?php echo $row->id; ?>"><?php echo $row->nombre; ?></option>
+													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_estado == $row->id){echo 'selected="selected"';}} ?>><?php echo $row->nombre; ?></option>
 												<?php endforeach ?>
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
@@ -108,7 +108,7 @@ $ci = &get_instance();
 											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($dominios)): ?>
 												<?php foreach ($dominios as $row): ?>													
-													<option value="<?php echo $row->id; ?>"><?php echo $row->nombre; ?></option>
+													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_dominio == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
 												<?php endforeach ?>
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
@@ -125,7 +125,7 @@ $ci = &get_instance();
 											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($redes)): ?>
 												<?php foreach ($redes as $row): ?>													
-													<option value="<?php echo $row->id; ?>"><?php echo $row->nombre; ?></option>
+													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_red == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
 												<?php endforeach ?>
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
@@ -142,7 +142,7 @@ $ci = &get_instance();
 											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($sistema_o)): ?>
 												<?php foreach ($sistema_o as $row): ?>													
-													<option value="<?php echo $row->id; ?>"><?php echo $row->nombre.' '.$row->version; ?></option>
+													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_SO == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre.' '.$row->version; ?></option>
 												<?php endforeach ?>
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
@@ -159,7 +159,7 @@ $ci = &get_instance();
 											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($sistema_tipo)): ?>
 												<?php foreach ($sistema_tipo as $row): ?>													
-													<option value="<?php echo $row->id; ?>"><?php echo $row->nombre; ?></option>
+													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_tipo_sistema == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
 												<?php endforeach ?>
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
@@ -179,7 +179,7 @@ $ci = &get_instance();
 											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($tipos)): ?>
 												<?php foreach ($tipos as $row): ?>
-													<option value="<?php echo $row->id; ?>"><?php echo $row->nombre; ?></option>
+													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_tipo == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
 												<?php endforeach ?>
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>

@@ -41,7 +41,13 @@ class Computador_model extends CI_Model {
                 ".$this->db->dbprefix($this->tabla).".comentarios,
                 ".$this->db->dbprefix($this->tabla).".n_serie,
                 ".$this->db->dbprefix($this->tabla).".n_activo,
+                ".$this->db->dbprefix($this->tabla).".id_estado,
+                ".$this->db->dbprefix($this->tabla).".id_dominio,
+                ".$this->db->dbprefix($this->tabla).".id_red,
+                ".$this->db->dbprefix($this->tabla).".id_SO,
+                ".$this->db->dbprefix($this->tabla).".id_tipo,
                 ".$this->db->dbprefix($this->tabla_ubi).".nombre AS ubicacion,
+                ".$this->db->dbprefix($this->tabla_ubi).".id AS idubicacion,
                 ".$this->db->dbprefix($this->tabla_com_estado).".nombre AS estado,
                 ".$this->db->dbprefix($this->tabla_com_tipo).".nombre AS com_tipo,
                 ".$this->db->dbprefix($this->tabla_usu).".id AS idusuario,
@@ -49,6 +55,7 @@ class Computador_model extends CI_Model {
                 ".$this->db->dbprefix($this->tabla_dom).".nombre AS dominio,
                 ".$this->db->dbprefix($this->tabla_red).".nombre AS red,
                 ".$this->db->dbprefix($this->tabla_so).".nombre AS sistema_operativo,
+                ".$this->db->dbprefix($this->tabla_so).".id_tipo_sistema,
                 ".$this->db->dbprefix($this->tabla_so).".version,
                 ".$this->db->dbprefix($this->tabla_so_tipo).".nombre AS tipo_so
 

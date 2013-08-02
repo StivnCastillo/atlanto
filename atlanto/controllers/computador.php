@@ -78,9 +78,13 @@ class Computador extends CI_Controller {
 			'accion_guardar' => site_url('computador/guardar'),
 			'accion_modificar' => site_url('computador/modificar'),
 			'accion_ubicacion' => site_url('buscar_ubicacion'),
-			'accion_usuario' => site_url('buscar_usuario'),
-			'accion_cargo' => site_url('buscar_cargo')
+			'accion_usuario' => site_url('buscar_usuario')
 		);
+
+		if($id_computador){
+			$data['computador'] = $this->computador_model->get($id_computador);
+			$data['id_computador'] = $id_computador;
+		}
 
 		$this->load->view('template', $data);
 	}
@@ -181,62 +185,93 @@ class Computador extends CI_Controller {
 	/*
 	* Procesa los datos y los envia al modelo para que actualice la informacion
 	*/
-	public function modificar($tipo)
+	public function modificar()
 	{
 		$this->acceso_restringido();
-		//Configuracion general
-		if($tipo == 1){
-			$val = array(
-	               array(
-	                     'field' => 'nombre',
-	                     'label' => 'Nombre',
-	                     'rules' => 'required'
-	                  ),
-	               array(
-	                     'field' => 'pie_pagina',
-	                     'label' => 'pie_pagina',
-	                     'rules' => 'required'
-	                  ),
-	               array(
-	                     'field' => 'texto_inicio',
-	                     'label' => 'texto_inicio',
-	                     'rules' => 'required'
-	                  )
-	        );
 
-	        $this->form_validation->set_rules($val);
-	        if ($this->form_validation->run() == FALSE)
-			{
-			    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+		$config = array(
+           array(
+                 'field' => 'nombre',
+                 'label' => 'Nombre',
+                 'rules' => 'required'
+              ),
+           array(
+                 'field' => 'ubicacion',
+                 'label' => 'Ubicacion',
+                 'rules' => 'required'
+              ),
+           array(
+                 'field' => 'usuario',
+                 'label' => 'Usuario',
+                 'rules' => 'required'
+              ),
+           array(
+                 'field' => 'estado',
+                 'label' => 'Estado',
+                 'rules' => 'required'
+              ),   
+           array(
+                 'field' => 'so',
+                 'label' => 'SO',
+                 'rules' => 'required'
+              ), 
+           array(
+                 'field' => 'so_tipo',
+                 'label' => 'SO_tipo',
+                 'rules' => 'required'
+              ), 
+           array(
+                 'field' => 'serie',
+                 'label' => 'Serie',
+                 'rules' => 'required'
+              )
+    	);
+
+        $this->form_validation->set_rules($config);
+        if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('computador', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'id_usuario' => $datos_recibidos['usuario'],
+				'id_ubicacion' => $datos_recibidos['ubicacion'],
+				'id_estado' => $datos_recibidos['estado'],
+				'id_tipo' => $datos_recibidos['tipo'],
+				'id_dominio' => $datos_recibidos['dominio'],
+				'id_red' => $datos_recibidos['red'],
+				'id_SO' => $datos_recibidos['so'],
+				'id_SO' => $datos_recibidos['so'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'modelo' => $datos_recibidos['modelo'],
+				'n_serie' => $datos_recibidos['serie'],
+				'n_activo' => $datos_recibidos['activo'],
+				'comentarios' => $datos_recibidos['comentario'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$computadores = $this->computador_model->update($datos_recibidos['id_computador'], $datos);
+
+			if($computadores){
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$this->lang->line('msj_ext_config'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('computador', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('configuracion', 'refresh');
-			}else{
-				$datos_recibidos = $this->input->post(NULL, TRUE);
-
-				$datos = array(
-					'texto_inicio' => $datos_recibidos['texto_inicio'],
-					'texto_pie_pagina' => $datos_recibidos['pie_pagina'],
-					'nombre_sistema' => $datos_recibidos['nombre']
-				);
-
-				$config = $this->config_model->update(1, $datos);
-
-				if($config){
-					$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$this->lang->line('msj_ext_config'));
-					$this->session->set_flashdata('tipo_mensaje', 'exito');
-					
-					redirect('configuracion', 'refresh');
-				}else{
-
-					$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
-					$this->session->set_flashdata('tipo_mensaje', 'error');
-					
-					redirect('configuracion', 'refresh');
-				}
-
+				redirect('computador', 'refresh');
 			}
+
 		}
+		
 
 	}
 
