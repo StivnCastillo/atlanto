@@ -3,7 +3,7 @@
 class Computador_model extends CI_Model {
     private $tabla = 'computador';
     private $tabla_ubi = 'ubicacion';
-    private $tabla_com_estado = 'computador_estado';
+    private $tabla_estado = 'estado_componente';
     private $tabla_com_tipo = 'computador_tipo';
     private $tabla_usu = 'usuario';
     private $tabla_dom = 'dominio';
@@ -48,7 +48,7 @@ class Computador_model extends CI_Model {
                 ".$this->db->dbprefix($this->tabla).".id_tipo,
                 ".$this->db->dbprefix($this->tabla_ubi).".nombre AS ubicacion,
                 ".$this->db->dbprefix($this->tabla_ubi).".id AS idubicacion,
-                ".$this->db->dbprefix($this->tabla_com_estado).".nombre AS estado,
+                ".$this->db->dbprefix($this->tabla_estado).".nombre AS estado,
                 ".$this->db->dbprefix($this->tabla_com_tipo).".nombre AS com_tipo,
                 ".$this->db->dbprefix($this->tabla_usu).".id AS idusuario,
                 CONCAT(".$this->db->dbprefix($this->tabla_usu).".nombre, ' ', ".$this->db->dbprefix($this->tabla_usu).".apellido) AS nombre_usuario,
@@ -79,8 +79,8 @@ class Computador_model extends CI_Model {
                 LEFT JOIN (".$this->db->dbprefix($this->tabla_com_tipo).")
                 ON (".$this->db->dbprefix($this->tabla_com_tipo).".id = ".$this->db->dbprefix($this->tabla).".id_tipo)
 
-                LEFT JOIN (".$this->db->dbprefix($this->tabla_com_estado).")
-                ON(".$this->db->dbprefix($this->tabla_com_estado).".id = ".$this->db->dbprefix($this->tabla).".id_estado)
+                LEFT JOIN (".$this->db->dbprefix($this->tabla_estado).")
+                ON(".$this->db->dbprefix($this->tabla_estado).".id = ".$this->db->dbprefix($this->tabla).".id_estado)
 
                 LEFT JOIN( ".$this->db->dbprefix($this->tabla_red).")
                 ON(".$this->db->dbprefix($this->tabla_red).".id = ".$this->db->dbprefix($this->tabla).".id_red)

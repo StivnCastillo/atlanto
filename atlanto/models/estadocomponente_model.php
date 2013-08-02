@@ -1,7 +1,7 @@
 <?php 
 
-class Estadocomputador_model extends CI_Model {
-	private $tabla = 'computador_estado';
+class Estadocomponente_model extends CI_Model {
+	private $tabla = 'estado_componente';
 
 	function __construct() {
         // Call the Model constructor

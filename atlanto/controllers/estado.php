@@ -6,7 +6,7 @@ class Estado extends CI_Controller {
 	{
 		parent::__construct();
 		/* Cargar modelos */
-		$this->load->model(array('estadocomputador_model'));
+		$this->load->model(array('estadocomponente_model'));
 	}
 
 	public function index()
@@ -19,7 +19,7 @@ class Estado extends CI_Controller {
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
-		$estados = $this->estadocomputador_model->get_todos();
+		$estados = $this->estadocomponente_model->get_todos();
 
 		$data = array(
 			'titulo' => $this->lang->line('titulo_estados'),
@@ -53,7 +53,7 @@ class Estado extends CI_Controller {
 		);
 
 		if($id_estado){
-			$data['estado'] = $this->estadocomputador_model->get_estado(array('id' => $id_estado));
+			$data['estado'] = $this->estadocomponente_model->get_estado(array('id' => $id_estado));
 			$data['id_estado'] = $id_estado;
 		}
 
@@ -93,7 +93,7 @@ class Estado extends CI_Controller {
 				'descripcion' => $datos_recibidos['descripcion']
 			);
 
-			$estado = $this->estadocomputador_model->save($datos);
+			$estado = $this->estadocomponente_model->save($datos);
 			//Para abrir la pestaña
 			$this->session->set_flashdata('seccion', 'estado');
 			if($estado){
@@ -146,7 +146,7 @@ class Estado extends CI_Controller {
 				'descripcion' => $datos_recibidos['descripcion']
 			);
 
-			$estado = $this->estadocomputador_model->update($id_estado, $datos);
+			$estado = $this->estadocomponente_model->update($id_estado, $datos);
 
 			if($estado){
 				$link = anchor('estado/nuevo/'.$id_estado, $datos_recibidos['nombre']);
@@ -168,7 +168,7 @@ class Estado extends CI_Controller {
 	public function eliminar($id_estado)
 	{
 		$this->acceso_restringido();
-		$estado = $this->estadocomputador_model->delete($id_estado);
+		$estado = $this->estadocomponente_model->delete($id_estado);
 		if(!$estado){
 			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_est'));
 			$this->session->set_flashdata('tipo_mensaje', 'exito');

@@ -10,7 +10,7 @@ class Computador extends CI_Controller {
 			array(
 					'computador_model', 
 					'dominio_model', 
-					'estadocomputador_model', 
+					'estadocomponente_model', 
 					'tipo_model', 
 					'so_model', 
 					'red_model'
@@ -57,7 +57,7 @@ class Computador extends CI_Controller {
 
 		//traer dependencias		
 		$dominios = $this->dominio_model->get_todos();
-		$estados = $this->estadocomputador_model->get_todos();
+		$estados = $this->estadocomponente_model->get_todos();
 		$tipos = $this->tipo_model->get_com_todos();
 		$sistema_o = $this->so_model->get_todos();
 		$sistema_tipo = $this->so_model->get_tipos();
