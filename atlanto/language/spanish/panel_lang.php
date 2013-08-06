@@ -21,6 +21,8 @@ $lang['titulo_redes'] = 'Redes';
 $lang['titulo_tipos_com'] = 'Tipos de computador';
 $lang['titulo_tipos_so'] = 'Tipos de Sistema Operativo';
 $lang['titulo_so'] = 'Sistema Operativo';
+$lang['titulo_monitores'] = 'Monitores';
+$lang['titulo_nuevo_mon'] = 'Nuevo Monitor';
 
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
@@ -141,6 +143,8 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_red'] = 'Red';
 		$lang['lbl_comentario'] = 'Comentarios';
 		$lang['lbl_version'] = 'Versión';
+		$lang['lbl_interfaz'] = 'Interfaz';
+		$lang['lbl_tamano'] = 'Tamaño';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -180,6 +184,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_car_cargos'] = 'Cargos';
 		$lang['tab_car_computador'] = 'Computador';
 		$lang['tab_cor_correo'] = 'Correos';		
+		$lang['tab_mon_monitor'] = 'Monitor';		
 
 //Mensajes
 	//Error
@@ -306,3 +311,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_tipo_nuevo'] = 'Nuevo Tipo';
 	$lang['bre_so'] = 'Sistema Operativo';
 	$lang['bre_so_nuevo'] = 'Nuevo Sistema Operativo';
+	$lang['bre_monitor'] = 'Monitor';
+	$lang['bre_monitor_nuevo'] = 'Nuevo Monitor';

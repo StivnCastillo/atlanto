@@ -65,7 +65,6 @@ class Computador extends CI_Controller {
 
 		$data = array(
 			'titulo' => $this->lang->line('titulo_nuevo_com'),
-			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'computadores/save_view',
 			'validador' => TRUE,
 			'breadcrumbs' => $breadcrumbs,
@@ -272,7 +271,6 @@ class Computador extends CI_Controller {
 
 		}
 		
-
 	}
 
 	/*

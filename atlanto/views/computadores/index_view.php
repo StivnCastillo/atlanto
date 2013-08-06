@@ -63,7 +63,7 @@
 							<td><?php echo $row->estado; ?></td>
 							<td><?php echo $row->n_serie; ?></td>
 							<td><a href="<?php echo base_url().'usuario/nuevo_usuario/'.$row->idusuario ?>"><?php echo $row->nombre_usuario; ?></a></td>
-							<td><a href="#"><?php echo $row->ubicacion; ?></a></td>
+							<td><a href="<?php echo base_url().'ubicacion/nuevo/'.$row->idubicacion ?>"><?php echo $row->ubicacion; ?></a></td>
 							<td class="tabla-center">
 								<div class="btn-group">
 									<a class="btn btn-small" href="<?php echo base_url().'computador/nuevo/'.$row->id ?>" data-toggle="modal">

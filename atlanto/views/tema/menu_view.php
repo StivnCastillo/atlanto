@@ -28,8 +28,8 @@
 										<b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="<?php echo base_url().'computador' ?>"><?php echo $ci->lang->line('men_sub_compu'); ?></a></li>
-										<li><a href="monitores.html"><?php echo $ci->lang->line('men_sub_monitores'); ?></a></li>
+										<li><a href="<?php echo base_url().'computador'; ?>"><?php echo $ci->lang->line('men_sub_compu'); ?></a></li>
+										<li><a href="<?php echo base_url().'monitor'; ?>"><?php echo $ci->lang->line('men_sub_monitores'); ?></a></li>
 										<li><a href=""><?php echo $ci->lang->line('men_sub_red'); ?></a></li>
 										<li><a href=""><?php echo $ci->lang->line('men_sub_impresoras'); ?></a></li>
 										<li><a href=""><?php echo $ci->lang->line('men_sub_telefonos'); ?></a></li>

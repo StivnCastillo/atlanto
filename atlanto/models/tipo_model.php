@@ -2,7 +2,8 @@
 
 class Tipo_model extends CI_Model {
     private $tabla_com = 'computador_tipo';
-	private $tabla_so = 'sistema_tipo';
+    private $tabla_so = 'sistema_tipo';
+	private $tabla_mon = 'monitor_tipo';
 
 	function __construct() {
         parent::__construct();
@@ -84,6 +85,16 @@ class Tipo_model extends CI_Model {
     function update_so($id, $datos) {
         $this->db->where('id', $id);
         return $this->db->update($this->db->dbprefix($this->tabla_so), $datos);
+    }
+
+    //**************
+    function get_mon_todos() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla_mon));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }        
     }
 }
 
