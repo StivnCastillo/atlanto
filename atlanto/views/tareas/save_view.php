@@ -1,5 +1,5 @@
 <?php 
-$ci = &get_instance();
+	$ci = &get_instance();
 ?>
 <div class="tabbable">
 			<!-- MENU AGREGAR TAREA -->
@@ -79,11 +79,11 @@ $ci = &get_instance();
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="fecha_fin"><?php echo $ci->lang->line('lbl_asignar') ?></label>
+									<label class="control-label" for="id_usuario"><?php echo $ci->lang->line('lbl_asignar') ?></label>
 									<div class="controls">
 										<select name="id_usuario" id="id_usuario">
 											<?php foreach ($usuarios as $row): ?>
-												<option value="<?php echo $row->id; ?>"><?php echo $row->nombre." ".$row->apellido; ?></option>
+												<option value="<?php echo $row->id; ?>" <?php if(isset($tarea)){if($tarea->id_usuario_asignado == $row->id){echo 'selected="selected"';}} ?>><?php echo $row->nombre." ".$row->apellido; ?></option>
 											<?php endforeach ?>
 										</select>
 									</div>

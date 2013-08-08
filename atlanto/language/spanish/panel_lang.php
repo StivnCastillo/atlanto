@@ -9,6 +9,7 @@ $lang['titulo_nuevo_usuario'] = 'Nuevo Usuario';
 $lang['titulo_nuevo_com'] = 'Nuevo Computador';
 $lang['titulo_tablas'] = 'Titulos';
 $lang['titulo_tareas'] = 'Tareas';
+$lang['titulo_nueva_tarea'] = 'Nueva Tarea';
 $lang['titulo_titulos'] = 'Titulos';
 $lang['titulo_usuarios'] = 'Usuarios';
 $lang['titulo_ubicaciones'] = 'Ubicaciones';

@@ -1,6 +1,6 @@
 $(document).on("ready", inicio);
 
-	/*Funcion para limpiar ca*/
+	/*Funcion para limpiar cadenas de caracteres especiales*/
 var normalizar = (function() {
 	var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
 	to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
@@ -112,18 +112,24 @@ function inicio () {
 	    var value = data.value;
 	    var id = $(this).data('id');
 	    var accion = $(this).data('accion');
+	    //fecha de inicio
+	    var fecha = $(this).data('fecha');
 	    if(value){
 	    	var valor = 1;
 	    }else{
 	    	var valor = 0;
 	    }
 	    //pasar por ajax
-	    var parametros = {"id":id, "valor":valor}
+	    var parametros = {"id":id, "valor":valor, "fecha":fecha}
 		$.ajax({
 	        type: "POST",
 	        url: accion,
 	        data: parametros,
 	        dataType: "html",
+	        async: false,
+	        success: function (datos) {
+	        	
+	        }
 		});
     });
 

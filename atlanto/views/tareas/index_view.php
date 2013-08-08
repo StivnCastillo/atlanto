@@ -67,6 +67,7 @@ $ci = &get_instance();
 										class="switch switch-mini terminada" 
 										data-id="<?php echo $row->id; ?>" 
 										data-accion="<?php echo base_url().'tarea/cambiar_estado'; ?>"
+										data-fecha="<?php echo $row->fecha_inicio; ?>"
 										data-on="success" 
 										data-off="info" 
 										data-on-label="SI" 

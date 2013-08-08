@@ -31,10 +31,8 @@ class Tarea extends CI_Controller {
 		$usuarios = $this->usuario_model->get_administradores();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_nuevo_usuario'),
-			'titulo_menu' => $this->lang->line('index_titulo_menu'),
+			'titulo' => $this->lang->line('men_sub_nueva'),
 			'content' => 'tareas/save_view',
-			'validador' => TRUE,
 			'breadcrumbs' => $breadcrumbs,
 			'usuarios' => $usuarios,
 			'accion_guardar' => site_url('tarea/guardar'),
@@ -103,8 +101,10 @@ class Tarea extends CI_Controller {
 				'titulo' => $datos_recibidos['titulo'],
 				'fecha_inicio' => $datos_recibidos['fecha_inicio'],
 				'fecha_fin' => $datos_recibidos['fecha_fin'],
+				'fecha_creado' => date('Y-m-d H:s:i'),
 				'duracion' => $duracion,
 				'id_usuario_asignado' => $datos_recibidos['id_usuario'],
+				'id_usuario_asignador' => $this->session->userdata('id'),
 				'nota' => $datos_recibidos['nota'],
 				'estado' => $estado,
 				'descripcion' => $datos_recibidos['descripcion']
@@ -113,24 +113,23 @@ class Tarea extends CI_Controller {
 			$tarea = $this->tarea_model->save($datos);
 
 			if($tarea){
-
-				$usuario = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
-				//Enviar correo a usuario asignado
-
-				//variables para archivo de configuracion
-				$this->email->from('informatica@blancoynegromasivo.com.co', 'informatica');
-				$this->email->to($usuario->email);
-
-				$this->email->subject('Alerta Nueva Tarea');
-				$this->email->message($datos_recibidos['descripcion']);
-
-				$this->email->send();
+				//Si el usuario asignador es el mismo que el asignado, no se envia correo, de lo contrario se envia
+				if ($datos_recibidos['id_usuario'] != $this->session->userdata('id')){
+					//enviar correo
+					$usuario = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
+					$this->email->from('informatica@blancoynegromasivo.com.co', 'Tarea Informatica');
+					$this->email->to($usuario->email);
+					$this->email->subject('Alerta Nueva Tarea');
+					$this->email->message($datos_recibidos['descripcion']);
+					$this->email->send();
+				}
 
 				$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
 				redirect('panel/tareas', 'refresh');
+
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
@@ -139,11 +138,6 @@ class Tarea extends CI_Controller {
 				redirect('panel/tareas', 'refresh');
 			}
 		}
-	}
-
-	public function enviar()
-	{
-		# code...
 	}
 
 	public function modificar()
@@ -207,6 +201,19 @@ class Tarea extends CI_Controller {
 			$tarea = $this->tarea_model->update($datos_recibidos['id_tarea'], $datos);
 
 			if($tarea){
+				$tareas = $this->tarea_model->get_tarea(array('id' => $datos_recibidos['id_tarea']));
+				//Si el usuario asignador es el mismo que el asignado, no se envia correo, de lo contrario se envia
+				if ($tareas->id_usuario_asignador != $this->session->userdata('id')){
+					$usuario_asignador = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignador));
+					//enviar correo
+					$usuario_asignado = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
+					$this->email->from('informatica@blancoynegromasivo.com.co', 'Tarea Informatica');
+					$this->email->to($usuario_asignador->email);
+					$this->email->subject('Alerta Nueva Tarea');
+					$this->email->message("El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido." Modificó la tarea '".$datos_recibidos['descripcion']."' <br> ".$datos_recibidos['nota']);
+					$this->email->send();
+				}
+
 				$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
@@ -224,10 +231,35 @@ class Tarea extends CI_Controller {
 
 	public function cambiar_estado()
 	{
-		$id = $this->input->post('id');
+		$id = $this->input->post('id');		
 		$valor = $this->input->post('valor');
-		$tarea = $this->tarea_model->update($id, array('estado' => $valor, 'fecha_fin' => date('Y-m-d H:i:s'), 'nota' => $this->lang->line('tar_sin_nota')));
+		$fecha = $this->input->post('fecha');
 
+		if($valor == 1){
+			//Calcula la duracion que tuvo la tarea
+			$this->clasefechas->setMySQLDateTime($fecha);
+			$tiempo = $this->clasefechas->diff_MySQL(date('Y-m-d H:i:s'));
+			//Duracion separada por comas (,). meses,dias,horas,minutos
+			$duracion = floor($tiempo['weeks']).",".floor($tiempo['days']).",".floor($tiempo['hours']).",".floor($tiempo['minutes']);
+
+			$tarea = $this->tarea_model->update($id, array('estado' => $valor, 'fecha_fin' => date('Y-m-d H:i:s'), 'nota' => $this->lang->line('tar_sin_nota'), 'duracion' => $duracion));
+		}elseif ($valor == 0) {
+			$tarea = $this->tarea_model->update($id, array('estado' => $valor, 'fecha_fin' => "0000-00-00 00:00:00", 'nota' => "", 'duracion' => NULL));
+		}
+		if($tarea){
+			$tareas = $this->tarea_model->get_tarea(array('id' => $id));
+			//Si el usuario asignador es el mismo que el asignado, no se envia correo, de lo contrario se envia
+			if ($tareas->id_usuario_asignador != $this->session->userdata('id')){
+				$usuario_asignador = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignador));
+				//enviar correo
+				$usuario_asignado = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignado));
+				$this->email->from('informatica@blancoynegromasivo.com.co', 'Tarea Informatica');
+				$this->email->to($usuario_asignador->email);
+				$this->email->subject('Alerta Nueva Tarea');
+				$this->email->message("El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido." Modificó la tarea #".$id);
+				$this->email->send();
+			}
+		}
 	}
 
 	public function acceso_restringido(){
