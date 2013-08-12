@@ -151,7 +151,7 @@ class Usuario extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
 			redirect('usuario/nuevo_usuario', 'refresh');
@@ -188,13 +188,13 @@ class Usuario extends CI_Controller {
 			if($usuario){
 				$link = anchor('usuario/ver/'.$usuario, $datos_recibidos['nombre'].' '.$datos_recibidos['apellido']);
 				
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
 				redirect('usuario/nuevo_usuario', 'refresh');
 			}else{
 
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
 				redirect('usuario/nuevo_usuario', 'refresh');

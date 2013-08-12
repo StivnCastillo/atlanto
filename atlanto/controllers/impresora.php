@@ -1,17 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Monitor extends CI_Controller {
+class Impresora extends CI_Controller {
 
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 		/* Cargar modelos */
 		$this->load->model(
 			array(
-					'monitor_model', 
+					'impresora_model', 
+					'dominio_model', 
 					'estadocomponente_model', 
-					'interfaz_model', 
-					'tipo_model'
+					'tipo_model',
+					'red_model'
 				)
 		);
 	}
@@ -21,52 +22,54 @@ class Monitor extends CI_Controller {
 		$this->acceso_restringido();
 
 		//Breadcrumbs
-		$this->breadcrumbs->push($this->lang->line('bre_monitor'), '/dominio');
+		$this->breadcrumbs->push($this->lang->line('bre_impresora'), '/impresora');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
-		$monitores = $this->monitor_model->get();
+		$impresoras = $this->impresora_model->get();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_monitores'),
-			'content' => 'monitores/index_view',
+			'titulo' => $this->lang->line('titulo_impresora'),
+			'content' => 'impresoras/index_view',
 			'breadcrumbs' => $breadcrumbs,
-			'monitores' => $monitores
+			'impresoras' => $impresoras
 		);
 		$this->load->view('template', $data);
 	}
 
-	public function nuevo($id_monitor = FALSE)
+	public function nuevo($id_impresora = FALSE)
 	{
 		$this->acceso_restringido();
 
 		//Breadcrumbs
-		$this->breadcrumbs->push($this->lang->line('bre_monitor'), '/monitor');
-		$this->breadcrumbs->push($this->lang->line('bre_monitor_nuevo'), '/monitor/nuevo');
+		$this->breadcrumbs->push($this->lang->line('bre_impresora'), '/impresora');
+		$this->breadcrumbs->push($this->lang->line('bre_impresora_nueva'), '/impresora/nuevo');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
 		//$monitor = $this->monitor_model->get();
 		$estado = $this->estadocomponente_model->get_todos();
-		$tipo = $this->tipo_model->get_mon_todos();
-		$interfaz = $this->interfaz_model->get_mon_todos();
+		$tipo = $this->tipo_model->get_imp_todos();
+		$dominios = $this->dominio_model->get_todos();
+		$redes = $this->red_model->get_todos();
 
 		$data = array(
 			'titulo' => $this->lang->line('titulo_nuevo_mon'),
-			'content' => 'monitores/save_view',
+			'content' => 'impresoras/save_view',
 			'breadcrumbs' => $breadcrumbs,
 			'estados' => $estado,
 			'tipos' => $tipo,
-			'interfaz' => $interfaz,
-			'accion_guardar' => site_url('monitor/guardar'),
-			'accion_modificar' => site_url('monitor/modificar'),
+			'dominios' => $dominios,
+			'redes' => $redes,
+			'accion_guardar' => site_url('impresora/guardar'),
+			'accion_modificar' => site_url('impresora/modificar'),
 			'accion_ubicacion' => site_url('buscar_ubicacion'),
 			'accion_usuario' => site_url('buscar_usuario')
 		);
 
-		if($id_monitor){
-			$data['monitor'] = $this->monitor_model->get($id_monitor);
-			$data['id_monitor'] = $id_monitor;
+		if($id_impresora){
+			$data['impresora'] = $this->impresora_model->get($id_impresora);
+			$data['id_impresora'] = $id_impresora;
 		}
 
 		$this->load->view('template', $data);
@@ -78,8 +81,6 @@ class Monitor extends CI_Controller {
 	public function guardar()
 	{
 		$this->acceso_restringido();
-		
-		//reglas de validacion de formulario, en el server
 		$config = array(
                array(
                      'field' => 'nombre',
@@ -102,30 +103,25 @@ class Monitor extends CI_Controller {
                      'rules' => 'required'
                   ),
                array(
-                     'field' => 'tipo',
-                     'label' => 'Tipo',
+                     'field' => 'red',
+                     'label' => 'Red',
                      'rules' => 'required'
-                  ), 
-               array(
-                     'field' => 'interfaz',
-                     'label' => 'Interfaz',
-                     'rules' => 'required'
-                  ), 
+                  ),   
                array(
                      'field' => 'fabricante',
                      'label' => 'Fabricante',
                      'rules' => 'required'
-                  ),
-               array(
-                     'field' => 'tamano',
-                     'label' => 'Tamaño',
-                     'rules' => 'required|number'
-                  ), 
+                  ),   
                array(
                      'field' => 'modelo',
                      'label' => 'Modelo',
                      'rules' => 'required'
                   ), 
+               array(
+                     'field' => 'dominio',
+                     'label' => 'Dominio',
+                     'rules' => 'required'
+                  ),
                array(
                      'field' => 'serie',
                      'label' => 'Serie',
@@ -139,7 +135,7 @@ class Monitor extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('monitor/nuevo', 'refresh');
+			redirect('impresora/nuevo', 'refresh');
 		}else{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
 
@@ -148,32 +144,33 @@ class Monitor extends CI_Controller {
 				'id_usuario' => $datos_recibidos['usuario'],
 				'id_ubicacion' => $datos_recibidos['ubicacion'],
 				'id_estado' => $datos_recibidos['estado'],
-				'id_tipo_monitor' => $datos_recibidos['tipo'],
-				'id_interfaz_monitor' => $datos_recibidos['interfaz'],
+				'id_tipo_impresora' => $datos_recibidos['tipo'],
+				'id_dominio' => $datos_recibidos['dominio'],
+				'id_red' => $datos_recibidos['red'],
+				'ip' => $datos_recibidos['ip'],
 				'fabricante' => $datos_recibidos['fabricante'],
 				'modelo' => $datos_recibidos['modelo'],
 				'n_serie' => $datos_recibidos['serie'],
 				'n_activo' => $datos_recibidos['activo'],
-				'tamano' => $datos_recibidos['tamano'],
 				'comentarios' => $datos_recibidos['comentario'],
 				'fecha_modificacion' => date('Y-m-d H:i:s')
 			);
 
-			$monitor = $this->monitor_model->save($datos);
+			$impresora = $this->impresora_model->save($datos);
 
-			if($monitor){
-				$link = anchor('monitor/nuevo/'.$monitor, $datos_recibidos['nombre']);
+			if($impresora){
+				$link = anchor('impresora/nuevo/'.$impresora, $datos_recibidos['nombre']);
 				
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('monitor/nuevo', 'refresh');
+				redirect('impresora/nuevo', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('monitor/nuevo', 'refresh');
+				redirect('impresora/nuevo', 'refresh');
 			}
 		}
 	}
@@ -207,30 +204,25 @@ class Monitor extends CI_Controller {
                      'rules' => 'required'
                   ),
                array(
-                     'field' => 'tipo',
-                     'label' => 'Tipo',
+                     'field' => 'red',
+                     'label' => 'Red',
                      'rules' => 'required'
-                  ), 
-               array(
-                     'field' => 'interfaz',
-                     'label' => 'Interfaz',
-                     'rules' => 'required'
-                  ), 
+                  ),   
                array(
                      'field' => 'fabricante',
                      'label' => 'Fabricante',
                      'rules' => 'required'
-                  ),
-               array(
-                     'field' => 'tamano',
-                     'label' => 'Tamaño',
-                     'rules' => 'required|number'
-                  ), 
+                  ),   
                array(
                      'field' => 'modelo',
                      'label' => 'Modelo',
                      'rules' => 'required'
                   ), 
+               array(
+                     'field' => 'dominio',
+                     'label' => 'Dominio',
+                     'rules' => 'required'
+                  ),
                array(
                      'field' => 'serie',
                      'label' => 'Serie',
@@ -244,7 +236,7 @@ class Monitor extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('monitor', 'refresh');
+			redirect('impresora', 'refresh');
 		}else{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
 
@@ -253,32 +245,50 @@ class Monitor extends CI_Controller {
 				'id_usuario' => $datos_recibidos['usuario'],
 				'id_ubicacion' => $datos_recibidos['ubicacion'],
 				'id_estado' => $datos_recibidos['estado'],
-				'id_tipo_monitor' => $datos_recibidos['tipo'],
-				'id_interfaz_monitor' => $datos_recibidos['interfaz'],
+				'id_tipo_impresora' => $datos_recibidos['tipo'],
+				'id_dominio' => $datos_recibidos['dominio'],
+				'id_red' => $datos_recibidos['red'],
+				'ip' => $datos_recibidos['ip'],
 				'fabricante' => $datos_recibidos['fabricante'],
 				'modelo' => $datos_recibidos['modelo'],
 				'n_serie' => $datos_recibidos['serie'],
 				'n_activo' => $datos_recibidos['activo'],
-				'tamano' => $datos_recibidos['tamano'],
 				'comentarios' => $datos_recibidos['comentario'],
 				'fecha_modificacion' => date('Y-m-d H:i:s')
 			);
 
-			$monitores = $this->monitor_model->update($datos_recibidos['id_monitor'], $datos);
+			$impresoras = $this->impresora_model->update($datos_recibidos['id_impresora'], $datos);
 
-			if($monitores){
+			if($impresoras){
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$this->lang->line('msj_ext_config'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('monitor', 'refresh');
+				redirect('impresora', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('monitor', 'refresh');
+				redirect('impresora', 'refresh');
 			}
-		}		
+
+		}
+		
+	}
+
+	public function eliminar($id)
+	{
+		$this->acceso_restringido();
+		$equipored = $this->impresora_model->delete($id);
+		if(!$equipored){
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_imp'));
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('impresora', 'refresh');
 	}
 
 	public function acceso_restringido(){

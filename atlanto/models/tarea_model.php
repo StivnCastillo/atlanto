@@ -57,6 +57,13 @@ class Tarea_model extends CI_Model {
         }        
     }
 
+    //numero de tareas sin resolver
+    function get_no_tareas($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        return $query->num_rows();
+    }
+
     //Trae tareas segun parametros de $data
     function get_tareas($data) {
         $where = '1';

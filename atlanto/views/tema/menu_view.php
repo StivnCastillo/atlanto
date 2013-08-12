@@ -1,5 +1,6 @@
 <?php 
 	$ci = &get_instance();
+	$ci->load->model('tarea_model'); 
 ?>
 <!-- Barra superior-->
 	<nav class="navbar navbar-fixed-top navbar-inverse">
@@ -31,7 +32,7 @@
 										<li><a href="<?php echo base_url().'computador'; ?>"><?php echo $ci->lang->line('men_sub_compu'); ?></a></li>
 										<li><a href="<?php echo base_url().'monitor'; ?>"><?php echo $ci->lang->line('men_sub_monitores'); ?></a></li>
 										<li><a href="<?php echo base_url().'equipored'; ?>"><?php echo $ci->lang->line('men_sub_red'); ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_impresoras'); ?></a></li>
+										<li><a href="<?php echo base_url().'impresora'; ?>"><?php echo $ci->lang->line('men_sub_impresoras'); ?></a></li>
 										<li><a href=""><?php echo $ci->lang->line('men_sub_telefonos'); ?></a></li>
 										<li><a href=""><?php echo $ci->lang->line('men_sub_dispositivos'); ?></a></li>
 										<li><a href=""><?php echo $ci->lang->line('men_sub_software'); ?></a></li>
@@ -64,8 +65,22 @@
 										<b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="<?php echo base_url().'tarea/nueva_tarea'; ?>"><?php echo $ci->lang->line('men_sub_nueva'); ?></a></li>
-										<li><a href="<?php echo base_url().'panel/tareas/'.$this->session->userdata('id'); ?>"><?php echo $ci->lang->line('men_sub_mis'); ?></a></li>
+										<li>
+											<a href="<?php echo base_url().'tarea/nueva_tarea'; ?>">
+												<?php echo $ci->lang->line('men_sub_nueva'); ?>
+												<span class="badge badge-important">
+													<?php echo $ci->tarea_model->get_no_tareas(array('estado' => 0)); ?>
+												</span>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo base_url().'panel/tareas/'.$this->session->userdata('id'); ?>">
+												<?php echo $ci->lang->line('men_sub_mis'); ?>
+												<span class="badge badge-important">
+													<?php echo $ci->tarea_model->get_no_tareas(array('estado' => 0, 'id_usuario_asignado' => $ci->session->userdata('id'))); ?>
+												</span>
+											</a>
+										</li>
 										<li><a href="<?php echo base_url().'panel/tareas' ?>"><?php echo $ci->lang->line('men_sub_todo'); ?></a></li>
 									</ul>
 								</li>

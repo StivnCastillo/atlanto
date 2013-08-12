@@ -26,6 +26,8 @@ $lang['titulo_monitores'] = 'Monitores';
 $lang['titulo_nuevo_mon'] = 'Nuevo Monitor';
 $lang['titulo_equipored'] = 'Equipo de red';
 $lang['titulo_nuevo_equipored'] = 'Nuevo Equipo de red';
+$lang['titulo_impresora'] = 'Impresoras';
+$lang['titulo_nueva_impresora'] = 'Nueva Impresora';
 
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
@@ -34,6 +36,7 @@ $lang['titulo_eliminar_com'] = 'Eliminar Computador';
 $lang['titulo_eliminar_est'] = 'Eliminar Estado';
 $lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
 $lang['titulo_eliminar_red'] = 'Eliminar Red';
+$lang['titulo_eliminar_imp'] = 'Eliminar Impresora';
 $lang['titulo_eliminar_tipo_com'] = 'Eliminar Tipo de computador';
 $lang['titulo_eliminar_tipo_so'] = 'Eliminar Tipo de Sistema Operativo';
 $lang['titulo_eliminar_so'] = 'Eliminar Sistema Operativo';
@@ -189,6 +192,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_usu_tarea'] = 'Tarea';
 		$lang['tab_car_cargos'] = 'Cargos';
 		$lang['tab_car_computador'] = 'Computador';
+		$lang['tab_car_impresora'] = 'Impresora';
 		$lang['tab_cor_correo'] = 'Correos';		
 		$lang['tab_mon_monitor'] = 'Monitor';		
 		$lang['tab_equ_equipored'] = 'Equipo de Red';		
@@ -197,14 +201,14 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	//Error
 	$lang['msj_error_sesion'] = 'Eror, sus credenciales no son correctas. Intentelo de nuevo';
 	$lang['msj_error_resultado'] = 'Sin resultado';
-	$lang['msj_error_guardar_usu'] = 'Ocurrio un error al tratar de guardar';
+	$lang['msj_error_guardar'] = 'Ocurrio un error al tratar de guardar';
 	$lang['msj_error_modificar_usu'] = 'Ocurrio un error al tratar modificar';
 	$lang['msj_error_eliminar_usu'] = 'Ocurrio un error al tratar eliminar';
 	$lang['msj_error_eliminar_car'] = 'Ocurrio un error al tratar eliminar';
 	$lang['msj_error_eliminar'] = 'Ocurrio un error al tratar eliminar';
 	//Exito
 	$lang['msj_exito'] = '<strong>Éxito</strong>';
-	$lang['msj_ext_guardar_usu'] = 'fue creado en la base de datos';
+	$lang['msj_ext_guardar'] = 'fue creado en la base de datos';
 	$lang['msj_ext_modificar_usu'] = 'fue modificado exitosamente';
 	$lang['msj_ext_eliminar_usu'] = 'Usuario eliminado.';
 	$lang['msj_ext_eliminar_car'] = 'Cargo eliminado.';
@@ -215,6 +219,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_ext_eliminar_dom'] = 'Dominio eliminado.';
 	$lang['msj_ext_eliminar_so'] = 'Sistema Operativo Eliminado.';
 	$lang['msj_ext_eliminar_equipored'] = 'Equipo de red Eliminado.';
+	$lang['msj_ext_eliminar_imp'] = 'Impresora Eliminada.';
 	$lang['msj_ext_config'] = 'Configuración guardada.';
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
@@ -228,6 +233,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_tipo'] = '¿Desea eliminar el tipo ';	
 	$lang['msj_eliminar_so'] = '¿Desea eliminar Sistema operativo ';	
 	$lang['msj_eliminar_equipored'] = '¿Desea eliminar Equipo de red';	
+	$lang['msj_eliminar_imp'] = '¿Desea eliminar Impresora';	
 
 //Log
 	//tipos
@@ -324,3 +330,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_monitor_nuevo'] = 'Nuevo Monitor';
 	$lang['bre_equipored'] = 'Equipo de Red';
 	$lang['bre_equipored_nuevo'] = 'Nuevo Equipo de Red';
+	$lang['bre_impresora'] = 'Impresora';
+	$lang['bre_impresora_nueva'] = 'Nueva Impresora';

@@ -136,7 +136,7 @@ class Computador extends CI_Controller {
 		$this->form_validation->set_rules($config);
 		if ($this->form_validation->run() == FALSE)
 		{
-		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
 			redirect('computador/nuevo', 'refresh');
@@ -166,13 +166,13 @@ class Computador extends CI_Controller {
 			if($computador){
 				$link = anchor('computador/nuevo/'.$computador, $datos_recibidos['nombre']);
 				
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
 				redirect('computador/nuevo', 'refresh');
 			}else{
 
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
 				redirect('computador/nuevo', 'refresh');

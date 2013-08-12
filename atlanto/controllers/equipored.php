@@ -108,7 +108,7 @@ class Equipored extends CI_Controller {
 		$this->form_validation->set_rules($config);
 		if ($this->form_validation->run() == FALSE)
 		{
-		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
 			redirect('equipored/nuevo', 'refresh');
@@ -137,13 +137,13 @@ class Equipored extends CI_Controller {
 			if($equipored){
 				$link = anchor('equipored/nuevo/'.$equipored, $datos_recibidos['nombre']);
 				
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
 				redirect('equipored/nuevo', 'refresh');
 			}else{
 
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
 				redirect('equipored/nuevo', 'refresh');

@@ -3,12 +3,13 @@
 class Tipo_model extends CI_Model {
     private $tabla_com = 'computador_tipo';
     private $tabla_so = 'sistema_tipo';
-	private $tabla_mon = 'monitor_tipo';
+    private $tabla_mon = 'monitor_tipo';
+	private $tabla_imp = 'impresora_tipo';
 
 	function __construct() {
         parent::__construct();
     }
-    
+    ////////////////////////////////
     function save_com($datos) {
         $guarda = $this->db->insert($this->db->dbprefix($this->tabla_com), $datos);
         if ($guarda) {
@@ -48,7 +49,7 @@ class Tipo_model extends CI_Model {
     }
 
 
-
+    ///////////////////////////////////
     function save_so($datos) {
         $guarda = $this->db->insert($this->db->dbprefix($this->tabla_so), $datos);
         if ($guarda) {
@@ -87,9 +88,19 @@ class Tipo_model extends CI_Model {
         return $this->db->update($this->db->dbprefix($this->tabla_so), $datos);
     }
 
-    //**************
+    ////////////////////////
     function get_mon_todos() {
         $query = $this->db->get($this->db->dbprefix($this->tabla_mon));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }        
+    }
+
+    ////////////////////////////////
+    function get_imp_todos() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla_imp));
         if ($query->num_rows() > 0){
             return $query->result();
         }else{

@@ -90,7 +90,7 @@ class Tipo extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
 			redirect('tipo/tipo_computadores', 'refresh');
@@ -107,13 +107,13 @@ class Tipo extends CI_Controller {
 			$tipo = $this->tipo_model->save_com($datos);
 			if($tipo){
 				
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
 				redirect('tipo/tipo_computadores', 'refresh');
 			}else{
 
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
 				redirect('tipo/tipo_computadores', 'refresh');
@@ -263,7 +263,7 @@ class Tipo extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
 			redirect('tipo/tipo_so', 'refresh');
@@ -280,13 +280,13 @@ class Tipo extends CI_Controller {
 			$tipo = $this->tipo_model->save_so($datos);
 			if($tipo){
 				
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
 				redirect('tipo/tipo_so', 'refresh');
 			}else{
 
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
 				redirect('tipo/tipo_so', 'refresh');

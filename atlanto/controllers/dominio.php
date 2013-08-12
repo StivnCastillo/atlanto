@@ -84,7 +84,7 @@ class Dominio extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
 			redirect('dominio', 'refresh');
@@ -105,13 +105,13 @@ class Dominio extends CI_Controller {
 			$this->session->set_flashdata('seccion', 'dominio');
 			if($dominio){
 				
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$datos_recibidos['nombre']." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
 				redirect('dominio', 'refresh');
 			}else{
 
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar_usu'));
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
 				redirect('dominio', 'refresh');
