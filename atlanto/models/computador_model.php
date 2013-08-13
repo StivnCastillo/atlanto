@@ -9,7 +9,10 @@ class Computador_model extends CI_Model {
     private $tabla_dom = 'dominio';
     private $tabla_red = 'red';
     private $tabla_so = 'sistema_operativo';
-	private $tabla_so_tipo = 'sistema_tipo';
+    private $tabla_so_tipo = 'sistema_tipo';
+    //conexion monitor
+    private $tabla_con_monitor = 'computador_monitor';
+	private $tabla_mon = 'monitor';
 
 	function __construct() {
         // Call the Model constructor
@@ -24,6 +27,21 @@ class Computador_model extends CI_Model {
         }else{
             return $guarda;
         }
+    }
+
+    //guarda conexion con monitor
+    function save_monitor($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_monitor), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    function delete_monitor($id) {
+        $this->db->where('id', $id);
+        $this->db->delete($this->db->dbprefix($this->tabla_con_monitor));
     }
 
     //Traer computador
@@ -123,6 +141,32 @@ class Computador_model extends CI_Model {
         $query = $this->db->get($this->db->dbprefix($this->tabla));
         if ($query->num_rows() > 0){
             return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Trae computador segun parametros de $data
+    function get_monitor($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_monitor).".id,
+                ".$this->db->dbprefix($this->tabla_con_monitor).".id_monitor,
+                ".$this->db->dbprefix($this->tabla_mon).".nombre,
+                ".$this->db->dbprefix($this->tabla_mon).".n_serie,
+                ".$this->db->dbprefix($this->tabla_mon).".modelo,
+                ".$this->db->dbprefix($this->tabla_mon).".fabricante
+
+                FROM ".$this->db->dbprefix($this->tabla_con_monitor)." 
+
+                LEFT JOIN(".$this->db->dbprefix($this->tabla).", ".$this->db->dbprefix($this->tabla_mon).")
+                ON(
+                ".$this->db->dbprefix($this->tabla).".id = ".$this->db->dbprefix($this->tabla_con_monitor).".id_computador AND
+                ".$this->db->dbprefix($this->tabla_mon).".id = ".$this->db->dbprefix($this->tabla_con_monitor).".id_monitor
+                )
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_monitor).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
         }else{
             return FALSE;
         }

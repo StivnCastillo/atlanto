@@ -5,7 +5,7 @@
 		<?php echo config_general()->texto_pie_pagina; ?>
 	</footer>
 
-	<script src="<?php echo base_url(); ?>assets/js/jquery-2.0.0.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/jquery-2.0.3.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 
 	<script src="<?php echo base_url(); ?>assets/js/jqbootstrapvalidation.js"></script>

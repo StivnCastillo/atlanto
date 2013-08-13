@@ -5,8 +5,8 @@
 			<!-- MENU AGREGAR COMPUTADOR -->
 			<ul class="nav nav-tabs">
 				<li class="active">
-					<a href="#tab1" data-toggle="tab"><?php echo $ci->lang->line('tab_car_computador') ?></a>
-				</li>
+					<a href="#tab1" data-toggle="tab"><?php echo $ci->lang->line('tab_com_computador'); ?></a>
+				</li>				
 			</ul>
 
 	    	<?php if ($this->session->flashdata('mensaje')): ?>
@@ -32,11 +32,12 @@
 			            <?php echo $this->session->flashdata('mensaje') ?>
 		            </div>
 	            <?php endif ?>
-
 	    	<?php endif ?>
 
             <!-- DATOS DIRECTOS DEL COMPUTADOR -->
 	    	<div class="tab-content">
+
+	    		<!-- PESTAÑA 1 -->
 	    		<div class="tab-pane active" id="tab1">
 					<article class="row">
 						<form class="form-horizontal" id="frmComputador" name="frmComputador" action="<?php echo (isset($computador)) ? $accion_modificar : $accion_guardar; ?>" method="POST">
@@ -224,7 +225,7 @@
 								<div class="control-group">
 									<label class="control-label" for="comentario"><?php echo $ci->lang->line('lbl_comentario') ?></label>
 									<div class="controls">
-										<textarea class="span3" rows="4" name="comentario" id="comentario"> <?php echo (isset($computador)) ? $computador->comentarios : ''; ?></textarea>
+										<textarea class="span3" rows="4" name="comentario" id="comentario"><?php echo (isset($computador)) ? $computador->comentarios : ''; ?></textarea>
 									</div>
 								</div>
 
@@ -238,6 +239,185 @@
 
 						</form>
 					</article>
+
+					<?php if (isset($computador)): ?>
+						<article class="row">
+							<div class="span5">
+								<div class="well">
+									<h4>
+										<i class="icon-desktop"></i>
+										Monitor 
+									</h4>
+									<?php if (isset($con_monitores)): ?>
+
+										<!-- alertas -->
+										<?php if ($this->session->flashdata('mensaje_con_monitor')): ?>
+								    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+								    			<div class="alert alert-success">
+										            <button type="button" class="close" data-dismiss="alert">×</button>
+										            <?php echo $this->session->flashdata('mensaje_con_monitor') ?>
+									            </div>
+								    		<?php endif ?>
+										    	
+											<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+									            <div class="alert alert-error">
+										            <button type="button" class="close" data-dismiss="alert">×</button>
+										            <?php echo $this->session->flashdata('mensaje_con_monitor') ?>
+									            </div>
+									        <?php endif ?>
+								    	<?php endif ?>
+
+										<?php if ($con_monitores): ?>
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>Nombre</th>
+														<th># Serie</th>
+														<th>Fabricante</th>
+														<th>Modelo</th>
+														<th>&nbsp;</th>
+													</tr>									
+												</thead>
+												<tbody>
+													<?php foreach ($con_monitores as $row):?>
+														<tr>
+															<td><a href="<?php echo base_url().'monitor/nuevo/'.$row->id_monitor; ?>"><?php echo $row->nombre; ?></a></td>
+															<td><?php echo $row->n_serie; ?></td>
+															<td><?php echo $row->fabricante; ?></td>
+															<td><?php echo $row->modelo; ?></td>
+															<td colspan="4">
+																<a href="<?php echo base_url().'computador/eliminar_monitor/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+															</td>
+														</tr>
+													<?php endforeach ?>																		
+												</tbody>
+											</table>
+										<?php else: ?>
+											<p>No se Encontraron Monitores</p>
+										<?php endif ?>
+
+
+										<form class="form-inline">
+											<label for="id_monitor">Conectar Monitor</label>
+											<select name="id_monitor" id="slc_com_mon" data-url="<?php echo base_url().'computador/conectar_monitor/'.$id_computador; ?>">
+												<?php foreach ($lis_monitores as $row): ?>												
+													<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
+												<?php endforeach ?>
+											</select>
+											<button type="button" class="btn btn-info" id="btn_com_mon"><i class="icon-plus-sign"></i></button>
+										</form>
+									<?php endif ?>
+								</div>
+									
+								<div class="well">
+									<h4>
+										<i class="icon-phone"></i>
+										Telefono
+									</h4>					
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Nombre</th>
+												<th># Serie</th>
+												<th>Fabricante</th>
+												<th>Modelo</th>
+												<th>&nbsp;</th>
+											</tr>									
+										</thead>
+										<tbody>
+											<tr>
+												<td>Monitor</td>
+												<td>12384k</td>
+												<td>Samsung</td>
+												<td>T2399L</td>
+												<td colspan="4">
+													<a href="#" class="btn btn-danger btn-mini">
+														<i class="icon-remove"></i>
+													</a>
+												</td>
+											</tr>								
+										</tbody>
+									</table>
+									<!--<a href="#" class="btn btn-info">
+										<i class="icon-plus-sign"></i>
+										Agregar Monitor
+									</a>-->
+								</div>						
+							</div>
+							<div class="span5">
+								<div class="well">
+									<h4>
+										<i class="icon-print"></i>
+										Impresora
+									</h4>					
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Nombre</th>
+												<th># Serie</th>
+												<th>Fabricante</th>
+												<th>Modelo</th>
+												<th>&nbsp;</th>
+											</tr>									
+										</thead>
+										<tbody>
+											<tr>
+												<td>Monitor</td>
+												<td>12384k</td>
+												<td>Samsung</td>
+												<td>T2399L</td>
+												<td colspan="4">
+													<a href="#" class="btn btn-danger btn-mini">
+														<i class="icon-remove"></i>
+													</a>
+												</td>
+											</tr>								
+										</tbody>
+									</table>
+									<!--<a href="#" class="btn btn-info">
+										<i class="icon-plus-sign"></i>
+										Agregar Monitor
+									</a>-->
+								</div>
+									
+								<div class="well">
+									<h4>
+										<i class="icon-keyboard"></i>
+										Dispositivo
+									</h4>					
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Nombre</th>
+												<th># Serie</th>
+												<th>Fabricante</th>
+												<th>Modelo</th>
+												<th>&nbsp;</th>
+											</tr>									
+										</thead>
+										<tbody>
+											<tr>
+												<td>Monitor</td>
+												<td>12384k</td>
+												<td>Samsung</td>
+												<td>T2399L</td>
+												<td colspan="4">
+													<a href="#" class="btn btn-danger btn-mini">
+														<i class="icon-remove"></i>
+													</a>
+												</td>
+											</tr>								
+										</tbody>
+									</table>
+									<!--<a href="#" class="btn btn-info">
+										<i class="icon-plus-sign"></i>
+										Agregar Monitor
+									</a>-->
+								</div>						
+							</div>
+						</article>
+					<?php endif ?>
+						
 				</div>
 			</div>
 </div>

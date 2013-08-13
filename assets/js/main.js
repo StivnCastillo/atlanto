@@ -25,6 +25,26 @@ var normalizar = (function() {
 
 function inicio () {
 	/*
+	* Agregar conexion, computador -> monitor
+	*/
+	$('#btn_com_mon').on('click', function(){
+		var accion = $("#slc_com_mon").data('url');
+		var id = $("#slc_com_mon").val();
+		var parametros = {"id_monitor":id}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+	        async: false,
+	        success: function (datos) {
+	        	location.reload(true);
+	        }
+		});
+	});
+
+
+	/*
 	* Generador de correos
 	*/
 

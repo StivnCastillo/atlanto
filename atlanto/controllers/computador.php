@@ -13,7 +13,8 @@ class Computador extends CI_Controller {
 					'estadocomponente_model', 
 					'tipo_model', 
 					'so_model', 
-					'red_model'
+					'red_model',
+					'monitor_model'
 				)
 		);
 	}
@@ -82,9 +83,47 @@ class Computador extends CI_Controller {
 		if($id_computador){
 			$data['computador'] = $this->computador_model->get($id_computador);
 			$data['id_computador'] = $id_computador;
+
+			//Conexion monitor
+			$data['con_monitores'] = $this->computador_model->get_monitor($id_computador);
+			//Todos los monitores
+			$data['lis_monitores'] = $this->monitor_model->get();
 		}
 
 		$this->load->view('template', $data);
+	}
+
+	public function conectar_monitor($id_computador)
+	{
+		$datos = array(
+			'id_monitor' => $this->input->post('id_monitor'),
+			'id_computador' => $id_computador
+		);
+
+		$conexion = $this->computador_model->save_monitor($datos);
+
+		if($conexion){
+			$this->session->set_flashdata('mensaje_con_monitor', 'Monitor conectado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_monitor', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+	}
+
+	public function eliminar_monitor($id_computador, $id_conexion)
+	{
+		$this->acceso_restringido();
+		$conexion = $this->computador_model->delete_monitor($id_conexion);
+		if(!$conexion){
+			$this->session->set_flashdata('mensaje_con_monitor', 'Monitor desconectado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_monitor', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('computador/nuevo/'.$id_computador, 'refresh');
 	}
 
 	/*
@@ -279,6 +318,8 @@ class Computador extends CI_Controller {
 	{
 		
 	}
+
+
 
 	public function acceso_restringido(){
 		if (!$this->session->userdata('ingresado')) {
