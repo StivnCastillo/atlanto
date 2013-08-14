@@ -34,7 +34,7 @@
 										<li><a href="<?php echo base_url().'equipored'; ?>"><?php echo $ci->lang->line('men_sub_red'); ?></a></li>
 										<li><a href="<?php echo base_url().'impresora'; ?>"><?php echo $ci->lang->line('men_sub_impresoras'); ?></a></li>
 										<li><a href="<?php echo base_url().'telefono'; ?>"><?php echo $ci->lang->line('men_sub_telefonos'); ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_dispositivos'); ?></a></li>
+										<li><a href="<?php echo base_url().'dispositivo'; ?>"><?php echo $ci->lang->line('men_sub_dispositivos'); ?></a></li>
 										<li><a href=""><?php echo $ci->lang->line('men_sub_software'); ?></a></li>
 									</ul>
 								</li>

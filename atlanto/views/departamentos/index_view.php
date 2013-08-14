@@ -38,8 +38,8 @@ $ci = &get_instance();
 	            <?php endif ?>
 	    <?php endif ?>
 
-		<article class="well">
-			<table class="table table-striped table-hover tabla" id="tabla">
+		<article>
+			<table class="table table-striped table-hover table-bordered tabla" id="tabla">
 				<thead>
 					<tr>
 						<!-- idioma -->

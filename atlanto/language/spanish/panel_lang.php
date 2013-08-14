@@ -30,6 +30,8 @@ $lang['titulo_impresora'] = 'Impresoras';
 $lang['titulo_nueva_impresora'] = 'Nueva Impresora';
 $lang['titulo_telefonos'] = 'Teléfonos';
 $lang['titulo_nuevo_telefono'] = 'Nuevo Teléfono';
+$lang['titulo_dispositivos'] = 'Dispositivos';
+$lang['titulo_nuevo_telefono'] = 'Nuevo Dispositivo';
 
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
@@ -121,6 +123,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_cargo'] = 'Cargo';
 		$lang['lbl_departamento'] = 'Departamento';
 		$lang['lbl_activado'] = 'Activado';
+		$lang['lbl_prestable'] = 'Prestable';
 		$lang['lbl_rol'] = 'Rol de Usuario';
 		$lang['lbl_notas'] = 'Nota';
 		$lang['lbl_descripcion'] = 'Descripcion';
@@ -202,6 +205,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_mon_monitor'] = 'Monitor';		
 		$lang['tab_equ_equipored'] = 'Equipo de Red';		
 		$lang['tab_tel_telefono'] = 'Teléfono';		
+		$lang['tab_tel_dis'] = 'Dispositivo';		
 
 //Mensajes
 	//Error
@@ -341,3 +345,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_impresora_nueva'] = 'Nueva Impresora';
 	$lang['bre_telefono'] = 'Teléfonos';
 	$lang['bre_telefono_nuevo'] = 'Nuevo Teléfono';
+	$lang['bre_dispositivo'] = 'Dispositivos';
+	$lang['bre_dispositivo_nuevo'] = 'Nuevo Dispositivo';

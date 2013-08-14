@@ -36,7 +36,6 @@ class Computador extends CI_Controller {
 		$data = array(
 			'titulo' => $this->lang->line('titulo_computadores'),
 			'content' => 'computadores/index_view',
-			'validador' => TRUE,
 			'breadcrumbs' => $breadcrumbs,
 			'computadores' => $computadores
 		);

@@ -43,8 +43,8 @@ $ci = &get_instance();
 
     	<?php endif ?>
 
-		<article class="row-fuid">
-			<table class="table table-bordered tabla">
+		<article>
+			<table class="table table-striped table-hover table-bordered tabla" id="tabla">
 				<thead>
 					<tr>
 						<th class="tabla-center"><?php echo $ci->lang->line('tab_numero'); ?></th>
