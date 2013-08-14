@@ -28,6 +28,8 @@ $lang['titulo_equipored'] = 'Equipo de red';
 $lang['titulo_nuevo_equipored'] = 'Nuevo Equipo de red';
 $lang['titulo_impresora'] = 'Impresoras';
 $lang['titulo_nueva_impresora'] = 'Nueva Impresora';
+$lang['titulo_telefonos'] = 'Teléfonos';
+$lang['titulo_nuevo_telefono'] = 'Nuevo Teléfono';
 
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
@@ -37,6 +39,7 @@ $lang['titulo_eliminar_est'] = 'Eliminar Estado';
 $lang['titulo_eliminar_dom'] = 'Eliminar Dominio';
 $lang['titulo_eliminar_red'] = 'Eliminar Red';
 $lang['titulo_eliminar_imp'] = 'Eliminar Impresora';
+$lang['titulo_eliminar_tel'] = 'Eliminar Teléfono';
 $lang['titulo_eliminar_tipo_com'] = 'Eliminar Tipo de computador';
 $lang['titulo_eliminar_tipo_so'] = 'Eliminar Tipo de Sistema Operativo';
 $lang['titulo_eliminar_so'] = 'Eliminar Sistema Operativo';
@@ -154,6 +157,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_tamano'] = 'Tamaño';
 		$lang['lbl_ip'] = 'IP';
 		$lang['lbl_mac'] = 'MAC';
+		$lang['lbl_firmware'] = 'Firmware';
 		
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -197,6 +201,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_cor_correo'] = 'Correos';		
 		$lang['tab_mon_monitor'] = 'Monitor';		
 		$lang['tab_equ_equipored'] = 'Equipo de Red';		
+		$lang['tab_tel_telefono'] = 'Teléfono';		
 
 //Mensajes
 	//Error
@@ -235,6 +240,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_so'] = '¿Desea eliminar Sistema operativo ';	
 	$lang['msj_eliminar_equipored'] = '¿Desea eliminar Equipo de red';	
 	$lang['msj_eliminar_imp'] = '¿Desea eliminar Impresora';	
+	$lang['msj_eliminar_tel'] = '¿Desea eliminar Teléfono';	
 
 //Log
 	//tipos
@@ -327,9 +333,11 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_tipo_nuevo'] = 'Nuevo Tipo';
 	$lang['bre_so'] = 'Sistema Operativo';
 	$lang['bre_so_nuevo'] = 'Nuevo Sistema Operativo';
-	$lang['bre_monitor'] = 'Monitor';
+	$lang['bre_monitor'] = 'Monitores';
 	$lang['bre_monitor_nuevo'] = 'Nuevo Monitor';
 	$lang['bre_equipored'] = 'Equipo de Red';
 	$lang['bre_equipored_nuevo'] = 'Nuevo Equipo de Red';
-	$lang['bre_impresora'] = 'Impresora';
+	$lang['bre_impresora'] = 'Impresoras';
 	$lang['bre_impresora_nueva'] = 'Nueva Impresora';
+	$lang['bre_telefono'] = 'Teléfonos';
+	$lang['bre_telefono_nuevo'] = 'Nuevo Teléfono';
