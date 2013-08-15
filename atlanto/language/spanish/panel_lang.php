@@ -31,7 +31,9 @@ $lang['titulo_nueva_impresora'] = 'Nueva Impresora';
 $lang['titulo_telefonos'] = 'Teléfonos';
 $lang['titulo_nuevo_telefono'] = 'Nuevo Teléfono';
 $lang['titulo_dispositivos'] = 'Dispositivos';
-$lang['titulo_nuevo_telefono'] = 'Nuevo Dispositivo';
+$lang['titulo_nuevo_dispositivo'] = 'Nuevo Dispositivo';
+$lang['titulo_software'] = 'Software';
+$lang['titulo_nuevo_software'] = 'Nuevo Software';
 
 $lang['titulo_eliminar_usu'] = 'Eliminar usuario';
 $lang['titulo_eliminar_ubi'] = 'Eliminar ubicación';
@@ -161,7 +163,9 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_ip'] = 'IP';
 		$lang['lbl_mac'] = 'MAC';
 		$lang['lbl_firmware'] = 'Firmware';
-		
+		$lang['lbl_aticket'] = 'Asociar a Ticket';
+		$lang['lbl_n_licencias'] = 'Número de Licencias';
+
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
 		$lang['btn_entrar'] = 'Entrar';
@@ -206,6 +210,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_equ_equipored'] = 'Equipo de Red';		
 		$lang['tab_tel_telefono'] = 'Teléfono';		
 		$lang['tab_tel_dis'] = 'Dispositivo';		
+		$lang['tab_sof_software'] = 'Software';		
 
 //Mensajes
 	//Error
@@ -347,3 +352,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_telefono_nuevo'] = 'Nuevo Teléfono';
 	$lang['bre_dispositivo'] = 'Dispositivos';
 	$lang['bre_dispositivo_nuevo'] = 'Nuevo Dispositivo';
+	$lang['bre_software'] = 'Software';
+	$lang['bre_software_nuevo'] = 'Nuevo Software';

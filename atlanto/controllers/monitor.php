@@ -21,7 +21,7 @@ class Monitor extends CI_Controller {
 		$this->acceso_restringido();
 
 		//Breadcrumbs
-		$this->breadcrumbs->push($this->lang->line('bre_monitor'), '/dominio');
+		$this->breadcrumbs->push($this->lang->line('bre_monitor'), '/monitor');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
