@@ -17,6 +17,8 @@ $lang['titulo_departamentos'] = 'Departamentos';
 $lang['titulo_cargos'] = 'Cargos';
 $lang['titulo_estados'] = 'Estados';
 $lang['titulo_computadores'] = 'Computadores';
+$lang['titulo_componentes'] = 'Componentes';
+	$lang['titulo_comp_dd'] = 'Disco Duro';
 $lang['titulo_dominios'] = 'Dominios';
 $lang['titulo_redes'] = 'Redes';
 $lang['titulo_tipos_com'] = 'Tipos de computador';
@@ -48,6 +50,7 @@ $lang['titulo_eliminar_tipo_com'] = 'Eliminar Tipo de computador';
 $lang['titulo_eliminar_tipo_so'] = 'Eliminar Tipo de Sistema Operativo';
 $lang['titulo_eliminar_so'] = 'Eliminar Sistema Operativo';
 $lang['titulo_eliminar_equipored'] = 'Eliminar Equipo de red';
+$lang['titulo_eliminar_dd'] = 'Eliminar Disco Duro';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -68,6 +71,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['men_servicios'] = 'Servicios';
 	//Submenu Inventario
 		$lang['men_sub_compu'] = 'Computadores';
+		$lang['men_sub_compo'] = 'Componentes';
 		$lang['men_sub_monitores'] = 'Monitores';
 		$lang['men_sub_red'] = 'Equipos de red';
 		$lang['men_sub_impresoras'] = 'Impresoras';
@@ -165,6 +169,9 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_firmware'] = 'Firmware';
 		$lang['lbl_aticket'] = 'Asociar a Ticket';
 		$lang['lbl_n_licencias'] = 'Número de Licencias';
+		$lang['lbl_capacidad'] = 'Capacidad';
+		$lang['lbl_rpm'] = 'RPM';
+		$lang['lbl_cache'] = 'Caché';
 
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -209,8 +216,10 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_mon_monitor'] = 'Monitor';		
 		$lang['tab_equ_equipored'] = 'Equipo de Red';		
 		$lang['tab_tel_telefono'] = 'Teléfono';		
-		$lang['tab_tel_dis'] = 'Dispositivo';		
-		$lang['tab_sof_software'] = 'Software';		
+		$lang['tab_tel_dis'] = 'Dispositivo';
+		$lang['tab_sof_software'] = 'Software';
+		$lang['tab_comp_comp'] = 'Componente';
+			$lang['tab_comp_dd'] = 'Disco Duro';
 
 //Mensajes
 	//Error
@@ -221,6 +230,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_error_eliminar_usu'] = 'Ocurrio un error al tratar eliminar';
 	$lang['msj_error_eliminar_car'] = 'Ocurrio un error al tratar eliminar';
 	$lang['msj_error_eliminar'] = 'Ocurrio un error al tratar eliminar';
+
 	//Exito
 	$lang['msj_exito'] = '<strong>Éxito</strong>';
 	$lang['msj_ext_guardar'] = 'fue creado en la base de datos';
@@ -236,6 +246,9 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_ext_eliminar_equipored'] = 'Equipo de red Eliminado.';
 	$lang['msj_ext_eliminar_imp'] = 'Impresora Eliminada.';
 	$lang['msj_ext_config'] = 'Configuración guardada.';
+	$lang['msj_ext_eliminar_dd'] = 'Disco Duro Eliminado.';
+
+
 	//Preguntas
 	$lang['msj_eliminar'] = '¿Desea eliminar el usuario de ';
 	$lang['msj_eliminar_car'] = '¿Desea eliminar el cargo ';
@@ -250,6 +263,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_equipored'] = '¿Desea eliminar Equipo de red';	
 	$lang['msj_eliminar_imp'] = '¿Desea eliminar Impresora';	
 	$lang['msj_eliminar_tel'] = '¿Desea eliminar Teléfono';	
+	$lang['msj_eliminar_dd'] = '¿Desea eliminar Disco Duro';	
 
 //Log
 	//tipos
@@ -284,6 +298,8 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tab_ip_server_2'] = 'IP Servidor Opcional';
 	$lang['tab_version'] = 'Versión';
 	$lang['tab_tipo'] = 'Tipo';
+	$lang['tab_fabricante'] = 'Fabricante';
+	$lang['tab_interfaz'] = 'Interfaz';
 
 //Seccion Tareas
 	$lang['tar_sin_nota'] = 'No tiene notas/solucion';
@@ -304,6 +320,10 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_tipos_com'] = 'Tipos de Computador';
 	$lang['tit_men_tipos_so'] = 'Tipos de Sistema Operativo';
 	$lang['tit_men_so'] = 'Sistema Operativo';
+
+//Seccion Componentes
+	$lang['tit_men_comp'] = 'Componenetes';
+	$lang['tit_men_dd'] = 'Dico Duro';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -354,3 +374,6 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_dispositivo_nuevo'] = 'Nuevo Dispositivo';
 	$lang['bre_software'] = 'Software';
 	$lang['bre_software_nuevo'] = 'Nuevo Software';
+	$lang['bre_componente'] = 'Componente';
+	$lang['bre_componente_dd'] = 'Disco Duro';
+	$lang['bre_componente_dd_nuevo'] = 'Nuevo Disco Duro';

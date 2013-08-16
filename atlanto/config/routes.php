@@ -46,6 +46,8 @@ $route['buscar_departamento'] = "departamento/departamento_select";
 $route['buscar_cargo'] = "cargo/cargo_select";
 $route['buscar_usuario'] = "usuario/usuario_select";
 
+$route['componente/discoduro'] = "componente/index_discoduro";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
