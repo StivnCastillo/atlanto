@@ -28,7 +28,9 @@ class Componente extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
+	/*
+	* Discoduro
+	*/
 	public function index_discoduro()
 	{
 		$this->acceso_restringido();
@@ -79,10 +81,7 @@ class Componente extends CI_Controller {
 
 		$this->load->view('template', $data);
 	}
-
-	/*
-	* Procesa los datos y los envia al modelo que guarda en la base de datos
-	*/
+	
 	public function guardar_discoduro()
 	{
 		$this->acceso_restringido();
@@ -125,7 +124,7 @@ class Componente extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('componente/guardar_discoduro', 'refresh');
+			redirect('componente/nuevo_discoduro', 'refresh');
 		}else{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
 
@@ -201,7 +200,7 @@ class Componente extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('componente/guardar_discoduro', 'refresh');
+			redirect('componente/nuevo_discoduro', 'refresh');
 		}else{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
 
@@ -249,6 +248,175 @@ class Componente extends CI_Controller {
 
 		redirect('componente/discoduro', 'refresh');
 	}
+
+
+	/*
+	* Procesador
+	*/
+	public function index_procesador()
+	{
+		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_componente'), '/componente');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_procesador'), '/componente/procesador');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$procesador = $this->componente_model->get_procesador();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_comp_pro'),
+			'content' => 'componentes/procesador_index_view',
+			'breadcrumbs' => $breadcrumbs,
+			'procesador' => $procesador
+		);
+		$this->load->view('template', $data);
+	}
+
+	public function nuevo_procesador($id_procesador = FALSE)
+	{
+		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_componente'), '/componente');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_procesador'), '/componente/procesador');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_pro_nuevo'), '/componente/nuevo_procesador');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$data = array(
+			'titulo' => $this->lang->line('bre_componente_dd_nuevo'),
+			'content' => 'componentes/procesador_save_view',
+			'breadcrumbs' => $breadcrumbs,
+			'accion_guardar' => site_url('componente/guardar_procesador'),
+			'accion_modificar' => site_url('componente/modificar_procesador')
+		);
+
+		if($id_procesador){
+			$data['componente'] = $this->componente_model->get_procesador($id_procesador);
+			$data['id_procesador'] = $id_procesador;
+		}
+
+		$this->load->view('template', $data);
+	}
+
+	public function guardar_procesador()
+	{
+		$this->acceso_restringido();
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'frecuencia',
+                     'label' => 'Frecuencia',
+                     'rules' => 'required'
+                  ), 
+               array(
+                     'field' => 'fabricante',
+                     'label' => 'Fabricante',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('componente/nuevo_procesador', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'frecuencia' => $datos_recibidos['frecuencia'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'comentarios' => $datos_recibidos['comentario'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$componente = $this->componente_model->save_procesador($datos);
+
+			if($componente){
+				$link = anchor('componente/nuevo_procesador/'.$componente, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('componente/nuevo_procesador', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('componente/nuevo_procesador', 'refresh');
+			}
+		}
+	}
+
+	public function modificar_procesador()
+	{
+		$this->acceso_restringido();
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'frecuencia',
+                     'label' => 'Frecuencia',
+                     'rules' => 'required'
+                  ), 
+               array(
+                     'field' => 'fabricante',
+                     'label' => 'Fabricante',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('componente/nuevo_procesador', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'frecuencia' => $datos_recibidos['frecuencia'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'comentarios' => $datos_recibidos['comentario'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$componente = $this->componente_model->update_procesador($datos_recibidos['id_procesador'],$datos);
+
+			if($componente){
+				$link = anchor('componente/nuevo_procesador/'.$componente, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_config'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('componente/procesador', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('componente/procesador', 'refresh');
+			}
+		}
+	}
+
 
 
 	public function acceso_restringido(){

@@ -47,6 +47,7 @@ $route['buscar_cargo'] = "cargo/cargo_select";
 $route['buscar_usuario'] = "usuario/usuario_select";
 
 $route['componente/discoduro'] = "componente/index_discoduro";
+$route['componente/procesador'] = "componente/index_procesador";
 
 
 /* End of file routes.php */

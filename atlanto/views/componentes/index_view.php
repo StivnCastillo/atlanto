@@ -8,7 +8,7 @@
 
 					<li class="active"><a href=""><?php echo $ci->lang->line('tit_men_comp'); ?></a></li>
 					<li><a href="<?php echo base_url().'componente/discoduro' ?>"><?php echo $ci->lang->line('tit_men_dd'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
-					<li><a href="<?php echo base_url().'cargo' ?>"><?php echo $ci->lang->line('tit_men_cargos'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
+					<li><a href="<?php echo base_url().'componente/procesador' ?>"><?php echo $ci->lang->line('tit_men_pro'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 					<li><a href="<?php echo base_url().'departamento' ?>"><?php echo $ci->lang->line('tit_men_departamentos'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 					<li><a href="<?php echo base_url().'estado' ?>"><?php echo $ci->lang->line('tit_men_estados'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
 

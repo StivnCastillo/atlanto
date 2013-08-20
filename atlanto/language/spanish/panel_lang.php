@@ -19,6 +19,7 @@ $lang['titulo_estados'] = 'Estados';
 $lang['titulo_computadores'] = 'Computadores';
 $lang['titulo_componentes'] = 'Componentes';
 	$lang['titulo_comp_dd'] = 'Disco Duro';
+	$lang['titulo_comp_pro'] = 'Procesador';
 $lang['titulo_dominios'] = 'Dominios';
 $lang['titulo_redes'] = 'Redes';
 $lang['titulo_tipos_com'] = 'Tipos de computador';
@@ -172,6 +173,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_capacidad'] = 'Capacidad';
 		$lang['lbl_rpm'] = 'RPM';
 		$lang['lbl_cache'] = 'Caché';
+		$lang['lbl_frecuencia'] = 'Frecuencia';
 
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -220,6 +222,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_sof_software'] = 'Software';
 		$lang['tab_comp_comp'] = 'Componente';
 			$lang['tab_comp_dd'] = 'Disco Duro';
+			$lang['tab_comp_pro'] = 'Procesador';
 
 //Mensajes
 	//Error
@@ -324,6 +327,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 //Seccion Componentes
 	$lang['tit_men_comp'] = 'Componenetes';
 	$lang['tit_men_dd'] = 'Dico Duro';
+	$lang['tit_men_pro'] = 'Procesador';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -377,3 +381,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_componente'] = 'Componente';
 	$lang['bre_componente_dd'] = 'Disco Duro';
 	$lang['bre_componente_dd_nuevo'] = 'Nuevo Disco Duro';
+	$lang['bre_componente_procesador'] = 'Procesador';
+	$lang['bre_componente_pro_nuevo'] = 'Nuevo Procesador';
