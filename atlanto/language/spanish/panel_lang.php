@@ -20,6 +20,7 @@ $lang['titulo_computadores'] = 'Computadores';
 $lang['titulo_componentes'] = 'Componentes';
 	$lang['titulo_comp_dd'] = 'Disco Duro';
 	$lang['titulo_comp_pro'] = 'Procesador';
+	$lang['titulo_comp_mem'] = 'Memoria';
 $lang['titulo_dominios'] = 'Dominios';
 $lang['titulo_redes'] = 'Redes';
 $lang['titulo_tipos_com'] = 'Tipos de computador';
@@ -52,6 +53,8 @@ $lang['titulo_eliminar_tipo_so'] = 'Eliminar Tipo de Sistema Operativo';
 $lang['titulo_eliminar_so'] = 'Eliminar Sistema Operativo';
 $lang['titulo_eliminar_equipored'] = 'Eliminar Equipo de red';
 $lang['titulo_eliminar_dd'] = 'Eliminar Disco Duro';
+$lang['titulo_eliminar_pro'] = 'Eliminar Procesador';
+$lang['titulo_eliminar_mem'] = 'Eliminar Memoria';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -223,6 +226,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['tab_comp_comp'] = 'Componente';
 			$lang['tab_comp_dd'] = 'Disco Duro';
 			$lang['tab_comp_pro'] = 'Procesador';
+			$lang['tab_comp_mem'] = 'Memoria';
 
 //Mensajes
 	//Error
@@ -267,6 +271,8 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_imp'] = '¿Desea eliminar Impresora';	
 	$lang['msj_eliminar_tel'] = '¿Desea eliminar Teléfono';	
 	$lang['msj_eliminar_dd'] = '¿Desea eliminar Disco Duro';	
+	$lang['msj_eliminar_pro'] = '¿Desea eliminar Procesador';	
+	$lang['msj_eliminar_mem'] = '¿Desea eliminar Memoria';	
 
 //Log
 	//tipos
@@ -328,6 +334,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['tit_men_comp'] = 'Componenetes';
 	$lang['tit_men_dd'] = 'Dico Duro';
 	$lang['tit_men_pro'] = 'Procesador';
+	$lang['tit_men_mem'] = 'Memoria';
 
 //Reportes
 	$lang['rep_men_lista'] = 'Lista completa';
@@ -383,3 +390,5 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_componente_dd_nuevo'] = 'Nuevo Disco Duro';
 	$lang['bre_componente_procesador'] = 'Procesador';
 	$lang['bre_componente_pro_nuevo'] = 'Nuevo Procesador';
+	$lang['bre_componente_memoria'] = 'Memoria';
+	$lang['bre_componente_mem_nuevo'] = 'Nuevo Memoria';

@@ -6,7 +6,8 @@ class Tipo_model extends CI_Model {
     private $tabla_mon = 'monitor_tipo';
     private $tabla_imp = 'impresora_tipo';
     private $tabla_tel = 'telefono_tipo';
-	private $tabla_sof = 'software_tipo';
+    private $tabla_sof = 'software_tipo';
+	private $tabla_mem = 'componente_memoria_tipo';
 
 	function __construct() {
         parent::__construct();
@@ -123,6 +124,16 @@ class Tipo_model extends CI_Model {
     ////////////////////////////////
     function get_sof_todos() {
         $query = $this->db->get($this->db->dbprefix($this->tabla_sof));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }        
+    }
+
+    ////////////////////////////////
+    function get_mem_todos() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla_mem));
         if ($query->num_rows() > 0){
             return $query->result();
         }else{

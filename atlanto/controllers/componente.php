@@ -6,7 +6,7 @@ class Componente extends CI_Controller {
 	{
 		parent::__construct();
 		/* Cargar modelos */
-		$this->load->model(array('componente_model', 'interfaz_model'));
+		$this->load->model(array('componente_model', 'interfaz_model', 'tipo_model'));
 	}
 
 	/*
@@ -28,6 +28,7 @@ class Componente extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
+
 	/*
 	* Discoduro
 	*/
@@ -415,6 +416,220 @@ class Componente extends CI_Controller {
 				redirect('componente/procesador', 'refresh');
 			}
 		}
+	}
+
+	public function eliminar_procesador($id)
+	{
+		$this->acceso_restringido();
+		$componente = $this->componente_model->delete_procesador($id);
+		if(!$componente){
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_dd'));
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('componente/procesador', 'refresh');
+	}
+
+	/*
+	* Memoria
+	*/
+	public function index_memoria()
+	{
+		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_componente'), '/componente');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_memoria'), '/componente/memoria');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$memoria = $this->componente_model->get_memoria();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_comp_mem'),
+			'content' => 'componentes/memoria_index_view',
+			'breadcrumbs' => $breadcrumbs,
+			'memoria' => $memoria
+		);
+		$this->load->view('template', $data);
+	}
+
+	public function nuevo_memoria($id_memoria = FALSE)
+	{
+		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_componente'), '/componente');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_memoria'), '/componente/memoria');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_mem_nuevo'), '/componente/nuevo_memoria');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$tipo = $this->tipo_model->get_mem_todos();
+
+		$data = array(
+			'titulo' => $this->lang->line('bre_componente_mem_nuevo'),
+			'content' => 'componentes/memoria_save_view',
+			'breadcrumbs' => $breadcrumbs,
+			'accion_guardar' => site_url('componente/guardar_memoria'),
+			'accion_modificar' => site_url('componente/modificar_memoria'),
+			'tipo' => $tipo
+		);
+
+		if($id_memoria){
+			$data['componente'] = $this->componente_model->get_memoria($id_memoria);
+			$data['id_memoria'] = $id_memoria;
+		}
+
+		$this->load->view('template', $data);
+	}
+
+	public function guardar_memoria()
+	{
+		$this->acceso_restringido();
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'tipo',
+                     'label' => 'Tipo',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'tamano',
+                     'label' => 'tamano',
+                     'rules' => 'required|number'
+                  ), 
+               array(
+                     'field' => 'fabricante',
+                     'label' => 'Fabricante',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('componente/nuevo_memoria', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'frecuencia' => $datos_recibidos['frecuencia'],
+				'tamano' => $datos_recibidos['tamano'],
+				'id_memoria_tipo' => $datos_recibidos['tipo'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'comentarios' => $datos_recibidos['comentario'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$componente = $this->componente_model->save_memoria($datos);
+
+			if($componente){
+				$link = anchor('componente/nuevo_memoria/'.$componente, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('componente/nuevo_memoria', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('componente/nuevo_memoria', 'refresh');
+			}
+		}
+	}
+
+	public function modificar_memoria()
+	{
+		$this->acceso_restringido();
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'tipo',
+                     'label' => 'Tipo',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'tamano',
+                     'label' => 'tamano',
+                     'rules' => 'required|number'
+                  ), 
+               array(
+                     'field' => 'fabricante',
+                     'label' => 'Fabricante',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('componente/memoria', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'frecuencia' => $datos_recibidos['frecuencia'],
+				'tamano' => $datos_recibidos['tamano'],
+				'id_memoria_tipo' => $datos_recibidos['tipo'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'comentarios' => $datos_recibidos['comentario'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$componente = $this->componente_model->update_memoria($datos_recibidos['id_memoria'],$datos);
+
+			if($componente){
+				$link = anchor('componente/nuevo_memoria/'.$componente, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_config'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('componente/memoria', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('componente/memoria', 'refresh');
+			}
+		}
+	}
+
+	public function eliminar_memoria($id)
+	{
+		$this->acceso_restringido();
+		$componente = $this->componente_model->delete_memoria($id);
+		if(!$componente){
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_dd'));
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('componente/memoria', 'refresh');
 	}
 
 

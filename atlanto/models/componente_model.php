@@ -5,6 +5,8 @@ class Componente_model extends CI_Model {
     private $tabla_disco = 'componente_discoduro';
     private $tabla_pro = 'componente_procesador';
     private $tabla_int = 'componente_interfaz';
+    private $tabla_mem = 'componente_memoria';
+    private $tabla_mem_tipo = 'componente_memoria_tipo';
 
 	function __construct() {
         // Call the Model constructor
@@ -116,45 +118,60 @@ class Componente_model extends CI_Model {
         $this->db->delete($this->db->dbprefix($this->tabla_pro));
     }
 
+    //////////////////Memoria
+    function get_memoria($id = FALSE){
+        $where = '1';
+        if ($id) {
+            $where = " ".$this->db->dbprefix($this->tabla_mem).".id = ".$id;
+        }
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_mem).".id,
+                ".$this->db->dbprefix($this->tabla_mem).".nombre,
+                ".$this->db->dbprefix($this->tabla_mem).".fabricante,
+                ".$this->db->dbprefix($this->tabla_mem).".frecuencia,
+                ".$this->db->dbprefix($this->tabla_mem).".tamano,
+                ".$this->db->dbprefix($this->tabla_mem).".id_memoria_tipo,
+                ".$this->db->dbprefix($this->tabla_mem).".fecha_modificacion,
+                ".$this->db->dbprefix($this->tabla_mem).".comentarios,
+                ".$this->db->dbprefix($this->tabla_mem_tipo).".nombre AS tipo
 
+                FROM ".$this->db->dbprefix($this->tabla_mem)." 
 
+                LEFT JOIN(".$this->db->dbprefix($this->tabla_mem_tipo).")
+                ON(".$this->db->dbprefix($this->tabla_mem).".id_memoria_tipo = ".$this->db->dbprefix($this->tabla_mem_tipo).".id)
 
-
-
-
-
-    //Traer permisos
-    function get_todos() {
-        $query = $this->db->get($this->db->dbprefix($this->tabla));
+                WHERE ".$where."
+        ");
         if ($query->num_rows() > 0){
-            return $query->result();
-        }else{
-            return FALSE;
-        }        
-    }
-
-    //Trae cargo segun parametros de $data
-    function get_cargo($data) {
-        $this->db->where($data);
-        $query = $this->db->get($this->db->dbprefix($this->tabla));
-        if ($query->num_rows() > 0){
-            return $query->row();
+            if($id){
+                return $query->row();
+            }else{
+                return $query->result();
+            }            
         }else{
             return FALSE;
         }
     }
 
-    //Elimina un cargo
-    function delete($id_cargo) {
-        $this->db->where('id', $id_cargo);
-        $this->db->delete($this->db->dbprefix($this->tabla));
+    function save_memoria($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_mem), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
     }
 
-    //Actualiza los datos del usuario
-    function update($id_usuario, $datos) {
-        $this->db->where('id', $id_usuario);
-        return $this->db->update($this->db->dbprefix($this->tabla), $datos);
+    function update_memoria($id, $datos) {
+        $this->db->where('id', $id);
+        return $this->db->update($this->db->dbprefix($this->tabla_mem), $datos);
     }
+
+    function delete_memoria($id) {
+        $this->db->where('id', $id);
+        $this->db->delete($this->db->dbprefix($this->tabla_mem));
+    }
+
 }
 
 
