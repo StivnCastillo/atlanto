@@ -21,6 +21,7 @@ $lang['titulo_componentes'] = 'Componentes';
 	$lang['titulo_comp_dd'] = 'Disco Duro';
 	$lang['titulo_comp_pro'] = 'Procesador';
 	$lang['titulo_comp_mem'] = 'Memoria';
+	$lang['titulo_comp_tvideo'] = 'Tarjeta de Video';
 $lang['titulo_dominios'] = 'Dominios';
 $lang['titulo_redes'] = 'Redes';
 $lang['titulo_tipos_com'] = 'Tipos de computador';
@@ -55,6 +56,7 @@ $lang['titulo_eliminar_equipored'] = 'Eliminar Equipo de red';
 $lang['titulo_eliminar_dd'] = 'Eliminar Disco Duro';
 $lang['titulo_eliminar_pro'] = 'Eliminar Procesador';
 $lang['titulo_eliminar_mem'] = 'Eliminar Memoria';
+$lang['titulo_eliminar_tvideo'] = 'Eliminar Tarjeta de Video';
 
 //Pagina index
 $lang['index_info_ticket'] = 'Esta opción usela cuando necesita enviar un ticket de prioridad alta o urgente';
@@ -177,6 +179,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 		$lang['lbl_rpm'] = 'RPM';
 		$lang['lbl_cache'] = 'Caché';
 		$lang['lbl_frecuencia'] = 'Frecuencia';
+		$lang['lbl_memoria'] = 'Memoria RAM';
 
 	//Botones
 		$lang['btn_cerrar'] = 'Cerrar';
@@ -227,6 +230,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 			$lang['tab_comp_dd'] = 'Disco Duro';
 			$lang['tab_comp_pro'] = 'Procesador';
 			$lang['tab_comp_mem'] = 'Memoria';
+			$lang['tab_comp_tvi'] = 'Tarjeta de Video';
 
 //Mensajes
 	//Error
@@ -273,6 +277,7 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['msj_eliminar_dd'] = '¿Desea eliminar Disco Duro';	
 	$lang['msj_eliminar_pro'] = '¿Desea eliminar Procesador';	
 	$lang['msj_eliminar_mem'] = '¿Desea eliminar Memoria';	
+	$lang['msj_eliminar_tvi'] = '¿Desea eliminar Tarjeta';	
 
 //Log
 	//tipos
@@ -391,4 +396,6 @@ $lang['index_titulo_ticket'] = 'Crear Ticket Rápido';
 	$lang['bre_componente_procesador'] = 'Procesador';
 	$lang['bre_componente_pro_nuevo'] = 'Nuevo Procesador';
 	$lang['bre_componente_memoria'] = 'Memoria';
-	$lang['bre_componente_mem_nuevo'] = 'Nuevo Memoria';
+	$lang['bre_componente_mem_nuevo'] = 'Nueva Memoria';
+	$lang['bre_componente_tvideo'] = 'Tarjeta de Video';
+	$lang['bre_componente_tarjeta_nuevo'] = 'Nueva Tarjeta';

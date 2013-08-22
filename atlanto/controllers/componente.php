@@ -632,7 +632,191 @@ class Componente extends CI_Controller {
 		redirect('componente/memoria', 'refresh');
 	}
 
+	/*
+	* Tarjeta de Video
+	*/
+	public function index_tvideo()
+	{
+		$this->acceso_restringido();
 
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_componente'), '/componente');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_tvideo'), '/componente/tvideo');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$tvideo = $this->componente_model->get_tvideo();
+
+		$data = array(
+			'titulo' => $this->lang->line('titulo_comp_tvideo'),
+			'content' => 'componentes/tvideo_index_view',
+			'breadcrumbs' => $breadcrumbs,
+			'tvideo' => $tvideo
+		);
+		$this->load->view('template', $data);
+	}
+
+	public function nuevo_tvideo($id_tvideo = FALSE)
+	{
+		$this->acceso_restringido();
+
+		//Breadcrumbs
+		$this->breadcrumbs->push($this->lang->line('bre_componente'), '/componente');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_tvideo'), '/componente/tvideo');
+		$this->breadcrumbs->push($this->lang->line('bre_componente_tarjeta_nuevo'), '/componente/nuevo_tvideo');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$interfaz = $this->componente_model->get_interfaz_tarjeta();
+
+		$data = array(
+			'titulo' => $this->lang->line('bre_componente_mem_nuevo'),
+			'content' => 'componentes/tvideo_save_view',
+			'breadcrumbs' => $breadcrumbs,
+			'accion_guardar' => site_url('componente/guardar_tvideo'),
+			'accion_modificar' => site_url('componente/modificar_tvideo'),
+			'interfaz' => $interfaz
+		);
+
+		if($id_tvideo){
+			$data['componente'] = $this->componente_model->get_tvideo($id_tvideo);
+			$data['id_tvideo'] = $id_tvideo;
+		}
+
+		$this->load->view('template', $data);
+	}
+	public function guardar_tvideo()
+	{
+		$this->acceso_restringido();
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'interfaz',
+                     'label' => 'Interfaz',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'fabricante',
+                     'label' => 'Fabricante',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('componente/nuevo_tvideo', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'memoria' => $datos_recibidos['memoria'],
+				'id_interfaz' => $datos_recibidos['interfaz'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'comentarios' => $datos_recibidos['comentario'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$componente = $this->componente_model->save_tvideo($datos);
+
+			if($componente){
+				$link = anchor('componente/nuevo_tvideo/'.$componente, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('componente/tarjeta_video', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('componente/tarjeta_video', 'refresh');
+			}
+		}
+	}
+
+	public function modificar_tvideo()
+	{
+		$this->acceso_restringido();
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'interfaz',
+                     'label' => 'Interfaz',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'fabricante',
+                     'label' => 'Fabricante',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('componente/tarjeta_video', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'memoria' => $datos_recibidos['memoria'],
+				'id_interfaz' => $datos_recibidos['interfaz'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'comentarios' => $datos_recibidos['comentario'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$componente = $this->componente_model->update_tvideo($datos_recibidos['id_tvideo'],$datos);
+
+			if($componente){
+				$link = anchor('componente/nuevo_tvideo/'.$componente, $datos_recibidos['nombre']);
+				
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_config'));
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('componente/tarjeta_video', 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_modificar_usu'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('componente/tarjeta_video', 'refresh');
+			}
+		}
+	}
+
+	public function eliminar_tvideo($id)
+	{
+		$this->acceso_restringido();
+		$componente = $this->componente_model->delete_tvideo($id);
+		if(!$componente){
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_dd'));
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('componente/tarjeta_video', 'refresh');
+	}
 
 	public function acceso_restringido(){
 		if (!$this->session->userdata('ingresado')) {
