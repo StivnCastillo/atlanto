@@ -14,7 +14,9 @@ class Computador extends CI_Controller {
 					'tipo_model', 
 					'so_model', 
 					'red_model',
-					'monitor_model'
+					'monitor_model',
+					'impresora_model',
+					'dispositivo_model'
 				)
 		);
 	}
@@ -87,6 +89,18 @@ class Computador extends CI_Controller {
 			$data['con_monitores'] = $this->computador_model->get_monitor($id_computador);
 			//Todos los monitores
 			$data['lis_monitores'] = $this->monitor_model->get();
+
+			//Conexion impresoras
+			$data['con_impresoras'] = $this->computador_model->get_impresora($id_computador);
+			//Todos los impresoras
+			$data['lis_impresoras'] = $this->impresora_model->get();
+
+			//Conexion dispositivos
+			$data['con_dispositivos'] = $this->computador_model->get_dispositivo($id_computador);
+			//Todos los dispositivos
+			$data['lis_dispositivos'] = $this->dispositivo_model->get();
+
+
 		}
 
 		$this->load->view('template', $data);
@@ -110,6 +124,42 @@ class Computador extends CI_Controller {
 		}
 	}
 
+	public function conectar_impresora($id_computador)
+	{
+		$datos = array(
+			'id_impresora' => $this->input->post('id_impresora'),
+			'id_computador' => $id_computador
+		);
+
+		$conexion = $this->computador_model->save_impresora($datos);
+
+		if($conexion){
+			$this->session->set_flashdata('mensaje_con_impresora', 'Impresora conectada');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_impresora', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+	}
+
+	public function conectar_dispositivo($id_computador)
+	{
+		$datos = array(
+			'id_dispositivo' => $this->input->post('id_dispositivo'),
+			'id_computador' => $id_computador
+		);
+
+		$conexion = $this->computador_model->save_dispositivo($datos);
+
+		if($conexion){
+			$this->session->set_flashdata('mensaje_con_dispositivo', 'Dispositivo conectado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_dispositivo', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+	}
+
 	public function eliminar_monitor($id_computador, $id_conexion)
 	{
 		$this->acceso_restringido();
@@ -119,6 +169,36 @@ class Computador extends CI_Controller {
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
 			$this->session->set_flashdata('mensaje_con_monitor', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('computador/nuevo/'.$id_computador, 'refresh');
+	}
+
+	public function eliminar_impresora($id_computador, $id_conexion)
+	{
+		$this->acceso_restringido();
+		$conexion = $this->computador_model->delete_impresora($id_conexion);
+		if(!$conexion){
+			$this->session->set_flashdata('mensaje_con_impresora', 'Impresora desconectada');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_impresora', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('computador/nuevo/'.$id_computador, 'refresh');
+	}
+
+	public function eliminar_dispositivo($id_computador, $id_conexion)
+	{
+		$this->acceso_restringido();
+		$conexion = $this->computador_model->delete_dispositivo($id_conexion);
+		if(!$conexion){
+			$this->session->set_flashdata('mensaje_con_dispositivo', 'Dispositivo desconectado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_dispositivo', 'Ocurrio un error');
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 		}
 

@@ -43,6 +43,44 @@ function inicio () {
 		});
 	});
 
+	/*
+	* Agregar conexion, computador -> impresora
+	*/
+	$('#btn_com_imp').on('click', function(){
+		var accion = $("#slc_com_imp").data('url');
+		var id = $("#slc_com_imp").val();
+		var parametros = {"id_impresora":id}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+	        async: false,
+	        success: function (datos) {
+	        	location.reload(true);
+	        }
+		});
+	});
+
+	/*
+	* Agregar conexion, computador -> dispositivo
+	*/
+	$('#btn_com_dis').on('click', function(){
+		var accion = $("#slc_com_dis").data('url');
+		var id = $("#slc_com_dis").val();
+		var parametros = {"id_dispositivo":id}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+	        async: false,
+	        success: function (datos) {
+	        	location.reload(true);
+	        }
+		});
+	});
+
 
 	/*
 	* Generador de correos

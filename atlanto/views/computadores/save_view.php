@@ -242,7 +242,8 @@
 
 					<?php if (isset($computador)): ?>
 						<article class="row">
-							<div class="span5">
+							<div class="span12">
+								<!-- monitor -->
 								<div class="well">
 									<h4>
 										<i class="icon-desktop"></i>
@@ -308,111 +309,137 @@
 										</form>
 									<?php endif ?>
 								</div>
-									
-								<div class="well">
-									<h4>
-										<i class="icon-phone"></i>
-										Telefono
-									</h4>					
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>Nombre</th>
-												<th># Serie</th>
-												<th>Fabricante</th>
-												<th>Modelo</th>
-												<th>&nbsp;</th>
-											</tr>									
-										</thead>
-										<tbody>
-											<tr>
-												<td>Monitor</td>
-												<td>12384k</td>
-												<td>Samsung</td>
-												<td>T2399L</td>
-												<td colspan="4">
-													<a href="#" class="btn btn-danger btn-mini">
-														<i class="icon-remove"></i>
-													</a>
-												</td>
-											</tr>								
-										</tbody>
-									</table>
-									<!--<a href="#" class="btn btn-info">
-										<i class="icon-plus-sign"></i>
-										Agregar Monitor
-									</a>-->
-								</div>						
-							</div>
-							<div class="span5">
+								<!-- impresora -->
 								<div class="well">
 									<h4>
 										<i class="icon-print"></i>
-										Impresora
-									</h4>					
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>Nombre</th>
-												<th># Serie</th>
-												<th>Fabricante</th>
-												<th>Modelo</th>
-												<th>&nbsp;</th>
-											</tr>									
-										</thead>
-										<tbody>
-											<tr>
-												<td>Monitor</td>
-												<td>12384k</td>
-												<td>Samsung</td>
-												<td>T2399L</td>
-												<td colspan="4">
-													<a href="#" class="btn btn-danger btn-mini">
-														<i class="icon-remove"></i>
-													</a>
-												</td>
-											</tr>								
-										</tbody>
-									</table>
-									<!--<a href="#" class="btn btn-info">
-										<i class="icon-plus-sign"></i>
-										Agregar Monitor
-									</a>-->
+										Impresora 
+									</h4>
+									<?php if (isset($con_impresoras)): ?>
+
+										<!-- alertas -->
+										<?php if ($this->session->flashdata('mensaje_con_impresora')): ?>
+								    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+								    			<div class="alert alert-success">
+										            <button type="button" class="close" data-dismiss="alert">×</button>
+										            <?php echo $this->session->flashdata('mensaje_con_impresora') ?>
+									            </div>
+								    		<?php endif ?>
+										    	
+											<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+									            <div class="alert alert-error">
+										            <button type="button" class="close" data-dismiss="alert">×</button>
+										            <?php echo $this->session->flashdata('mensaje_con_impresora') ?>
+									            </div>
+									        <?php endif ?>
+								    	<?php endif ?>
+
+										<?php if ($con_impresoras): ?>
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>Nombre</th>
+														<th># Serie</th>
+														<th>Fabricante</th>
+														<th>Modelo</th>
+														<th>&nbsp;</th>
+													</tr>									
+												</thead>
+												<tbody>
+													<?php foreach ($con_impresoras as $row):?>
+														<tr>
+															<td><a href="<?php echo base_url().'impresora/nuevo/'.$row->id_impresora; ?>"><?php echo $row->nombre; ?></a></td>
+															<td><?php echo $row->n_serie; ?></td>
+															<td><?php echo $row->fabricante; ?></td>
+															<td><?php echo $row->modelo; ?></td>
+															<td colspan="4">
+																<a href="<?php echo base_url().'computador/eliminar_impresora/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+															</td>
+														</tr>
+													<?php endforeach ?>																		
+												</tbody>
+											</table>
+										<?php else: ?>
+											<p>No se Encontraron Impresoras</p>
+										<?php endif ?>
+
+
+										<form class="form-inline">
+											<label for="id_impresora">Conectar Impresora</label>
+											<select name="id_impresora" id="slc_com_imp" data-url="<?php echo base_url().'computador/conectar_impresora/'.$id_computador; ?>">
+												<?php foreach ($lis_impresoras as $row): ?>												
+													<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
+												<?php endforeach ?>
+											</select>
+											<button type="button" class="btn btn-info" id="btn_com_imp"><i class="icon-plus-sign"></i></button>
+										</form>
+									<?php endif ?>
 								</div>
-									
+								<!-- dispositivo -->									
 								<div class="well">
 									<h4>
-										<i class="icon-keyboard"></i>
-										Dispositivo
-									</h4>					
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>Nombre</th>
-												<th># Serie</th>
-												<th>Fabricante</th>
-												<th>Modelo</th>
-												<th>&nbsp;</th>
-											</tr>									
-										</thead>
-										<tbody>
-											<tr>
-												<td>Monitor</td>
-												<td>12384k</td>
-												<td>Samsung</td>
-												<td>T2399L</td>
-												<td colspan="4">
-													<a href="#" class="btn btn-danger btn-mini">
-														<i class="icon-remove"></i>
-													</a>
-												</td>
-											</tr>								
-										</tbody>
-									</table>
-									<!--<a href="#" class="btn btn-info">
-										<i class="icon-plus-sign"></i>
-										Agregar Monitor
-									</a>-->
+										<i class="icon-print"></i>
+										Dispositivo 
+									</h4>
+									<?php if (isset($con_dispositivos)): ?>
+
+										<!-- alertas -->
+										<?php if ($this->session->flashdata('mensaje_con_dispositivo')): ?>
+								    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+								    			<div class="alert alert-success">
+										            <button type="button" class="close" data-dismiss="alert">×</button>
+										            <?php echo $this->session->flashdata('mensaje_con_dispositivo') ?>
+									            </div>
+								    		<?php endif ?>
+										    	
+											<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+									            <div class="alert alert-error">
+										            <button type="button" class="close" data-dismiss="alert">×</button>
+										            <?php echo $this->session->flashdata('mensaje_con_dispositivo') ?>
+									            </div>
+									        <?php endif ?>
+								    	<?php endif ?>
+
+										<?php if ($con_dispositivos): ?>
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>Nombre</th>
+														<th># Serie</th>
+														<th>Fabricante</th>
+														<th>Modelo</th>
+														<th>&nbsp;</th>
+													</tr>									
+												</thead>
+												<tbody>
+													<?php foreach ($con_dispositivos as $row):?>
+														<tr>
+															<td><a href="<?php echo base_url().'dispositivo/nuevo/'.$row->id_dispositivo; ?>"><?php echo $row->nombre; ?></a></td>
+															<td><?php echo $row->n_serie; ?></td>
+															<td><?php echo $row->fabricante; ?></td>
+															<td><?php echo $row->modelo; ?></td>
+															<td colspan="4">
+																<a href="<?php echo base_url().'computador/eliminar_dispositivo/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+															</td>
+														</tr>
+													<?php endforeach ?>																		
+												</tbody>
+											</table>
+										<?php else: ?>
+											<p>No se Encontraron dispositivos</p>
+										<?php endif ?>
+
+
+										<form class="form-inline">
+											<label for="id_dispositivo">Conectar Dispositivo</label>
+											<select name="id_dispositivo" id="slc_com_dis" data-url="<?php echo base_url().'computador/conectar_dispositivo/'.$id_computador; ?>">
+												<?php foreach ($lis_dispositivos as $row): ?>												
+													<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
+												<?php endforeach ?>
+											</select>
+											<button type="button" class="btn btn-info" id="btn_com_dis"><i class="icon-plus-sign"></i></button>
+										</form>
+									<?php endif ?>
 								</div>						
 							</div>
 						</article>

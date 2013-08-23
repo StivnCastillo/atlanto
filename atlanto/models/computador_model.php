@@ -10,9 +10,18 @@ class Computador_model extends CI_Model {
     private $tabla_red = 'red';
     private $tabla_so = 'sistema_operativo';
     private $tabla_so_tipo = 'sistema_tipo';
+
     //conexion monitor
     private $tabla_con_monitor = 'computador_monitor';
 	private $tabla_mon = 'monitor';
+
+    //conexion impresora
+    private $tabla_con_impresora = 'computador_impresora';
+    private $tabla_imp = 'impresora';
+
+    //conexion dispositivo
+    private $tabla_con_dispositivo = 'computador_dispositivo';
+    private $tabla_disp = 'dispositivo';
 
 	function __construct() {
         // Call the Model constructor
@@ -39,9 +48,39 @@ class Computador_model extends CI_Model {
         }
     }
 
+    //guarda conexion con impresora
+    function save_impresora($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_impresora), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    //guarda conexion con dispositivo
+    function save_dispositivo($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_dispositivo), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
     function delete_monitor($id) {
         $this->db->where('id', $id);
         $this->db->delete($this->db->dbprefix($this->tabla_con_monitor));
+    }
+
+    function delete_impresora($id) {
+        $this->db->where('id', $id);
+        $this->db->delete($this->db->dbprefix($this->tabla_con_impresora));
+    }
+
+    function delete_dispositivo($id) {
+        $this->db->where('id', $id);
+        $this->db->delete($this->db->dbprefix($this->tabla_con_dispositivo));
     }
 
     //Traer computador
@@ -165,6 +204,56 @@ class Computador_model extends CI_Model {
                 )
 
                 WHERE ".$this->db->dbprefix($this->tabla_con_monitor).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    function get_impresora($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_impresora).".id,
+                ".$this->db->dbprefix($this->tabla_con_impresora).".id_impresora,
+                ".$this->db->dbprefix($this->tabla_imp).".nombre,
+                ".$this->db->dbprefix($this->tabla_imp).".n_serie,
+                ".$this->db->dbprefix($this->tabla_imp).".modelo,
+                ".$this->db->dbprefix($this->tabla_imp).".fabricante
+
+                FROM ".$this->db->dbprefix($this->tabla_con_impresora)." 
+
+                LEFT JOIN(".$this->db->dbprefix($this->tabla).", ".$this->db->dbprefix($this->tabla_imp).")
+                ON(
+                ".$this->db->dbprefix($this->tabla).".id = ".$this->db->dbprefix($this->tabla_con_impresora).".id_computador AND
+                ".$this->db->dbprefix($this->tabla_imp).".id = ".$this->db->dbprefix($this->tabla_con_impresora).".id_impresora
+                )
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_impresora).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    function get_dispositivo($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_dispositivo).".id,
+                ".$this->db->dbprefix($this->tabla_con_dispositivo).".id_dispositivo,
+                ".$this->db->dbprefix($this->tabla_disp).".nombre,
+                ".$this->db->dbprefix($this->tabla_disp).".n_serie,
+                ".$this->db->dbprefix($this->tabla_disp).".modelo,
+                ".$this->db->dbprefix($this->tabla_disp).".fabricante
+
+                FROM ".$this->db->dbprefix($this->tabla_con_dispositivo)." 
+
+                LEFT JOIN(".$this->db->dbprefix($this->tabla).", ".$this->db->dbprefix($this->tabla_disp).")
+                ON(
+                ".$this->db->dbprefix($this->tabla).".id = ".$this->db->dbprefix($this->tabla_con_dispositivo).".id_computador AND
+                ".$this->db->dbprefix($this->tabla_disp).".id = ".$this->db->dbprefix($this->tabla_con_dispositivo).".id_dispositivo
+                )
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_dispositivo).".id_computador = ".$id_computador);
         if ($query->num_rows() > 0){
             return $query->result();
         }else{

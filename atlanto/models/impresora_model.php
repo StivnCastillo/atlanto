@@ -24,7 +24,7 @@ class Impresora_model extends CI_Model {
         }
     }
 
-    //Traer computador
+    //Traer impresora
     function get($id = FALSE) {
         $where = '1';
         if ($id) {
