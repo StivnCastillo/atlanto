@@ -243,204 +243,234 @@
 					<?php if (isset($computador)): ?>
 						<article class="row">
 							<div class="span12">
-								<!-- monitor -->
-								<div class="well">
-									<h4>
-										<i class="icon-desktop"></i>
-										Monitor 
-									</h4>
-									<?php if (isset($con_monitores)): ?>
+								<div class="accordion" id="conexiones">
+									<!-- pestaña 1 -->
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#conexiones" href="#pes_monitor">
+												<i class="icon-desktop"></i>
+												Monitor
+											</a>
+										</div>
+										<div id="pes_monitor" class="accordion-body collapse in">
+											<div class="accordion-inner">
+												<!-- monitor -->
+												<div class="well">
+													<?php if (isset($con_monitores)): ?>
 
-										<!-- alertas -->
-										<?php if ($this->session->flashdata('mensaje_con_monitor')): ?>
-								    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
-								    			<div class="alert alert-success">
-										            <button type="button" class="close" data-dismiss="alert">×</button>
-										            <?php echo $this->session->flashdata('mensaje_con_monitor') ?>
-									            </div>
-								    		<?php endif ?>
-										    	
-											<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
-									            <div class="alert alert-error">
-										            <button type="button" class="close" data-dismiss="alert">×</button>
-										            <?php echo $this->session->flashdata('mensaje_con_monitor') ?>
-									            </div>
-									        <?php endif ?>
-								    	<?php endif ?>
+														<!-- alertas -->
+														<?php if ($this->session->flashdata('mensaje_con_monitor')): ?>
+												    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+												    			<div class="alert alert-success">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_monitor') ?>
+													            </div>
+												    		<?php endif ?>
+														    	
+															<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+													            <div class="alert alert-error">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_monitor') ?>
+													            </div>
+													        <?php endif ?>
+												    	<?php endif ?>
 
-										<?php if ($con_monitores): ?>
-											<table class="table table-bordered">
-												<thead>
-													<tr>
-														<th>Nombre</th>
-														<th># Serie</th>
-														<th>Fabricante</th>
-														<th>Modelo</th>
-														<th>&nbsp;</th>
-													</tr>									
-												</thead>
-												<tbody>
-													<?php foreach ($con_monitores as $row):?>
-														<tr>
-															<td><a href="<?php echo base_url().'monitor/nuevo/'.$row->id_monitor; ?>"><?php echo $row->nombre; ?></a></td>
-															<td><?php echo $row->n_serie; ?></td>
-															<td><?php echo $row->fabricante; ?></td>
-															<td><?php echo $row->modelo; ?></td>
-															<td colspan="4">
-																<a href="<?php echo base_url().'computador/eliminar_monitor/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
-															</td>
-														</tr>
-													<?php endforeach ?>																		
-												</tbody>
-											</table>
-										<?php else: ?>
-											<p>No se Encontraron Monitores</p>
-										<?php endif ?>
+														<?php if ($con_monitores): ?>
+															<table class="table table-bordered">
+																<thead>
+																	<tr>
+																		<th>Nombre</th>
+																		<th># Serie</th>
+																		<th>Fabricante</th>
+																		<th>Modelo</th>
+																		<th>&nbsp;</th>
+																	</tr>									
+																</thead>
+																<tbody>
+																	<?php foreach ($con_monitores as $row):?>
+																		<tr>
+																			<td><a href="<?php echo base_url().'monitor/nuevo/'.$row->id_monitor; ?>"><?php echo $row->nombre; ?></a></td>
+																			<td><?php echo $row->n_serie; ?></td>
+																			<td><?php echo $row->fabricante; ?></td>
+																			<td><?php echo $row->modelo; ?></td>
+																			<td colspan="4">
+																				<a href="<?php echo base_url().'computador/eliminar_monitor/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+																			</td>
+																		</tr>
+																	<?php endforeach ?>																		
+																</tbody>
+															</table>
+														<?php else: ?>
+															<p>No se Encontraron Monitores</p>
+														<?php endif ?>
 
 
-										<form class="form-inline">
-											<label for="id_monitor">Conectar Monitor</label>
-											<select name="id_monitor" id="slc_com_mon" data-url="<?php echo base_url().'computador/conectar_monitor/'.$id_computador; ?>">
-												<?php foreach ($lis_monitores as $row): ?>												
-													<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
-												<?php endforeach ?>
-											</select>
-											<button type="button" class="btn btn-info" id="btn_com_mon"><i class="icon-plus-sign"></i></button>
-										</form>
-									<?php endif ?>
+														<form class="form-inline">
+															<label for="id_monitor">Conectar Monitor</label>
+															<select name="id_monitor" id="slc_com_mon" data-url="<?php echo base_url().'computador/conectar_monitor/'.$id_computador; ?>">
+																<?php foreach ($lis_monitores as $row): ?>												
+																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
+																<?php endforeach ?>
+															</select>
+															<button type="button" class="btn btn-info" id="btn_com_mon"><i class="icon-plus-sign"></i></button>
+														</form>
+													<?php endif ?>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- pestaña 2 -->
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#conexiones" href="#pes_impresora">
+												<i class="icon-print"></i>
+												Impresora
+											</a>
+										</div>
+										<div id="pes_impresora" class="accordion-body collapse">
+											<div class="accordion-inner">
+												<!-- impresora -->
+												<div class="well">
+													<?php if (isset($con_impresoras)): ?>
+
+														<!-- alertas -->
+														<?php if ($this->session->flashdata('mensaje_con_impresora')): ?>
+												    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+												    			<div class="alert alert-success">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_impresora') ?>
+													            </div>
+												    		<?php endif ?>
+														    	
+															<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+													            <div class="alert alert-error">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_impresora') ?>
+													            </div>
+													        <?php endif ?>
+												    	<?php endif ?>
+
+														<?php if ($con_impresoras): ?>
+															<table class="table table-bordered">
+																<thead>
+																	<tr>
+																		<th>Nombre</th>
+																		<th># Serie</th>
+																		<th>Fabricante</th>
+																		<th>Modelo</th>
+																		<th>&nbsp;</th>
+																	</tr>									
+																</thead>
+																<tbody>
+																	<?php foreach ($con_impresoras as $row):?>
+																		<tr>
+																			<td><a href="<?php echo base_url().'impresora/nuevo/'.$row->id_impresora; ?>"><?php echo $row->nombre; ?></a></td>
+																			<td><?php echo $row->n_serie; ?></td>
+																			<td><?php echo $row->fabricante; ?></td>
+																			<td><?php echo $row->modelo; ?></td>
+																			<td colspan="4">
+																				<a href="<?php echo base_url().'computador/eliminar_impresora/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+																			</td>
+																		</tr>
+																	<?php endforeach ?>																		
+																</tbody>
+															</table>
+														<?php else: ?>
+															<p>No se Encontraron Impresoras</p>
+														<?php endif ?>
+
+
+														<form class="form-inline">
+															<label for="id_impresora">Conectar Impresora</label>
+															<select name="id_impresora" id="slc_com_imp" data-url="<?php echo base_url().'computador/conectar_impresora/'.$id_computador; ?>">
+																<?php foreach ($lis_impresoras as $row): ?>												
+																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
+																<?php endforeach ?>
+															</select>
+															<button type="button" class="btn btn-info" id="btn_com_imp"><i class="icon-plus-sign"></i></button>
+														</form>
+													<?php endif ?>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- pestaña 3 -->
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#conexiones" href="#pes_dispositivo">
+												<i class="icon-keyboard"></i>
+												Dispositivo
+											</a>
+										</div>
+										<div id="pes_dispositivo" class="accordion-body collapse">
+											<div class="accordion-inner">
+												<!-- dispositivo -->									
+												<div class="well">
+													<?php if (isset($con_dispositivos)): ?>
+
+														<!-- alertas -->
+														<?php if ($this->session->flashdata('mensaje_con_dispositivo')): ?>
+												    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+												    			<div class="alert alert-success">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_dispositivo') ?>
+													            </div>
+												    		<?php endif ?>
+														    	
+															<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+													            <div class="alert alert-error">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_dispositivo') ?>
+													            </div>
+													        <?php endif ?>
+												    	<?php endif ?>
+
+														<?php if ($con_dispositivos): ?>
+															<table class="table table-bordered">
+																<thead>
+																	<tr>
+																		<th>Nombre</th>
+																		<th># Serie</th>
+																		<th>Fabricante</th>
+																		<th>Modelo</th>
+																		<th>&nbsp;</th>
+																	</tr>									
+																</thead>
+																<tbody>
+																	<?php foreach ($con_dispositivos as $row):?>
+																		<tr>
+																			<td><a href="<?php echo base_url().'dispositivo/nuevo/'.$row->id_dispositivo; ?>"><?php echo $row->nombre; ?></a></td>
+																			<td><?php echo $row->n_serie; ?></td>
+																			<td><?php echo $row->fabricante; ?></td>
+																			<td><?php echo $row->modelo; ?></td>
+																			<td colspan="4">
+																				<a href="<?php echo base_url().'computador/eliminar_dispositivo/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+																			</td>
+																		</tr>
+																	<?php endforeach ?>																		
+																</tbody>
+															</table>
+														<?php else: ?>
+															<p>No se Encontraron dispositivos</p>
+														<?php endif ?>
+
+
+														<form class="form-inline">
+															<label for="id_dispositivo">Conectar Dispositivo</label>
+															<select name="id_dispositivo" id="slc_com_dis" data-url="<?php echo base_url().'computador/conectar_dispositivo/'.$id_computador; ?>">
+																<?php foreach ($lis_dispositivos as $row): ?>												
+																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
+																<?php endforeach ?>
+															</select>
+															<button type="button" class="btn btn-info" id="btn_com_dis"><i class="icon-plus-sign"></i></button>
+														</form>
+													<?php endif ?>
+												</div>
+											</div>
+										</div>
+									</div>
+
 								</div>
-								<!-- impresora -->
-								<div class="well">
-									<h4>
-										<i class="icon-print"></i>
-										Impresora 
-									</h4>
-									<?php if (isset($con_impresoras)): ?>
-
-										<!-- alertas -->
-										<?php if ($this->session->flashdata('mensaje_con_impresora')): ?>
-								    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
-								    			<div class="alert alert-success">
-										            <button type="button" class="close" data-dismiss="alert">×</button>
-										            <?php echo $this->session->flashdata('mensaje_con_impresora') ?>
-									            </div>
-								    		<?php endif ?>
-										    	
-											<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
-									            <div class="alert alert-error">
-										            <button type="button" class="close" data-dismiss="alert">×</button>
-										            <?php echo $this->session->flashdata('mensaje_con_impresora') ?>
-									            </div>
-									        <?php endif ?>
-								    	<?php endif ?>
-
-										<?php if ($con_impresoras): ?>
-											<table class="table table-bordered">
-												<thead>
-													<tr>
-														<th>Nombre</th>
-														<th># Serie</th>
-														<th>Fabricante</th>
-														<th>Modelo</th>
-														<th>&nbsp;</th>
-													</tr>									
-												</thead>
-												<tbody>
-													<?php foreach ($con_impresoras as $row):?>
-														<tr>
-															<td><a href="<?php echo base_url().'impresora/nuevo/'.$row->id_impresora; ?>"><?php echo $row->nombre; ?></a></td>
-															<td><?php echo $row->n_serie; ?></td>
-															<td><?php echo $row->fabricante; ?></td>
-															<td><?php echo $row->modelo; ?></td>
-															<td colspan="4">
-																<a href="<?php echo base_url().'computador/eliminar_impresora/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
-															</td>
-														</tr>
-													<?php endforeach ?>																		
-												</tbody>
-											</table>
-										<?php else: ?>
-											<p>No se Encontraron Impresoras</p>
-										<?php endif ?>
-
-
-										<form class="form-inline">
-											<label for="id_impresora">Conectar Impresora</label>
-											<select name="id_impresora" id="slc_com_imp" data-url="<?php echo base_url().'computador/conectar_impresora/'.$id_computador; ?>">
-												<?php foreach ($lis_impresoras as $row): ?>												
-													<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
-												<?php endforeach ?>
-											</select>
-											<button type="button" class="btn btn-info" id="btn_com_imp"><i class="icon-plus-sign"></i></button>
-										</form>
-									<?php endif ?>
-								</div>
-								<!-- dispositivo -->									
-								<div class="well">
-									<h4>
-										<i class="icon-print"></i>
-										Dispositivo 
-									</h4>
-									<?php if (isset($con_dispositivos)): ?>
-
-										<!-- alertas -->
-										<?php if ($this->session->flashdata('mensaje_con_dispositivo')): ?>
-								    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
-								    			<div class="alert alert-success">
-										            <button type="button" class="close" data-dismiss="alert">×</button>
-										            <?php echo $this->session->flashdata('mensaje_con_dispositivo') ?>
-									            </div>
-								    		<?php endif ?>
-										    	
-											<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
-									            <div class="alert alert-error">
-										            <button type="button" class="close" data-dismiss="alert">×</button>
-										            <?php echo $this->session->flashdata('mensaje_con_dispositivo') ?>
-									            </div>
-									        <?php endif ?>
-								    	<?php endif ?>
-
-										<?php if ($con_dispositivos): ?>
-											<table class="table table-bordered">
-												<thead>
-													<tr>
-														<th>Nombre</th>
-														<th># Serie</th>
-														<th>Fabricante</th>
-														<th>Modelo</th>
-														<th>&nbsp;</th>
-													</tr>									
-												</thead>
-												<tbody>
-													<?php foreach ($con_dispositivos as $row):?>
-														<tr>
-															<td><a href="<?php echo base_url().'dispositivo/nuevo/'.$row->id_dispositivo; ?>"><?php echo $row->nombre; ?></a></td>
-															<td><?php echo $row->n_serie; ?></td>
-															<td><?php echo $row->fabricante; ?></td>
-															<td><?php echo $row->modelo; ?></td>
-															<td colspan="4">
-																<a href="<?php echo base_url().'computador/eliminar_dispositivo/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
-															</td>
-														</tr>
-													<?php endforeach ?>																		
-												</tbody>
-											</table>
-										<?php else: ?>
-											<p>No se Encontraron dispositivos</p>
-										<?php endif ?>
-
-
-										<form class="form-inline">
-											<label for="id_dispositivo">Conectar Dispositivo</label>
-											<select name="id_dispositivo" id="slc_com_dis" data-url="<?php echo base_url().'computador/conectar_dispositivo/'.$id_computador; ?>">
-												<?php foreach ($lis_dispositivos as $row): ?>												
-													<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
-												<?php endforeach ?>
-											</select>
-											<button type="button" class="btn btn-info" id="btn_com_dis"><i class="icon-plus-sign"></i></button>
-										</form>
-									<?php endif ?>
-								</div>						
 							</div>
 						</article>
 					<?php endif ?>
