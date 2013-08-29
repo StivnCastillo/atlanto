@@ -1,6 +1,19 @@
 <?php 
 	$ci = &get_instance();
 ?>
+<?php if (isset($computador)): ?>
+	<article class="well">
+		<form class="form-inline">
+			
+			<select class="span2" name="imprimir" id="slc_imprimir">
+				<option value="1"><?php echo $ci->lang->line('slc_imp_pdf'); ?></option>
+				<option value="2"><?php echo $ci->lang->line('slc_imp_excel'); ?></option>
+			</select>
+			<a href="<?php echo base_url().'reporte'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_reporte') ?>"><i class="icon icon-print icon-white"></i></a>
+			
+		</form>
+	</article>
+<?php endif ?>
 <div class="tabbable">
 			<!-- MENU AGREGAR COMPUTADOR -->
 			<ul class="nav nav-tabs">
@@ -287,6 +300,7 @@
 																	</tr>									
 																</thead>
 																<tbody>
+																	<?php $i = 0;$monitores_conectados = array(); ?>
 																	<?php foreach ($con_monitores as $row):?>
 																		<tr>
 																			<td><a href="<?php echo base_url().'monitor/nuevo/'.$row->id_monitor; ?>"><?php echo $row->nombre; ?></a></td>
@@ -297,6 +311,7 @@
 																				<a href="<?php echo base_url().'computador/eliminar_monitor/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
 																			</td>
 																		</tr>
+																		<?php $monitores_conectados[$i++] = $row->id_monitor;?>
 																	<?php endforeach ?>																		
 																</tbody>
 															</table>
@@ -304,11 +319,10 @@
 															<p>No se Encontraron Monitores</p>
 														<?php endif ?>
 
-
 														<form class="form-inline">
 															<label for="id_monitor">Conectar Monitor</label>
 															<select name="id_monitor" id="slc_com_mon" data-url="<?php echo base_url().'computador/conectar_monitor/'.$id_computador; ?>">
-																<?php foreach ($lis_monitores as $row): ?>												
+																<?php foreach ($lis_monitores as $row): ?>
 																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
 																<?php endforeach ?>
 															</select>
@@ -362,6 +376,7 @@
 																	</tr>									
 																</thead>
 																<tbody>
+																	<?php $i = 0;$impresoras_conectados = array(); ?>
 																	<?php foreach ($con_impresoras as $row):?>
 																		<tr>
 																			<td><a href="<?php echo base_url().'impresora/nuevo/'.$row->id_impresora; ?>"><?php echo $row->nombre; ?></a></td>
@@ -372,6 +387,7 @@
 																				<a href="<?php echo base_url().'computador/eliminar_impresora/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
 																			</td>
 																		</tr>
+																		<?php $impresoras_conectados[$i++] = $row->id_impresora;?>
 																	<?php endforeach ?>																		
 																</tbody>
 															</table>
@@ -383,7 +399,7 @@
 														<form class="form-inline">
 															<label for="id_impresora">Conectar Impresora</label>
 															<select name="id_impresora" id="slc_com_imp" data-url="<?php echo base_url().'computador/conectar_impresora/'.$id_computador; ?>">
-																<?php foreach ($lis_impresoras as $row): ?>												
+																<?php foreach ($lis_impresoras as $row): ?>																																													
 																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
 																<?php endforeach ?>
 															</select>
@@ -437,6 +453,7 @@
 																	</tr>									
 																</thead>
 																<tbody>
+																	<?php $i = 0;$dispositivos_conectados = array(); ?>
 																	<?php foreach ($con_dispositivos as $row):?>
 																		<tr>
 																			<td><a href="<?php echo base_url().'dispositivo/nuevo/'.$row->id_dispositivo; ?>"><?php echo $row->nombre; ?></a></td>
@@ -447,6 +464,7 @@
 																				<a href="<?php echo base_url().'computador/eliminar_dispositivo/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
 																			</td>
 																		</tr>
+																		<?php $dispositivos_conectados[$i++] = $row->id_dispositivo;?>
 																	<?php endforeach ?>																		
 																</tbody>
 															</table>
@@ -458,8 +476,8 @@
 														<form class="form-inline">
 															<label for="id_dispositivo">Conectar Dispositivo</label>
 															<select name="id_dispositivo" id="slc_com_dis" data-url="<?php echo base_url().'computador/conectar_dispositivo/'.$id_computador; ?>">
-																<?php foreach ($lis_dispositivos as $row): ?>												
-																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
+																<?php foreach ($lis_dispositivos as $row): ?>																																					
+																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?></option>
 																<?php endforeach ?>
 															</select>
 															<button type="button" class="btn btn-info" id="btn_com_dis"><i class="icon-plus-sign"></i></button>
@@ -471,6 +489,153 @@
 									</div>
 
 								</div>
+							</div>
+						</article>
+
+						<article class="row-fluid">
+							<div class="well">
+								<form action="<?php echo $accion_componente; ?>" class="form-inline" method="POST">
+									<label for="componente">Componente</label>
+									<select name="componente" id="slc_componente" required>
+										<option value="">--</option>
+
+										<?php if ($discosduro): ?>												
+											<option value="discoduro">Disco Duro</option>
+										<?php endif ?>
+
+										<?php if ($procesadores): ?>												
+											<option value="procesador">Procesador</option>
+										<?php endif ?>
+
+										<?php if ($memorias): ?>												
+											<option value="memoria">Memoria</option>
+										<?php endif ?>
+
+										<?php if ($tvideo): ?>												
+											<option value="tvideo">Tarjeta de Video</option>
+										<?php endif ?>
+									</select>
+									<select name="id_componente" id="slc_nombre_componente" required>
+										<option value="">--</option>
+
+										<?php if ($discosduro): ?>
+											<?php foreach ($discosduro as $row): ?>													
+												<option value="<?php echo $row->id ?>" class="discoduro"><?php echo $row->nombre; ?></option>
+											<?php endforeach ?>
+										<?php endif ?>
+
+										<?php if ($procesadores): ?>
+											<?php foreach ($procesadores as $row): ?>													
+												<option value="<?php echo $row->id ?>" class="procesador"><?php echo $row->nombre; ?></option>
+											<?php endforeach ?>
+										<?php endif ?>
+
+										<?php if ($memorias): ?>
+											<?php foreach ($memorias as $row): ?>													
+												<option value="<?php echo $row->id ?>" class="memoria"><?php echo $row->nombre.' '.$row->tamano.'GB'; ?></option>
+											<?php endforeach ?>
+										<?php endif ?>
+
+										<?php if ($tvideo): ?>
+											<?php foreach ($tvideo as $row): ?>													
+												<option value="<?php echo $row->id ?>" class="tvideo"><?php echo $row->nombre; ?></option>
+											<?php endforeach ?>
+										<?php endif ?>
+
+									</select>
+									<input type="number" name="cantidad" id="cantidad" class="spinner span1" value="1">
+									<button type="submit" class="btn btn-info" id="btn_com_dis"><i class="icon-plus-sign"></i></button>
+								</form>
+								<br>
+
+								<!-- alertas -->
+								<?php if ($this->session->flashdata('mensaje_con_componente')): ?>
+						    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+						    			<div class="alert alert-success">
+								            <button type="button" class="close" data-dismiss="alert">×</button>
+								            <?php echo $this->session->flashdata('mensaje_con_componente') ?>
+							            </div>
+						    		<?php endif ?>
+								    	
+									<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+							            <div class="alert alert-error">
+								            <button type="button" class="close" data-dismiss="alert">×</button>
+								            <?php echo $this->session->flashdata('mensaje_con_componente') ?>
+							            </div>
+							        <?php endif ?>
+						    	<?php endif ?>
+								<table class="table table-bordered tabla">
+									<thead>
+										<tr>
+											<th style="width:20%;">Cantidad</th>
+											<th>Componente</th>
+											<th>Nombre</th>
+											<th>Fabricante</th>
+											<th>&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php if ($discoduro_con): ?>
+											<?php foreach ($discoduro_con as $row): ?>
+												<tr>
+													<td><input type="number" name="cantidad" id="cantidad" class="spinner span5" value="<?php echo $row->cantidad; ?>"></td>
+													<td>Disco Duro</td>
+													<td><?php echo $row->nombre; ?></td>
+													<td><?php echo $row->fabricante; ?></td>
+													<td colspan="4">
+														<a href="<?php echo base_url().'computador/desconectar_componente/'.$id_computador.'/'.$row->id.'/1'; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+														<a href="<?php echo base_url().'computador/modificar_componente/'.$id_computador.'/'.$row->id.'/1'; ?>" class="btn btn-info btn-mini"><i class="icon-wrench"></i></a>
+													</td>
+												</tr>
+											<?php endforeach ?>
+										<?php endif ?>
+
+										<?php if ($memoria_con): ?>
+											<?php foreach ($memoria_con as $row): ?>
+												<tr>
+													<td><input type="number" name="cantidad" id="cantidad" class="spinner span5" value="<?php echo $row->cantidad; ?>"></td>
+													<td>Memoria</td>
+													<td><?php echo $row->nombre.' '.$row->tamano.'GB'; ?></td>
+													<td><?php echo $row->fabricante; ?></td>
+													<td colspan="4">
+														<a href="<?php echo base_url().'computador/desconectar_componente/'.$id_computador.'/'.$row->id.'/2'; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+														<a href="<?php echo base_url().'computador/modificar_componente/'.$id_computador.'/'.$row->id.'/2'; ?>" class="btn btn-info btn-mini"><i class="icon-wrench"></i></a>
+													</td>
+												</tr>
+											<?php endforeach ?>
+										<?php endif ?>
+
+										<?php if ($procesador_con): ?>
+											<?php foreach ($procesador_con as $row): ?>
+												<tr>
+													<td><input type="number" name="cantidad" id="cantidad" class="spinner span5" value="<?php echo $row->cantidad; ?>"></td>
+													<td>Procesador</td>
+													<td><?php echo $row->nombre; ?></td>
+													<td><?php echo $row->fabricante; ?></td>
+													<td colspan="4">
+														<a href="<?php echo base_url().'computador/desconectar_componente/'.$id_computador.'/'.$row->id.'/3'; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+														<a href="<?php echo base_url().'computador/modificar_componente/'.$id_computador.'/'.$row->id.'/3'; ?>" class="btn btn-info btn-mini"><i class="icon-wrench"></i></a>
+													</td>
+												</tr>
+											<?php endforeach ?>
+										<?php endif ?>
+
+										<?php if ($tvideo_con): ?>
+											<?php foreach ($tvideo_con as $row): ?>
+												<tr>
+													<td><input type="number" name="cantidad" id="cantidad" class="spinner span5" value="<?php echo $row->cantidad; ?>"></td>
+													<td>Tarjeta de Video</td>
+													<td><?php echo $row->nombre; ?></td>
+													<td><?php echo $row->fabricante; ?></td>
+													<td colspan="4">
+														<a href="<?php echo base_url().'computador/desconectar_componente/'.$id_computador.'/'.$row->id.'/4'; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+														<a href="<?php echo base_url().'computador/modificar_componente/'.$id_computador.'/'.$row->id.'/4'; ?>" class="btn btn-info btn-mini"><i class="icon-wrench"></i></a>
+													</td>
+												</tr>
+											<?php endforeach ?>
+										<?php endif ?>
+									</tbody>
+								</table>								
 							</div>
 						</article>
 					<?php endif ?>

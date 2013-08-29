@@ -6,7 +6,12 @@ class Reporte extends CI_Controller {
 		parent::__construct();
 		//$this->load->helper(array('form'));
 		$this->load->library(array('pdf', 'table'));
-		$this->load->model(array('tarea_model', 'config_model', 'usuario_model'));
+		$this->load->model(array(
+			'tarea_model', 
+			'config_model', 
+			'usuario_model', 
+			'computador_model'
+		));
 	}
 
 	public function index()
@@ -227,6 +232,161 @@ class Reporte extends CI_Controller {
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 		// Cerrar el documento PDF y preparamos la salida
         $nombre_archivo = utf8_decode($datos_recibidos['nombre_archivo']."_".date('Y-m-d').".pdf");
+        $pdf->Output($nombre_archivo, 'I');
+    }
+
+    public function informe_computador($id_computador)
+    {
+		//traigo configuraciones generales
+		$config = $this->config_model->get(array('id' => 1));
+		//COLOCAR TODO DESDE LAS CONFIGURACIONES DE LOS REPORTES
+		//crear instancia de la clase y propiedades del archivo
+		$pdf = new Pdf('P', 'mm', $config->repo_formato, true, 'UTF-8', false);
+		$pdf->SetCreator($config->repo_creador);
+        $pdf->SetAuthor($config->repo_autor);
+        $pdf->SetTitle('Reporte Computador');
+        $pdf->SetSubject('Reporte Computador');
+
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'Computador', $config->repo_leyenda, array(0, 0, 0), array(0, 0, 0));
+        $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
+
+        //fuente de los titulos de la tabla y el cuerpo
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', 10));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 8));
+ 
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+ 
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+ 
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+ 
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        // establecer el modo de fuente por defecto
+        $pdf->setFontSubsetting(true);
+  
+		// Añadir una página
+		// Este método tiene varias opciones, consulta la documentación para más información.
+
+        $pdf->AddPage($config->repo_horientacion);
+
+        //preparamos y maquetamos el contenido a crear
+        $html = '';
+        $html .= "<style type=text/css>";
+        $html .= "table{width: 100%;border: solid 1px black; font-size: 8px;}";
+        $html .= "th{color: #fff; font-weight: bold; background-color: #222;font-size: 10px;}";
+        $html .= "</style>";
+        $html .= "<h4>".'Datos del Equipo'."</h4>";
+
+        $computador = $this->computador_model->get($id_computador);
+        $monitores = $this->computador_model->get_monitor($id_computador);
+        $impresoras = $this->computador_model->get_impresora($id_computador);
+        $dispositivos = $this->computador_model->get_dispositivo($id_computador);
+        if ($computador) {
+    		$html .= '
+        		<table>
+        			<tr>
+        				<th>Nombre de equipo</th>
+        				<td>'.$computador->nombre_computador.'</td>
+        				<th>Numero de Serie</th>
+        				<td>'.$computador->n_serie.'</td>
+        			</tr>
+        			<tr>
+        				<th>Tipo</th>
+        				<td>'.$computador->com_tipo.'</td>
+        				<th>Estado</th>
+        				<td>'.$computador->estado.'</td>
+        			</tr>
+        			<tr>
+        				<th>Fabricante</th>
+        				<td>'.$computador->fabricante.'</td>
+        				<th>Modelo</th>
+        				<td>'.$computador->modelo.'</td>
+        			</tr>
+        			<tr>
+        				<th>Numero de Activo</th>
+        				<td>'.$computador->n_activo.'</td>
+        				<th>Usuario</th>
+        				<td>'.$computador->nombre_usuario.'</td>
+        			</tr>
+        			<tr>
+        				<th>Dominio</th>
+        				<td>'.$computador->dominio.'</td>
+        				<th>Red</th>
+        				<td>'.$computador->red.'</td>
+        			</tr>
+        			<tr>
+        				<th>Ubicación</th>
+        				<td>'.$computador->ubicacion.'</td>
+        				<th>Sistema Operativo</th>
+        				<td>'.$computador->sistema_operativo." ".$computador->version." ".$computador->tipo_so.'</td>
+        			</tr>
+        			<tr>
+        				<th>Comentarios</th>
+        				<td colspan="3">'.$computador->comentarios.'</td>
+        			</tr>
+        		</table>
+        	';
+
+        	$html .= "<h4>".'Conexiones'."</h4>";
+
+        	$html .= '<table>';
+        	$html .= '<tr>
+	        				<th>Tipo</th>	        				
+	        				<th>Nombre</th>							
+	        				<th>Numero de Serie</th>	        				
+	        				<th>Fabricante</th>	        				
+	        				<th>Modelo</th>	        				
+	        			</tr>';
+
+	        if ($monitores) {	        	
+	        	foreach ($monitores as $row) {        		
+		        	$html .= '<tr>
+		        				<td>Monitor</td>
+		        				<td>'.$row->nombre.'</td>
+		        				<td>'.$row->n_serie.'</td>
+		        				<td>'.$row->fabricante.'</td>
+		        				<td>'.$row->modelo.'</td>
+		        			</tr>';
+	        	}
+	        }
+
+	        if ($impresoras) {	        	
+	        	foreach ($impresoras as $row) {        		
+		        	$html .= '<tr>
+		        				<td>Impresora</td>
+		        				<td>'.$row->nombre.'</td>
+		        				<td>'.$row->n_serie.'</td>
+		        				<td>'.$row->fabricante.'</td>
+		        				<td>'.$row->modelo.'</td>
+		        			</tr>';
+	        	}
+	        }
+
+	        if ($dispositivos) {	        	
+	        	foreach ($dispositivos as $row) {        		
+		        	$html .= '<tr>
+		        				<td>Otro Dispositivo</td>
+		        				<td>'.$row->nombre.'</td>
+		        				<td>'.$row->n_serie.'</td>
+		        				<td>'.$row->fabricante.'</td>
+		        				<td>'.$row->modelo.'</td>
+		        			</tr>';
+	        	}
+	        }
+
+        	$html .='</table>';
+	        	
+        }else{
+        	$html .= "<h4>".'No se encontró datos del equipo.'."</h4>";
+        }
+ 
+		// Imprimimos el texto con writeHTMLCell()
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+		// Cerrar el documento PDF y preparamos la salida
+        $nombre_archivo = utf8_decode("Computador_".date('Y-m-d').".pdf");
         $pdf->Output($nombre_archivo, 'I');
     }
 

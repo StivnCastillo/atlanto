@@ -23,6 +23,19 @@ class Computador_model extends CI_Model {
     private $tabla_con_dispositivo = 'computador_dispositivo';
     private $tabla_disp = 'dispositivo';
 
+    //conexion componente
+    private $tabla_con_componente = 'computador_componente';
+    //conexiones
+    private $tabla_con_discoduro = 'computador_discoduro';
+    private $tabla_con_procesador = 'computador_procesador';
+    private $tabla_con_memoria = 'computador_memoria';
+    private $tabla_con_tvideo = 'computador_tvideo';
+    //tabla conectadas
+    private $tabla_discoduro = 'componente_discoduro';
+    private $tabla_procesador = 'componente_procesador';
+    private $tabla_memoria = 'componente_memoria';
+    private $tabla_tvideo = 'componente_tvideo';
+
 	function __construct() {
         // Call the Model constructor
         parent::__construct();
@@ -31,6 +44,56 @@ class Computador_model extends CI_Model {
     //Guarda datos de computador
     function save($datos) {
         $guarda = $this->db->insert($this->db->dbprefix($this->tabla), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    //guarda conexion con componente
+    function save_componente($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_componente), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    //guarda conexion con componente
+    function save_discoduro($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_discoduro), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    //guarda conexion con componente
+    function save_procesador($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_procesador), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    //guarda conexion con componente
+    function save_memoria($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_memoria), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    //guarda conexion con componente
+    function save_tvideo($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_tvideo), $datos);
         if ($guarda) {
             return $this->db->insert_id();
         }else{
@@ -186,6 +249,97 @@ class Computador_model extends CI_Model {
     }
 
     //Trae computador segun parametros de $data
+    function get_discoduro($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_discoduro).".id,
+                ".$this->db->dbprefix($this->tabla_con_discoduro).".id_computador,
+                ".$this->db->dbprefix($this->tabla_con_discoduro).".id_componente,
+                ".$this->db->dbprefix($this->tabla_con_discoduro).".cantidad,
+                ".$this->db->dbprefix($this->tabla_discoduro).".nombre,
+                ".$this->db->dbprefix($this->tabla_discoduro).".fabricante,
+                ".$this->db->dbprefix($this->tabla_discoduro).".capacidad
+                FROM ".$this->db->dbprefix($this->tabla_con_discoduro)." 
+
+                LEFT JOIN (".$this->db->dbprefix($this->tabla_discoduro).")
+                ON (".$this->db->dbprefix($this->tabla_con_discoduro).".id_componente = ".$this->db->dbprefix($this->tabla_discoduro).".id)
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_discoduro).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Trae computador segun parametros de $data
+    function get_memoria($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_memoria).".id,
+                ".$this->db->dbprefix($this->tabla_con_memoria).".id_computador,
+                ".$this->db->dbprefix($this->tabla_con_memoria).".id_componente,
+                ".$this->db->dbprefix($this->tabla_con_memoria).".cantidad,
+                ".$this->db->dbprefix($this->tabla_memoria).".nombre,
+                ".$this->db->dbprefix($this->tabla_memoria).".fabricante,
+                ".$this->db->dbprefix($this->tabla_memoria).".tamano
+                FROM ".$this->db->dbprefix($this->tabla_con_memoria)." 
+
+                LEFT JOIN (".$this->db->dbprefix($this->tabla_memoria).")
+                ON (".$this->db->dbprefix($this->tabla_con_memoria).".id_componente = ".$this->db->dbprefix($this->tabla_memoria).".id)
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_memoria).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Trae computador segun parametros de $data
+    function get_procesador($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_procesador).".id,
+                ".$this->db->dbprefix($this->tabla_con_procesador).".id_computador,
+                ".$this->db->dbprefix($this->tabla_con_procesador).".id_componente,
+                ".$this->db->dbprefix($this->tabla_con_procesador).".cantidad,
+                ".$this->db->dbprefix($this->tabla_procesador).".nombre,
+                ".$this->db->dbprefix($this->tabla_procesador).".fabricante,
+                ".$this->db->dbprefix($this->tabla_procesador).".frecuencia
+                FROM ".$this->db->dbprefix($this->tabla_con_procesador)." 
+
+                LEFT JOIN (".$this->db->dbprefix($this->tabla_procesador).")
+                ON (".$this->db->dbprefix($this->tabla_con_procesador).".id_componente = ".$this->db->dbprefix($this->tabla_procesador).".id)
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_procesador).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Trae computador segun parametros de $data
+    function get_tvideo($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_tvideo).".id,
+                ".$this->db->dbprefix($this->tabla_con_tvideo).".id_computador,
+                ".$this->db->dbprefix($this->tabla_con_tvideo).".id_componente,
+                ".$this->db->dbprefix($this->tabla_con_tvideo).".cantidad,
+                ".$this->db->dbprefix($this->tabla_tvideo).".nombre,
+                ".$this->db->dbprefix($this->tabla_tvideo).".fabricante
+                FROM ".$this->db->dbprefix($this->tabla_con_tvideo)." 
+
+                LEFT JOIN (".$this->db->dbprefix($this->tabla_tvideo).")
+                ON (".$this->db->dbprefix($this->tabla_con_tvideo).".id_componente = ".$this->db->dbprefix($this->tabla_tvideo).".id)
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_tvideo).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //Trae computador segun parametros de $data
     function get_monitor($id_computador) {
         $query = $this->db->query("SELECT 
                 ".$this->db->dbprefix($this->tabla_con_monitor).".id,
@@ -282,5 +436,3 @@ class Computador_model extends CI_Model {
         return $this->db->update($this->db->dbprefix($this->tabla), $datos);
     }
 }
-
-

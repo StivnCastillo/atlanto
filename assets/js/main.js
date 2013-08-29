@@ -24,6 +24,19 @@ var normalizar = (function() {
 })();
 
 function inicio () {
+
+	/*
+	* Selects anidados con chained jquery
+	*/
+	$("#slc_nombre_componente").chained("#slc_componente");
+	
+	/*
+	* Input type number spinner
+	*/
+	$('.spinner').spinedit({
+		value: $(this).val()
+	});
+
 	/*
 	* Agregar conexion, computador -> monitor
 	*/

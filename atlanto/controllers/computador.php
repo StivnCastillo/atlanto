@@ -16,7 +16,8 @@ class Computador extends CI_Controller {
 					'red_model',
 					'monitor_model',
 					'impresora_model',
-					'dispositivo_model'
+					'dispositivo_model',
+					'componente_model'
 				)
 		);
 	}
@@ -100,10 +101,73 @@ class Computador extends CI_Controller {
 			//Todos los dispositivos
 			$data['lis_dispositivos'] = $this->dispositivo_model->get();
 
+			//todos los componentes
+				$data['accion_componente'] = site_url('computador/conectar_componente/'.$id_computador);
+
+				//discoduro
+				$data['discosduro'] = $this->componente_model->get_discosduro();
+
+				//procesadores
+				$data['procesadores'] = $this->componente_model->get_procesador();
+
+				//memorias
+				$data['memorias'] = $this->componente_model->get_memoria();
+
+				//memorias
+				$data['tvideo'] = $this->componente_model->get_tvideo();
+
+			//componentes conectados
+			$data['discoduro_con'] = $this->computador_model->get_discoduro($id_computador);
+			$data['memoria_con'] = $this->computador_model->get_memoria($id_computador);
+			$data['procesador_con'] = $this->computador_model->get_procesador($id_computador);
+			$data['tvideo_con'] = $this->computador_model->get_tvideo($id_computador);
 
 		}
 
 		$this->load->view('template', $data);
+	}
+
+	public function conectar_componente($id_computador)
+	{
+		$datos = array(
+			'cantidad' => $this->input->post('cantidad'),
+			'id_componente' => $this->input->post('id_componente'),
+			'id_computador' => $id_computador
+		);
+
+		if($this->input->post('componente') == 'discoduro'){
+			$conexion = $this->computador_model->save_discoduro($datos);
+		}
+
+		if($this->input->post('componente') == 'procesador'){
+			$conexion = $this->computador_model->save_procesador($datos);
+		}
+
+		if($this->input->post('componente') == 'memoria'){
+			$conexion = $this->computador_model->save_memoria($datos);
+		}
+
+		if($this->input->post('componente') == 'tvideo'){
+			$conexion = $this->computador_model->save_tvideo($datos);
+		}
+
+		if($conexion){
+			$this->session->set_flashdata('mensaje_con_componente', 'Componente conectado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+
+		}else{
+			$this->session->set_flashdata('mensaje_con_componente', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('computador/nuevo/'.$id_computador, 'refresh');
+	}
+
+	public function desconectar_componente($id_computador, $id_componente, $componente)
+	{
+		if($componente == 1){
+			echo 'Eliminar discoduro';
+		}
 	}
 
 	public function conectar_monitor($id_computador)
@@ -123,6 +187,8 @@ class Computador extends CI_Controller {
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 		}
 	}
+
+
 
 	public function conectar_impresora($id_computador)
 	{

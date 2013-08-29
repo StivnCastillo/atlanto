@@ -17,6 +17,8 @@
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/wysihtml5-0.3.0.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap-wysihtml5.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/bootstrap-spinedit.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/jquery.chained.min.js"></script>
 
 	<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 
