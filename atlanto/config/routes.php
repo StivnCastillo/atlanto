@@ -45,6 +45,7 @@ $route['buscar_ubicacion'] = "ubicacion/ubicaciones_select";
 $route['buscar_departamento'] = "departamento/departamento_select";
 $route['buscar_cargo'] = "cargo/cargo_select";
 $route['buscar_usuario'] = "usuario/usuario_select";
+$route['buscar_computador'] = "computador/computador_select";
 
 $route['componente/discoduro'] = "componente/index_discoduro";
 $route['componente/procesador'] = "componente/index_procesador";

@@ -93,16 +93,6 @@ class Componente extends CI_Controller {
                      'rules' => 'required'
                   ),
                array(
-                     'field' => 'cache',
-                     'label' => 'Caché',
-                     'rules' => 'required|number'
-                  ),
-               array(
-                     'field' => 'rpm',
-                     'label' => 'RPM',
-                     'rules' => 'required|number'
-                  ), 
-               array(
                      'field' => 'interfaz',
                      'label' => 'Interfaz',
                      'rules' => 'required'

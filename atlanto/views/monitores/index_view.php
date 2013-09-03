@@ -89,7 +89,7 @@
 						<?php endforeach ?>	
 					<?php else: ?>
 						<tr>
-							<td colspan="4"><?php echo $ci->lang->line('msj_error_resultado'); ?></td>
+							<td colspan="6">No se encontró monitores en la base de datos</td>
 						</tr>
 					<?php endif ?>				
 				</tbody>

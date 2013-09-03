@@ -193,7 +193,7 @@
 								<div class="control-group">
 									<label class="control-label" for="comentario"><?php echo $ci->lang->line('lbl_comentario') ?></label>
 									<div class="controls">
-										<textarea class="span3" rows="4" name="comentario" id="comentario"> <?php echo (isset($impresora)) ? $impresora->comentarios : ''; ?></textarea>
+										<textarea class="span3" rows="4" name="comentario" id="comentario"><?php echo (isset($impresora)) ? $impresora->comentarios : ''; ?></textarea>
 									</div>
 								</div>
 

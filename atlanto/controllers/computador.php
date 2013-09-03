@@ -17,6 +17,7 @@ class Computador extends CI_Controller {
 					'monitor_model',
 					'impresora_model',
 					'dispositivo_model',
+					'software_model',
 					'componente_model'
 				)
 		);
@@ -63,7 +64,6 @@ class Computador extends CI_Controller {
 		$estados = $this->estadocomponente_model->get_todos();
 		$tipos = $this->tipo_model->get_com_todos();
 		$sistema_o = $this->so_model->get_todos();
-		$sistema_tipo = $this->so_model->get_tipos();
 		$redes = $this->red_model->get_todos();
 
 		$data = array(
@@ -75,7 +75,6 @@ class Computador extends CI_Controller {
 			'estados' => $estados,
 			'tipos' => $tipos,
 			'sistema_o' => $sistema_o,
-			'sistema_tipo' => $sistema_tipo,
 			'accion_guardar' => site_url('computador/guardar'),
 			'accion_modificar' => site_url('computador/modificar'),
 			'accion_ubicacion' => site_url('buscar_ubicacion'),
@@ -100,6 +99,11 @@ class Computador extends CI_Controller {
 			$data['con_dispositivos'] = $this->computador_model->get_dispositivo($id_computador);
 			//Todos los dispositivos
 			$data['lis_dispositivos'] = $this->dispositivo_model->get();
+
+			//Conexion software
+			$data['con_software'] = $this->computador_model->get_software($id_computador);
+			//Todos los software
+			$data['lis_software'] = $this->software_model->get();
 
 			//todos los componentes
 				$data['accion_componente'] = site_url('computador/conectar_componente/'.$id_computador);
@@ -162,12 +166,20 @@ class Computador extends CI_Controller {
 
 		redirect('computador/nuevo/'.$id_computador, 'refresh');
 	}
-
-	public function desconectar_componente($id_computador, $id_componente, $componente)
+	/***FALTA*/
+	public function desconectar_componente($id_computador, $id_conexion, $componente)
 	{
-		if($componente == 1){
-			echo 'Eliminar discoduro';
+		$this->acceso_restringido();
+		$componente = $this->computador_model->delete_componente($id_conexion, $componente);
+		if($componente){
+			$this->session->set_flashdata('mensaje_con_componente','Componente Desconectado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_componente', 'Ocurrio un Error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
 		}
+
+		redirect('computador/nuevo/'.$id_computador, 'refresh');
 	}
 
 	public function conectar_monitor($id_computador)
@@ -226,6 +238,25 @@ class Computador extends CI_Controller {
 		}
 	}
 
+	public function conectar_software($id_computador)
+	{
+		$datos = array(
+			'id_software' => $this->input->post('id_software'),
+			'id_computador' => $id_computador
+		);
+
+		$conexion = $this->computador_model->save_software($datos);
+
+		if($conexion){
+			//Restar licencias de software
+			$this->session->set_flashdata('mensaje_con_software', 'Software Instalado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_software', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+	}
+
 	public function eliminar_monitor($id_computador, $id_conexion)
 	{
 		$this->acceso_restringido();
@@ -271,6 +302,22 @@ class Computador extends CI_Controller {
 		redirect('computador/nuevo/'.$id_computador, 'refresh');
 	}
 
+	public function eliminar_software($id_computador, $id_conexion)
+	{
+		$this->acceso_restringido();
+		$conexion = $this->computador_model->delete_software($id_conexion);
+		if(!$conexion){
+			//Sumar licencias en el software
+			$this->session->set_flashdata('mensaje_con_software', 'Software Desinstalado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje_con_software', 'Ocurrio un error');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('computador/nuevo/'.$id_computador, 'refresh');
+	}
+
 	/*
 	* Procesa los datos y los envia al modelo que guarda en la base de datos
 	*/
@@ -303,11 +350,6 @@ class Computador extends CI_Controller {
                array(
                      'field' => 'so',
                      'label' => 'SO',
-                     'rules' => 'required'
-                  ), 
-               array(
-                     'field' => 'so_tipo',
-                     'label' => 'SO_tipo',
                      'rules' => 'required'
                   ), 
                array(
@@ -396,12 +438,7 @@ class Computador extends CI_Controller {
                  'field' => 'so',
                  'label' => 'SO',
                  'rules' => 'required'
-              ), 
-           array(
-                 'field' => 'so_tipo',
-                 'label' => 'SO_tipo',
-                 'rules' => 'required'
-              ), 
+              ),
            array(
                  'field' => 'serie',
                  'label' => 'Serie',
@@ -462,6 +499,27 @@ class Computador extends CI_Controller {
 	public function eliminar($id_cargo)
 	{
 		
+	}
+
+	//Busca computadores segun el parametro $valor y las manda a la vista para ser agregado al select
+	public function computador_select()
+	{
+		$nombre = $this->input->post('valor');
+		$todos = $this->input->post('todos');
+		
+		if ($todos == 1) {
+			$computadores = $this->computador_model->get_todos();
+		}else{
+			$computadores = $this->computador_model->buscar($nombre);
+		}
+
+		if(!$computadores){
+			echo '<option value="">'.$this->lang->line('msj_error_resultado').'</option>';
+		}else{
+			foreach ($computadores as $row) {
+				echo '<option value="'.$row->id.'">'.$row->nombre.'</option>';
+			}
+		}
 	}
 
 

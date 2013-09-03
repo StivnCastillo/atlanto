@@ -14,7 +14,7 @@ class Reporte extends CI_Controller {
 		));
 	}
 
-	public function index()
+	public function index($seccion = 'todas')
 	{
 		$this->acceso_restringido();
 
@@ -24,22 +24,23 @@ class Reporte extends CI_Controller {
 		$breadcrumbs = $this->breadcrumbs->show();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_departamentos'),
+			'titulo' => 'Reportes',
 			'content' => 'reportes/index_view',
-			'validador' => TRUE,
-			'breadcrumbs' => $breadcrumbs
+			'breadcrumbs' => $breadcrumbs,
+			'seccion' => $seccion
 		);
 		$this->load->view('template', $data);
 	}
+
+	/********* Tareas ***********/
 	/* Vista */
 	public function tareas_lista()
 	{
 		$this->acceso_restringido();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_departamentos'),
+			'titulo' => 'Reportes Tareas',
 			'content' => 'reportes/tareas/lista_view',
-			'validador' => TRUE,
 			'accion' => site_url('reporte/gen_tareas_lista'),
 			'config' => config_general()
 		);
@@ -134,9 +135,8 @@ class Reporte extends CI_Controller {
 		//Traer los usuarios administradores
 		$usuarios = $this->usuario_model->get_administradores();
 		$data = array(
-			'titulo' => $this->lang->line('titulo_departamentos'),
+			'titulo' => 'Reportes',
 			'content' => 'reportes/tareas/personalizar_view',
-			'validador' => TRUE,
 			'accion' => site_url('reporte/gen_tareas_personalizada'),
 			'config' => config_general(),
 			'usuarios' => $usuarios
@@ -234,20 +234,34 @@ class Reporte extends CI_Controller {
         $nombre_archivo = utf8_decode($datos_recibidos['nombre_archivo']."_".date('Y-m-d').".pdf");
         $pdf->Output($nombre_archivo, 'I');
     }
+    /********* Computadores ***********/
+	/* Vista */
+	public function computador_lista()
+	{
+		$this->acceso_restringido();
 
-    public function informe_computador($id_computador)
-    {
+		$data = array(
+			'titulo' => 'Reporte Computadores',
+			'content' => 'reportes/computadores/lista_view',
+			'accion' => site_url('reporte/gen_computador_lista'),
+			'config' => config_general()
+		);
+		$this->load->view('template', $data);
+	}
+
+	public function gen_computador_lista()
+	{
 		//traigo configuraciones generales
 		$config = $this->config_model->get(array('id' => 1));
 		//COLOCAR TODO DESDE LAS CONFIGURACIONES DE LOS REPORTES
 		//crear instancia de la clase y propiedades del archivo
 		$pdf = new Pdf('P', 'mm', $config->repo_formato, true, 'UTF-8', false);
-		$pdf->SetCreator($config->repo_creador);
-        $pdf->SetAuthor($config->repo_autor);
-        $pdf->SetTitle('Reporte Computador');
-        $pdf->SetSubject('Reporte Computador');
+		$pdf->SetCreator($this->input->post('creador'));
+        $pdf->SetAuthor($this->input->post('autor'));
+        $pdf->SetTitle($this->input->post('titulo'));
+        $pdf->SetSubject($this->input->post('titulo'));
 
-        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'Computador', $config->repo_leyenda, array(0, 0, 0), array(0, 0, 0));
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $this->lang->line('rep_tareas_lista').' '.date("Y-m-d"), $this->input->post('leyenda'), array(0, 0, 0), array(0, 0, 0));
         $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
 
         //fuente de los titulos de la tabla y el cuerpo
@@ -275,15 +289,135 @@ class Reporte extends CI_Controller {
         //preparamos y maquetamos el contenido a crear
         $html = '';
         $html .= "<style type=text/css>";
-        $html .= "table{width: 100%;border: solid 1px black; font-size: 8px;}";
+        $html .= "table{width: 100%;boder: solid 1px; font-size: 8px;}";
         $html .= "th{color: #fff; font-weight: bold; background-color: #222;font-size: 10px;}";
         $html .= "</style>";
-        $html .= "<h4>".'Datos del Equipo'."</h4>";
+         "<h2>".$this->input->post('titulo')."</h2>";
 
-        $computador = $this->computador_model->get($id_computador);
-        $monitores = $this->computador_model->get_monitor($id_computador);
-        $impresoras = $this->computador_model->get_impresora($id_computador);
-        $dispositivos = $this->computador_model->get_dispositivo($id_computador);
+        $computadores = $this->computador_model->get();
+        if ($computadores) {
+        	$this->table->set_heading(
+        		'Nro', 
+        		'Nombre', 
+        		'Estado', 
+        		'Nro Serie', 
+        		'Usuario', 
+        		'Lugar/Ubicación'
+        		);
+        	$i = 1;
+			foreach ($computadores as $row) {
+				//$duracion_total = $duracion[0].' Meses'.$duracion[1].' Dias'.$duracion[2].' Hrs'.$duracion[3].' Min';
+				$this->table->add_row(
+					$i, 
+					$row->nombre_computador, 
+					$row->estado, 
+					$row->n_serie, 
+					$row->nombre_usuario, 
+					$row->ubicacion
+				);
+				$i++;
+			}
+        }else{
+        	$this->table->set_heading('No se encontraron Resultados');
+			$this->table->add_row('0 filas');
+        }
+
+        $html .= $this->table->generate();
+ 
+		// Imprimimos el texto con writeHTMLCell()
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+		// Cerrar el documento PDF y preparamos la salida
+        $nombre_archivo = utf8_decode('Lista de computadores'."_".date('Y-m-d').".pdf");
+        $pdf->Output($nombre_archivo, 'I');
+    }
+
+    public function computador($id_computador = FALSE)
+    {
+    	$this->acceso_restringido();
+
+		$data = array(
+			'titulo' => 'Reportes Computador',
+			'content' => 'reportes/computadores/individual_view',
+			'accion' => site_url('reporte/gen_computador'),
+			'config' => config_general(),
+			'accion_computador' => site_url('buscar_computador')
+		);
+
+		if($id_computador){
+			$data['id_computador'] = $id_computador;
+		}
+		$this->load->view('template', $data);
+    }
+
+    public function gen_computador()
+    {
+    	$datos_recibidos = $this->input->post(NULL, TRUE);
+    	$computador = $this->computador_model->get($datos_recibidos['id_computador']);
+
+    	/**** Configuracion de titulo de reporte ****/
+    	if($datos_recibidos['titulo'] == 1){
+    		$titulo = 'Computador '.date('Y-m-d');
+    	}elseif ($datos_recibidos['titulo'] == 2) {
+    		$titulo = $computador->nombre_computador.' '.date('Y-m-d');
+    	}else{
+    		$titulo = $computador->nombre_usuario.' '.date('Y-m-d');
+    	}
+
+		//traigo configuraciones generales
+		$config = config_general();
+		//COLOCAR TODO DESDE LAS CONFIGURACIONES DE LOS REPORTES
+		//crear instancia de la clase y propiedades del archivo
+		$pdf = new Pdf('P', 'mm', $titulo, true, 'UTF-8', false);
+		$pdf->SetCreator($datos_recibidos['creador']);
+        $pdf->SetAuthor($datos_recibidos['autor']);
+        $pdf->SetTitle('Reporte Computador '.$computador->nombre_computador);
+        $pdf->SetSubject('Reporte Computador '.$computador->nombre_computador);
+
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $titulo, $datos_recibidos['leyenda'], array(0, 0, 0), array(0, 0, 0));
+        $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
+
+        //fuente de los titulos de la tabla y el cuerpo
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', 10));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', 8));
+ 
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+ 
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+ 
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+ 
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        // establecer el modo de fuente por defecto
+        $pdf->setFontSubsetting(true);
+  
+		// Añadir una página
+		// Este método tiene varias opciones, consulta la documentación para más información.
+
+        $pdf->AddPage($datos_recibidos['horientacion']);
+
+        //preparamos y maquetamos el contenido a crear
+        $html = '';
+        $html .= "<style type=text/css>";
+        $html .= "table{width: 100%;border: solid 1px black; font-size: 8px;}";
+        $html .= "th{color: #333; font-weight: bold; background-color: #ccc;font-size: 10px;border: solid 1px black;}";
+        $html .= "</style>";
+        $html .= "<h5>".'Datos del Equipo'."</h5>";
+
+        $computador = $this->computador_model->get($datos_recibidos['id_computador']);
+        //conexiones
+        $monitores = $this->computador_model->get_monitor($datos_recibidos['id_computador']);
+        $impresoras = $this->computador_model->get_impresora($datos_recibidos['id_computador']);
+        $dispositivos = $this->computador_model->get_dispositivo($datos_recibidos['id_computador']);
+        $software = $this->computador_model->get_software($datos_recibidos['id_computador']);
+        //componentes
+        $discosduro = $this->computador_model->get_discoduro($datos_recibidos['id_computador']);
+		$memorias = $this->computador_model->get_memoria($datos_recibidos['id_computador']);
+		$procesadores = $this->computador_model->get_procesador($datos_recibidos['id_computador']);
+		$tvideos = $this->computador_model->get_tvideo($datos_recibidos['id_computador']);
+
         if ($computador) {
     		$html .= '
         		<table>
@@ -324,61 +458,143 @@ class Reporte extends CI_Controller {
         				<td>'.$computador->sistema_operativo." ".$computador->version." ".$computador->tipo_so.'</td>
         			</tr>
         			<tr>
-        				<th>Comentarios</th>
-        				<td colspan="3">'.$computador->comentarios.'</td>
+        				<td colspan="4"> </td>        				
+        			</tr>
+        			<tr>
+        				<th colspan="4">Comentarios</th>        				
+        			</tr>
+        			<tr>
+        				<td>'.$computador->comentarios.'</td>
         			</tr>
         		</table>
         	';
 
-        	$html .= "<h4>".'Conexiones'."</h4>";
-
-        	$html .= '<table>';
-        	$html .= '<tr>
-	        				<th>Tipo</th>	        				
-	        				<th>Nombre</th>							
-	        				<th>Numero de Serie</th>	        				
-	        				<th>Fabricante</th>	        				
-	        				<th>Modelo</th>	        				
-	        			</tr>';
-
-	        if ($monitores) {	        	
-	        	foreach ($monitores as $row) {        		
-		        	$html .= '<tr>
-		        				<td>Monitor</td>
-		        				<td>'.$row->nombre.'</td>
-		        				<td>'.$row->n_serie.'</td>
-		        				<td>'.$row->fabricante.'</td>
-		        				<td>'.$row->modelo.'</td>
+        	if (isset($datos_recibidos['componentes'])) {
+        		$html .= "<h5>".'Componentes'."</h5>";
+	        	$html .= '<table>';        	
+	        	$html .= '<tr>
+		        				<th>Cantidad</th>	        				
+		        				<th>Componente</th>							
+		        				<th>Nombre</th>	        				
+		        				<th>Fabricante</th>    				
 		        			</tr>';
-	        	}
-	        }
 
-	        if ($impresoras) {	        	
-	        	foreach ($impresoras as $row) {        		
-		        	$html .= '<tr>
-		        				<td>Impresora</td>
-		        				<td>'.$row->nombre.'</td>
-		        				<td>'.$row->n_serie.'</td>
-		        				<td>'.$row->fabricante.'</td>
-		        				<td>'.$row->modelo.'</td>
+		        if ($discosduro) {	        	
+		        	foreach ($discosduro as $row) {        		
+			        	$html .= '<tr>
+			        				<td>'.$row->cantidad.'</td>
+			        				<td>Disco Duro</td>
+			        				<td>'.$row->nombre.'</td>
+			        				<td>'.$row->fabricante.'</td>
+			        			</tr>';
+		        	}
+		        }
+
+		        if ($memorias) {	        	
+		        	foreach ($memorias as $row) {        		
+			        	$html .= '<tr>
+			        				<td>'.$row->cantidad.'</td>
+			        				<td>Memoria RAM</td>
+			        				<td>'.$row->nombre.' '.$row->tamano.' GB</td>
+			        				<td>'.$row->fabricante.'</td>
+			        			</tr>';
+		        	}
+		        }
+
+		        if ($procesadores) {	        	
+		        	foreach ($procesadores as $row) {        		
+			        	$html .= '<tr>
+			        				<td>'.$row->cantidad.'</td>
+			        				<td>Procesadores</td>
+			        				<td>'.$row->nombre.'</td>
+			        				<td>'.$row->fabricante.'</td>
+			        			</tr>';
+		        	}
+		        }
+
+		        if ($tvideos) {	        	
+		        	foreach ($tvideos as $row) {        		
+			        	$html .= '<tr>
+			        				<td>'.$row->cantidad.'</td>
+			        				<td>Tarjeta de Video</td>
+			        				<td>'.$row->nombre.'</td>
+			        				<td>'.$row->fabricante.'</td>
+			        			</tr>';
+		        	}
+		        }        
+
+	        	$html .='</table>';
+        	}
+
+        	if (isset($datos_recibidos['conexiones'])){
+        		$html .= "<h5>".'Conexiones'."</h5>";
+	        	$html .= '<table>';
+	        	$html .= '<tr>
+		        				<th>Tipo</th>	        				
+		        				<th>Nombre</th>							
+		        				<th>Numero de Serie</th>	        				
+		        				<th>Fabricante</th>	        				
+		        				<th>Modelo</th>	        				
 		        			</tr>';
-	        	}
-	        }
 
-	        if ($dispositivos) {	        	
-	        	foreach ($dispositivos as $row) {        		
+		        if ($monitores) {	        	
+		        	foreach ($monitores as $row) {        		
+			        	$html .= '<tr>
+			        				<td>Monitor</td>
+			        				<td>'.$row->nombre.'</td>
+			        				<td>'.$row->n_serie.'</td>
+			        				<td>'.$row->fabricante.'</td>
+			        				<td>'.$row->modelo.'</td>
+			        			</tr>';
+		        	}
+		        }
+
+		        if ($impresoras) {	        	
+		        	foreach ($impresoras as $row) {        		
+			        	$html .= '<tr>
+			        				<td>Impresora</td>
+			        				<td>'.$row->nombre.'</td>
+			        				<td>'.$row->n_serie.'</td>
+			        				<td>'.$row->fabricante.'</td>
+			        				<td>'.$row->modelo.'</td>
+			        			</tr>';
+		        	}
+		        }
+
+		        if ($dispositivos) {	        	
+		        	foreach ($dispositivos as $row) {        		
+			        	$html .= '<tr>
+			        				<td>Otro Dispositivo</td>
+			        				<td>'.$row->nombre.'</td>
+			        				<td>'.$row->n_serie.'</td>
+			        				<td>'.$row->fabricante.'</td>
+			        				<td>'.$row->modelo.'</td>
+			        			</tr>';
+		        	}
+		        }
+	        	$html .='</table>';
+        	}
+
+        	if (isset($datos_recibidos['software'])) {
+        		if ($software) {
+	        		$html .= "<h5>".'Software'."</h5>";
+		        	$html .= '<table>';
 		        	$html .= '<tr>
-		        				<td>Otro Dispositivo</td>
-		        				<td>'.$row->nombre.'</td>
-		        				<td>'.$row->n_serie.'</td>
-		        				<td>'.$row->fabricante.'</td>
-		        				<td>'.$row->modelo.'</td>
+		        				<th>Nombre</th>							
+		        				<th>Versión</th>	        				
+		        				<th>Fabricante</th>   				
 		        			</tr>';
-	        	}
-	        }
-
-        	$html .='</table>';
-	        	
+		        
+		        	foreach ($software as $row) {        		
+			        	$html .= '<tr>
+			        				<td>'.$row->nombre.'</td>
+			        				<td>'.$row->version.'</td>
+			        				<td>'.$row->fabricante.'</td>
+			        			</tr>';
+		        	}
+		        	$html .='</table>';
+		        }
+        	}
         }else{
         	$html .= "<h4>".'No se encontró datos del equipo.'."</h4>";
         }
@@ -386,7 +602,7 @@ class Reporte extends CI_Controller {
 		// Imprimimos el texto con writeHTMLCell()
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 		// Cerrar el documento PDF y preparamos la salida
-        $nombre_archivo = utf8_decode("Computador_".date('Y-m-d').".pdf");
+        $nombre_archivo = utf8_decode($computador->nombre_computador.'_'.date('Y-m-d').".pdf");
         $pdf->Output($nombre_archivo, 'I');
     }
 

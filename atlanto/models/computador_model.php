@@ -23,8 +23,12 @@ class Computador_model extends CI_Model {
     private $tabla_con_dispositivo = 'computador_dispositivo';
     private $tabla_disp = 'dispositivo';
 
+    //conexion dispositivo
+    private $tabla_con_software = 'computador_software';
+    private $tabla_soft = 'software';
+
     //conexion componente
-    private $tabla_con_componente = 'computador_componente';
+    //private $tabla_con_componente = 'computador_componente';
     //conexiones
     private $tabla_con_discoduro = 'computador_discoduro';
     private $tabla_con_procesador = 'computador_procesador';
@@ -51,7 +55,7 @@ class Computador_model extends CI_Model {
         }
     }
 
-    //guarda conexion con componente
+    /*guarda conexion con componente
     function save_componente($datos) {
         $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_componente), $datos);
         if ($guarda) {
@@ -59,7 +63,7 @@ class Computador_model extends CI_Model {
         }else{
             return $guarda;
         }
-    }
+    }*/
 
     //guarda conexion con componente
     function save_discoduro($datos) {
@@ -131,6 +135,16 @@ class Computador_model extends CI_Model {
         }
     }
 
+    //guarda conexion con software
+    function save_software($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_con_software), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
     function delete_monitor($id) {
         $this->db->where('id', $id);
         $this->db->delete($this->db->dbprefix($this->tabla_con_monitor));
@@ -144,6 +158,11 @@ class Computador_model extends CI_Model {
     function delete_dispositivo($id) {
         $this->db->where('id', $id);
         $this->db->delete($this->db->dbprefix($this->tabla_con_dispositivo));
+    }
+
+    function delete_software($id) {
+        $this->db->where('id', $id);
+        $this->db->delete($this->db->dbprefix($this->tabla_con_software));
     }
 
     //Traer computador
@@ -415,6 +434,30 @@ class Computador_model extends CI_Model {
         }
     }
 
+    function get_software($id_computador) {
+        $query = $this->db->query("SELECT 
+                ".$this->db->dbprefix($this->tabla_con_software).".id,
+                ".$this->db->dbprefix($this->tabla_con_software).".id_software,
+                ".$this->db->dbprefix($this->tabla_soft).".nombre,
+                ".$this->db->dbprefix($this->tabla_soft).".version,
+                ".$this->db->dbprefix($this->tabla_soft).".fabricante
+
+                FROM ".$this->db->dbprefix($this->tabla_con_software)." 
+
+                LEFT JOIN(".$this->db->dbprefix($this->tabla).", ".$this->db->dbprefix($this->tabla_soft).")
+                ON(
+                ".$this->db->dbprefix($this->tabla).".id = ".$this->db->dbprefix($this->tabla_con_software).".id_computador AND
+                ".$this->db->dbprefix($this->tabla_soft).".id = ".$this->db->dbprefix($this->tabla_con_software).".id_software
+                )
+
+                WHERE ".$this->db->dbprefix($this->tabla_con_software).".id_computador = ".$id_computador);
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
     function buscar($valor){
     	$query = $this->db->query("SELECT id, nombre FROM ".$this->db->dbprefix($this->tabla)." WHERE nombre LIKE '%".$valor."%'");
         if ($query->num_rows() > 0){
@@ -424,10 +467,42 @@ class Computador_model extends CI_Model {
         }
     }
 
+    //Traer todas las ubicaciones
+    function get_todos() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }        
+    }
+
     //Elimina un computador
     function delete($id_computador) {
         $this->db->where('id', $id_computador);
         $this->db->delete($this->db->dbprefix($this->tabla));
+    }
+
+    //eliminar componente
+    function delete_componente($id_conexion, $componente) {
+        $this->db->where('id', $id_conexion);
+        if($componente == 1){
+            $this->db->delete($this->db->dbprefix($this->tabla_con_discoduro));
+        }
+        if($componente == 2){
+            $this->db->delete($this->db->dbprefix($this->tabla_con_memoria));
+        }
+        if($componente == 3){
+            $this->db->delete($this->db->dbprefix($this->tabla_con_procesador));
+        }
+        if($componente == 4){
+            $this->db->delete($this->db->dbprefix($this->tabla_con_tvideo));
+        }
+
+        if( $this->db->affected_rows() < 1)
+            return false;
+        else
+            return true;
     }
 
     //Actualiza los datos del computador

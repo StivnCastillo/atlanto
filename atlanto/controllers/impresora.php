@@ -54,7 +54,7 @@ class Impresora extends CI_Controller {
 		$redes = $this->red_model->get_todos();
 
 		$data = array(
-			'titulo' => $this->lang->line('titulo_nuevo_mon'),
+			'titulo' => $this->lang->line('titulo_nueva_impresora'),
 			'content' => 'impresoras/save_view',
 			'breadcrumbs' => $breadcrumbs,
 			'estados' => $estado,

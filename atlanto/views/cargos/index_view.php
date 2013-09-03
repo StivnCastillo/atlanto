@@ -86,11 +86,7 @@ $ci = &get_instance();
 								</td>
 							</tr>
 							<?php $i++; ?>
-						<?php endforeach ?>	
-					<?php else: ?>
-						<tr>
-							<td colspan="4"><?php echo $ci->lang->line('msj_error_resultado'); ?></td>
-						</tr>
+						<?php endforeach ?>					
 					<?php endif ?>				
 				</tbody>
 			</table>

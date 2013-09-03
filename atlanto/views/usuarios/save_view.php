@@ -164,7 +164,7 @@ $ci = &get_instance();
 								<div class="control-group">
 									<label class="control-label" for="nota_interna"><?php echo $ci->lang->line('lbl_notas') ?></label>
 									<div class="controls">
-										<textarea class="span3" rows="4" name="nota_interna" id="nota_interna" placeholder="<?php echo $ci->lang->line('plc_nota_interna') ?>"> <?php echo (isset($usuario)) ? $usuario->nota_interna : ''; ?></textarea>
+										<textarea class="span3" rows="4" name="nota_interna" id="nota_interna" placeholder="<?php echo $ci->lang->line('plc_nota_interna') ?>"><?php echo (isset($usuario)) ? $usuario->nota_interna : ''; ?></textarea>
 									</div>
 								</div>
 

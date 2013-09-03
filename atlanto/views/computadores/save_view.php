@@ -4,13 +4,7 @@
 <?php if (isset($computador)): ?>
 	<article class="well">
 		<form class="form-inline">
-			
-			<select class="span2" name="imprimir" id="slc_imprimir">
-				<option value="1"><?php echo $ci->lang->line('slc_imp_pdf'); ?></option>
-				<option value="2"><?php echo $ci->lang->line('slc_imp_excel'); ?></option>
-			</select>
-			<a href="<?php echo base_url().'reporte'; ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_reporte') ?>"><i class="icon icon-print icon-white"></i></a>
-			
+			<a href="<?php echo base_url().'reporte/computador/'.$computador->id;; ?>" id="btn_agregar" class="btn btn-inverse" title="Imprimir"><i class="icon icon-print icon-white"></i></a>
 		</form>
 	</article>
 <?php endif ?>
@@ -156,24 +150,7 @@
 											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($sistema_o)): ?>
 												<?php foreach ($sistema_o as $row): ?>													
-													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_SO == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre.' '.$row->version; ?></option>
-												<?php endforeach ?>
-											<?php else: ?>
-												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
-											<?php endif ?>
-										</select>
-									</div>
-								</div>
-
-								<!-- sistema operativo -->
-								<div class="control-group">
-									<label class="control-label" for="so_tipo"><?php echo $ci->lang->line('lbl_so_tipo') ?></label>
-									<div class="controls">
-										<select name="so_tipo" id="so_tipo" required>
-											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
-											<?php if (isset($sistema_tipo)): ?>
-												<?php foreach ($sistema_tipo as $row): ?>													
-													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_tipo_sistema == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
+													<option value="<?php echo $row->id; ?>" <?php if(isset($computador)){if($computador->id_SO == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre.' '.$row->version.' '.$row->tipo_so; ?></option>
 												<?php endforeach ?>
 											<?php else: ?>
 												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
@@ -481,6 +458,81 @@
 																<?php endforeach ?>
 															</select>
 															<button type="button" class="btn btn-info" id="btn_com_dis"><i class="icon-plus-sign"></i></button>
+														</form>
+													<?php endif ?>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- pestaña 4 -->
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a class="accordion-toggle" data-toggle="collapse" data-parent="#conexiones" href="#pes_software">
+												<i class="icon-windows"></i>
+												Software
+											</a>
+										</div>
+										<div id="pes_software" class="accordion-body collapse">
+											<div class="accordion-inner">
+												<!-- software -->									
+												<div class="well">
+													<?php if (isset($con_software)): ?>
+
+														<!-- alertas -->
+														<?php if ($this->session->flashdata('mensaje_con_software')): ?>
+												    		<?php if ($this->session->flashdata('tipo_mensaje') == 'exito'): ?>
+												    			<div class="alert alert-success">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_software') ?>
+													            </div>
+												    		<?php endif ?>
+														    	
+															<?php if ($this->session->flashdata('tipo_mensaje') == 'error'): ?>
+													            <div class="alert alert-error">
+														            <button type="button" class="close" data-dismiss="alert">×</button>
+														            <?php echo $this->session->flashdata('mensaje_con_software') ?>
+													            </div>
+													        <?php endif ?>
+												    	<?php endif ?>
+
+														<?php if ($con_software): ?>
+															<table class="table table-bordered">
+																<thead>
+																	<tr>
+																		<th>Nombre</th>
+																		<th>Versión</th>
+																		<th>Fabricante</th>
+																		<th>&nbsp;</th>
+																	</tr>									
+																</thead>
+																<tbody>
+																	<?php $i = 0;$software_conectado = array(); ?>
+																	<?php foreach ($con_software as $row):?>
+																		<tr>
+																			<td><a href="<?php echo base_url().'software/nuevo/'.$row->id_software; ?>"><?php echo $row->nombre; ?></a></td>
+																			<td><?php echo $row->version; ?></td>
+																			<td><?php echo $row->fabricante; ?></td>
+																			<td colspan="4">
+																				<a href="<?php echo base_url().'computador/eliminar_software/'.$id_computador.'/'.$row->id; ?>" class="btn btn-danger btn-mini"><i class="icon-remove"></i></a>
+																			</td>
+																		</tr>
+																		<?php $software_conectado[$i++] = $row->id_software;?>
+																	<?php endforeach ?>																		
+																</tbody>
+															</table>
+														<?php else: ?>
+															<p>No se Encontró Software Instalado</p>
+														<?php endif ?>
+
+
+														<form class="form-inline">
+															<label for="id_software">Instalar Software</label>
+															<select name="id_software" id="slc_com_soft" data-url="<?php echo base_url().'computador/conectar_software/'.$id_computador; ?>">
+																<?php foreach ($lis_software as $row): ?>																																					
+																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?></option>
+																<?php endforeach ?>
+															</select>
+															<button type="button" class="btn btn-info" id="btn_com_soft"><i class="icon-plus-sign"></i></button>
 														</form>
 													<?php endif ?>
 												</div>

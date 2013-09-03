@@ -25,6 +25,13 @@ var normalizar = (function() {
 
 function inicio () {
 
+	/** JSON **/	
+	$.getJSON('http://localhost:8000/hola', function(data) {
+		console.log('algo');
+	}, function (data) {
+		console.log('mierda');
+	});
+
 	/*
 	* Selects anidados con chained jquery
 	*/
@@ -82,6 +89,25 @@ function inicio () {
 		var accion = $("#slc_com_dis").data('url');
 		var id = $("#slc_com_dis").val();
 		var parametros = {"id_dispositivo":id}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+	        async: false,
+	        success: function (datos) {
+	        	location.reload(true);
+	        }
+		});
+	});
+
+	/*
+	* Agregar conexion, computador -> software
+	*/
+	$('#btn_com_soft').on('click', function(){
+		var accion = $("#slc_com_soft").data('url');
+		var id = $("#slc_com_soft").val();
+		var parametros = {"id_software":id}
 		$.ajax({
 	        type: "POST",
 	        url: accion,
@@ -238,6 +264,30 @@ function inicio () {
 	* Validacion de formularios en la vista
 	 */	
 	$("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+
+	/*
+	* Busca y reemplaza en select con los computadores
+	 */
+	$("#icomputador").on("keyup", function(){
+		var valor = $("#icomputador").val();
+		var accion = $("#icomputador").data('url');
+		var todos = 0;
+
+		if(valor == String.fromCharCode(42)){
+			todos = 1;
+		}
+		var parametros = {"valor":valor, "todos":todos}
+		$.ajax({
+	        type: "POST",
+	        url: accion,
+	        data: parametros,
+	        dataType: "html",
+	        success: function(datos){
+				$("#computador").children().remove();
+				$("#computador").append(datos);
+			}
+		});
+	});
 
 	/*
 	* Busca y reemplaza en select con las ubicaciones
