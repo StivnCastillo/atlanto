@@ -42,18 +42,40 @@
 							<?php endif ?>
 
 							<!-- ticket -->
-							<?php if ($ci->session->userdata('roles')->ticket_admin): ?>
+							<?php if ($ci->session->userdata('roles')->ticket_admin OR $ci->session->userdata('roles')->ticket_user): ?>
 								<li class="dropdown">
 									<a href="" class="dropdown-toggle" data-toggle="dropdown">
 										<?php echo $ci->lang->line('men_tickets') ?>
 										<b class="caret"></b>
 									</a>
+									<ul class="dropdown-menu">										
+										<li><a href="<?php echo base_url().'ticket/nuevo'; ?>"><?php echo $ci->lang->line('men_sub_crear'); ?></a></li>
+										
+										<!-- Solo los users -->
+										<?php if ($ci->session->userdata('roles')->ticket_user): ?>
+											<li><a href="">Mis tickets</a></li>
+										<?php endif ?>
+
+										<!-- Solo admin -->
+										<?php if ($ci->session->userdata('roles')->ticket_admin): ?>
+											<li><a href=""><?php echo $ci->lang->line('men_sub_abiertos'); ?></a></li>
+											<li><a href=""><?php echo $ci->lang->line('men_sub_respondidos'); ?></a></li>
+											<li><a href=""><?php echo $ci->lang->line('men_sub_cerrados'); ?></a></li>
+											<li><a href=""><?php echo $ci->lang->line('men_sub_mis_tickets'); ?></a></li>
+										<?php endif ?>
+									</ul>
+								</li>
+							<?php endif ?>
+
+							<?php if ($ci->session->userdata('roles')->admin_quejas): ?>
+								<li class="dropdown">
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										Servicio al Cliente
+										<b class="caret"></b>
+									</a>
 									<ul class="dropdown-menu">
-										<li><a href=""><?php echo $ci->lang->line('men_sub_abiertos'); ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_respondidos'); ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_cerrados'); ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_mis_tickets'); ?></a></li>
-										<li><a href=""><?php echo $ci->lang->line('men_sub_crear'); ?></a></li>
+										<li><a href="<?php echo base_url()."quejas" ?>">Quejas y Reclamos</a></li>
+										<li><a href="<?php echo base_url()."quejas/nuevo" ?>">Nuevo Registro</a></li>
 									</ul>
 								</li>
 							<?php endif ?>
@@ -102,25 +124,24 @@
 							<?php endif ?>
 
 							<!-- administracion -->
-							
+							<?php if ($ci->session->userdata('roles')->administracion): ?>
 								<li class="dropdown">
 									<a href="" class="dropdown-toggle" data-toggle="dropdown">
 										<?php echo $ci->lang->line('men_administracion') ?>
 										<b class="caret"></b>
 									</a>
-									<ul class="dropdown-menu">
-										<?php if ($ci->session->userdata('roles')->administracion): ?>
+									<ul class="dropdown-menu">										
 											<li><a href="<?php echo base_url()."panel/usuarios" ?>"><?php echo $ci->lang->line('men_sub_usuarios') ?></a></li>
 											<li><a href=""><?php echo $ci->lang->line('men_sub_perfiles') ?></a></li>
 											<li><a href="<?php echo base_url().'panel/titulos' ?>"><?php echo $ci->lang->line('men_sub_tablas') ?></a></li>
 											<li><a href=""><?php echo $ci->lang->line('men_sub_resp') ?></a></li>
-										<?php endif ?>
 										<!-- administrador de correos -->
 										<?php if ($ci->session->userdata('roles')->admin_correos): ?>
 											<li><a href="<?php echo base_url().'correo/correos' ?>"><?php echo $ci->lang->line('men_correos') ?></a></li>
 										<?php endif ?>
 									</ul>
 								</li>
+							<?php endif ?>
 
 							<!-- reportes -->
 							<?php if ($ci->session->userdata('roles')->reportes): ?>

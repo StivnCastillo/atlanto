@@ -1,14 +1,9 @@
 <?php 
-$ci = &get_instance();
+	$ci = &get_instance();
 ?>
 		<article class="well">
 			<form class="form-inline">
 				<a href="<?php echo base_url().'cargo/nuevo' ?>" id="btn_agregar" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_agregar') ?>"><i class="icon icon-plus icon-white"></i></a>
-				<button id="btn_imprimir" class="btn btn-inverse" title="<?php echo $ci->lang->line('lnk_imprimir') ?>"><i class="icon-print icon-white"></i></button>
-				<select class="span2" name="imprimir" id="slc_imprimir" style="display: none;">
-					<option value="1"><?php echo $ci->lang->line('slc_imp_pdf'); ?></option>
-					<option value="2"><?php echo $ci->lang->line('slc_imp_excel'); ?></option>
-				</select>				
 			</form>
 		</article>
 

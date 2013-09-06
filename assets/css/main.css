@@ -39,6 +39,11 @@ body {
 	text-align: center !important;
 }
 
+.tabla-left
+{
+	text-align: left !important;
+}
+
 .display-no
 {
 	display: none;

@@ -1,5 +1,5 @@
 <?php 
-$ci = &get_instance();
+	$ci = &get_instance();
 ?>
 		<!-- Sidebar -->
 		<div class="row-fluid">
