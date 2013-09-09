@@ -67,19 +67,6 @@
 								</li>
 							<?php endif ?>
 
-							<?php if ($ci->session->userdata('roles')->admin_quejas): ?>
-								<li class="dropdown">
-									<a href="" class="dropdown-toggle" data-toggle="dropdown">
-										Servicio al Cliente
-										<b class="caret"></b>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a href="<?php echo base_url()."quejas" ?>">Quejas y Reclamos</a></li>
-										<li><a href="<?php echo base_url()."quejas/nuevo" ?>">Nuevo Registro</a></li>
-									</ul>
-								</li>
-							<?php endif ?>
-
 							<!-- tareas -->
 							<?php if ($ci->session->userdata('roles')->tareas): ?>
 								<li class="dropdown">
