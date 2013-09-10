@@ -403,10 +403,7 @@ function inicio () {
 			"sInfoEmpty": "Mostrando 0 de ",
 			"sInfoFiltered": "_MAX_"
 		},
-		"iDisplayLength": 10,
-		"aoColumnDefs": [
-			{ "iDataSort": -1, "aTargets": [ 0 ] }
-		] 
+		"iDisplayLength": 10
 	});
 	$.extend( $.fn.dataTableExt.oStdClasses, {
 	    "sWrapper": "dataTables_wrapper form-inline"

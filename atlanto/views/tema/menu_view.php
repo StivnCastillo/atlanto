@@ -53,14 +53,12 @@
 										
 										<!-- Solo los users -->
 										<?php if ($ci->session->userdata('roles')->ticket_user): ?>
-											<li><a href="">Mis tickets</a></li>
+											<li><a href="<?php echo base_url().'ticket/mis_tickets'; ?>">Mis tickets</a></li>
 										<?php endif ?>
 
 										<!-- Solo admin -->
 										<?php if ($ci->session->userdata('roles')->ticket_admin): ?>
-											<li><a href=""><?php echo $ci->lang->line('men_sub_abiertos'); ?></a></li>
-											<li><a href=""><?php echo $ci->lang->line('men_sub_respondidos'); ?></a></li>
-											<li><a href=""><?php echo $ci->lang->line('men_sub_cerrados'); ?></a></li>
+											<li><a href="<?php echo base_url().'ticket'; ?>">Ver Todos</a></li>
 											<li><a href=""><?php echo $ci->lang->line('men_sub_mis_tickets'); ?></a></li>
 										<?php endif ?>
 									</ul>

@@ -5616,6 +5616,7 @@ a.thumbnail:focus {
 .media,
 .media .media {
   margin-top: 15px;
+  border: 1px solid rgb(221, 221, 221) !important;
 }
 
 .media:first-child {
@@ -5628,6 +5629,8 @@ a.thumbnail:focus {
 
 .media-heading {
   margin: 0 0 5px;
+  background: rgb(249, 249, 249);
+  padding: 0.5em 0.2em;
 }
 
 .media > .pull-left {
