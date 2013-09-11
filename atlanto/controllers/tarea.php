@@ -4,14 +4,9 @@ class Tarea extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		//$this->load->helper(array('form'));
-		$this->load->library(array('clasefechas', 'email'));
+		$this->load->helper(array('email'));
+		$this->load->library(array('clasefechas'));
 		$this->load->model(array('tarea_model', 'usuario_model', 'mail_model'));
-	}
-
-	public function index()
-	{
-		
 	}
 
 	/*
@@ -115,13 +110,19 @@ class Tarea extends CI_Controller {
 			if($tarea){
 				//Si el usuario asignador es el mismo que el asignado, no se envia correo, de lo contrario se envia
 				if ($datos_recibidos['id_usuario'] != $this->session->userdata('id')){
-					//enviar correo
+					//**enviar correo
 					$usuario = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
-					$this->email->from('informatica@blancoynegromasivo.com.co', 'Tarea Informatica');
-					$this->email->to($usuario->email);
-					$this->email->subject('Alerta Nueva Tarea');
-					$this->email->message($datos_recibidos['descripcion']);
-					$this->email->send();
+
+					$html = nueva_tarea('Tarea #'.$tarea, $datos_recibidos['descripcion'], $datos_recibidos['descripcion']);
+
+					if(enviar_email('SCI - Nueva Tarea', $html, $usuario->email, 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+						
+						$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
+						$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
+						$this->session->set_flashdata('tipo_mensaje', 'exito');
+						
+						redirect('panel/tareas', 'refresh');
+					}
 				}
 
 				$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
@@ -207,11 +208,23 @@ class Tarea extends CI_Controller {
 					$usuario_asignador = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignador));
 					//enviar correo
 					$usuario_asignado = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
-					$this->email->from('informatica@blancoynegromasivo.com.co', 'Tarea Informatica');
-					$this->email->to($usuario_asignador->email);
-					$this->email->subject('Alerta Nueva Tarea');
-					$this->email->message("El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido." Modificó la tarea '".$datos_recibidos['descripcion']."' <br> ".$datos_recibidos['nota']);
-					$this->email->send();
+					
+					//Creo el htlm que ira en el correo
+					$html2 = "El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido." Modificó la tarea '".$datos_recibidos['descripcion']."' <br><br> <i>".$datos_recibidos['nota']."</i>";
+					$html = nueva_tarea(
+						'Tarea #'.$datos_recibidos['id_tarea'], 
+						'SCI - Alerta en la Tarea', 
+						$html2
+					);
+					//Se envia el correo
+					if(enviar_email('SCI - Alerta en la Tarea', $html, $usuario_asignador->email, 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+						
+						$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
+						$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
+						$this->session->set_flashdata('tipo_mensaje', 'exito');
+						
+						redirect('panel/tareas', 'refresh');
+					}
 				}
 
 				$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
@@ -253,11 +266,18 @@ class Tarea extends CI_Controller {
 				$usuario_asignador = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignador));
 				//enviar correo
 				$usuario_asignado = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignado));
-				$this->email->from('informatica@blancoynegromasivo.com.co', 'Tarea Informatica');
-				$this->email->to($usuario_asignador->email);
-				$this->email->subject('Alerta Nueva Tarea');
-				$this->email->message("El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido." Modificó la tarea #".$id);
-				$this->email->send();
+
+				//Creo el htlm que ira en el correo
+					$html2 = "El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido.", Cambió el estado de la Tarea #".$id;
+					$html = nueva_tarea(
+						'Tarea #'.$datos_recibidos['id_tarea'], 
+						'SCI - Alerta en la Tarea', 
+						$html2
+					);
+					//Se envia el correo
+					if(enviar_email('SCI - Alerta en la Tarea', $html, $usuario_asignador->email, 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+		
+					}
 			}
 		}
 	}

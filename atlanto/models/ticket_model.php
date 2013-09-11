@@ -66,7 +66,7 @@ class Ticket_model extends CI_Model {
     function get_mis_tickets($id, $id_ticket = FALSE){
         $where = "1 AND ";
         if($id_ticket){
-            $where .= $this->db->dbprefix($this->tabla).".id AND";
+            $where .= $this->db->dbprefix($this->tabla).".id = ".$id_ticket." AND ";
         }
         $query = $this->db->query("
             SELECT 

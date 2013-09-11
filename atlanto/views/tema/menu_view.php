@@ -94,7 +94,7 @@
 								</li>
 							<?php endif ?>
 
-							<!-- fnanciero -->
+							<!-- financiero 
 							<?php if ($ci->session->userdata('roles')->financiero): ?>
 								<li class="dropdown">
 									<a href="" class="dropdown-toggle" data-toggle="dropdown">
@@ -106,7 +106,7 @@
 										<li><a href=""><?php echo $ci->lang->line('men_sub_contratos'); ?></a></li>
 									</ul>
 								</li>
-							<?php endif ?>
+							<?php endif ?>-->
 
 							<!-- administracion -->
 							<?php if ($ci->session->userdata('roles')->administracion): ?>

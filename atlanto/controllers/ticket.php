@@ -9,7 +9,8 @@ class Ticket extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->helper(array(
-			'form'
+			'form',
+			'email'
 		));
 		$this->load->model(array(
 			'ticket_model',
@@ -110,6 +111,7 @@ class Ticket extends CI_Controller
 			$mensaje = $this->ticket_model->save_mensaje($datos);
 
 			if($mensaje){
+				/**ENVIAR CORREO*/
 				$this->session->set_flashdata('mensaje', 'Su respuesta ha sido enviada.');
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				redirect('ticket/ver/'.$datos_recibidos['id_ticket'], 'refresh');
@@ -198,8 +200,6 @@ class Ticket extends CI_Controller
 						$archivo       = $this->ticket_model->save_archivo($datos_archivo);
 					}
 				}
-					
-				
 				$link = anchor('ticket/ver/' . $ticket, 'Ticket #' . $ticket);
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito') . " " . $link . " " . $this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
@@ -211,6 +211,14 @@ class Ticket extends CI_Controller
 				redirect('ticket/nuevo', 'refresh');
 			}
 			
+		}
+	}
+
+	public function enviar()
+	{
+		$html = nueva_tarea('Mensaje de Prueba', 'Titulo de prueba', 'Ola k ase');
+		if(enviar_email('Prueba', $html, 'stiven.castillo@blancoynegromasivo.com.co', 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+			echo $this->email->print_debugger();
 		}
 	}
 	
