@@ -37,50 +37,44 @@
 				<thead>
 					<tr>
 						<!-- idioma -->
-						<th><?php echo $ci->lang->line('tab_empty'); ?></th>
-						<th><?php echo $ci->lang->line('tab_nombre'); ?></th>
-						<th><?php echo $ci->lang->line('tab_descripcion'); ?></th>
+						<th>#</th>
+						<th>Asunto</th>
+						<th>Usuario</th>
+						<th>Fecha</th>
+						<th>Estado</th>
 						<th class="tabla-center"><?php echo $ci->lang->line('tab_acciones'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php $i=1; ?>
-					<?php if (isset($cargos) AND $cargos): ?>
-						<?php foreach ($cargos as $row): ?>
+					<?php if (isset($tickets) AND $tickets): ?>
+						<?php foreach ($tickets as $row): ?>
 							<tr>
-								<td><?php echo $i; ?> </td>
-								<td><a href="<?php echo base_url().'cargo/nuevo/'.$row->id ?>"><?php echo $row->nombre; ?></a></td>
-								<td><?php echo $row->descripcion; ?></td><td class="tabla-center">
+								<td><a href="<?php echo base_url().'ticket/ver_ticket/'.$row->id ?>"><?php echo $row->id; ?></a></td>
+								<td><a href="<?php echo base_url().'ticket/ver_ticket/'.$row->id ?>"><?php echo $row->asunto; ?></a></td>
+								<td><a href="<?php echo base_url().'usuario/nuevo_usuario/'.$row->id ?>"><?php echo $row->usuario; ?></a></td>
+								<td><?php echo $row->fecha_creado; ?></td>
+								<td>
+									<?php if ($row->id_estado == 3 OR $row->id_estado == 6): ?>
+										<span class="label label-important"><?php echo $row->estado; ?></span>
+									<?php endif ?>
+									<?php if ($row->id_estado == 1): ?>
+										<span class="label label-info"><?php echo $row->estado; ?></span>
+									<?php endif ?>
+									<?php if ($row->id_estado == 2): ?>
+										<span class="label label-success"><?php echo $row->estado; ?></span>
+									<?php endif ?>
+									<?php if ($row->id_estado == 4 OR $row->id_estado == 5): ?>
+										<span class="label label-warning"><?php echo $row->estado; ?></span>
+									<?php endif ?>								
+								</td>
+								<td class="tabla-center">
 									<div class="btn-group">
-										<a class="btn btn-small" href="<?php echo base_url().'cargo/nuevo/'.$row->id ?>">
+										<a class="btn btn-small" href="<?php echo base_url().'ticket/ver_ticket/'.$row->id ?>">
 											<i class="icon-search icon-black"></i>
 										</a>
-										<a class="btn btn-small" href="<?php echo base_url().'cargo/nuevo/'.$row->id ?>">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#vnt_eliminar<?php echo $row->id; ?>" role="button" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-
-										<!-- VENTANA MODAL DE ELIMINACION-->
-										<div id="vnt_eliminar<?php echo $row->id; ?>" class="modal hide fade" >
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-												<h3 id="myModalLabel"><?php echo $ci->lang->line('titulo_eliminar_car'); ?></h3>
-											</div>
-											<div class="modal-body">
-												<p class="lead"><?php echo $ci->lang->line('msj_eliminar_car'); ?> <?php echo $row->nombre; ?>?</p>
-											</div>
-											<div class="modal-footer">
-												<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $ci->lang->line('btn_cerrar'); ?></button>
-												<a href="<?php echo base_url().'cargo/eliminar/'.$row->id ?>" class="btn btn-primary"><?php echo $ci->lang->line('btn_eliminar'); ?></a>
-											</div>
-										</div>
-
 									</div>
 								</td>
 							</tr>
-							<?php $i++; ?>
 						<?php endforeach ?>					
 					<?php endif ?>				
 				</tbody>

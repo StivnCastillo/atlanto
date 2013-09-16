@@ -136,15 +136,49 @@ class Ticket_model extends CI_Model {
     }
 
     //Elimina un ticket
-    function delete($id_ticket) {
-        $this->db->where('id', $id_ticket);
+    function delete($id) {
+        $this->db->where('id', $id);
         $this->db->delete($this->db->dbprefix($this->tabla));
     }
 
     //Actualiza los datos del usuario
-    function update($id_usuario, $datos) {
-        $this->db->where('id', $id_usuario);
+    function update($id, $datos) {
+        $this->db->where('id', $id);
         return $this->db->update($this->db->dbprefix($this->tabla), $datos);
+    }
+
+    function get_tickets($id_ticket = FALSE){
+        $where = "1";
+        if($id_ticket){
+            $where .= " AND ".$this->db->dbprefix($this->tabla).".id = ".$id_ticket;
+        }
+        $query = $this->db->query("
+            SELECT 
+            ".$this->db->dbprefix($this->tabla).".*,
+            ".$this->db->dbprefix($this->tabla_origen).".nombre AS origen,
+            ".$this->db->dbprefix($this->tabla_estado).".nombre AS estado,
+            ".$this->db->dbprefix($this->tabla_prioridad).".nombre AS prioridad,
+            CONCAT(".$this->db->dbprefix($this->tabla_usuario).".nombre, ' ', ".$this->db->dbprefix($this->tabla_usuario).".apellido) AS usuario
+
+            FROM ".$this->db->dbprefix($this->tabla)." 
+
+            LEFT JOIN(".$this->db->dbprefix($this->tabla_origen).", ".$this->db->dbprefix($this->tabla_estado).", ".$this->db->dbprefix($this->tabla_prioridad).", ".$this->db->dbprefix($this->tabla_usuario).")
+            ON(
+            ".$this->db->dbprefix($this->tabla).".id_origen = ".$this->db->dbprefix($this->tabla_origen).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_estado = ".$this->db->dbprefix($this->tabla_estado).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_prioridad = ".$this->db->dbprefix($this->tabla_prioridad).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_usuario = ".$this->db->dbprefix($this->tabla_usuario).".id
+            )
+            WHERE ".$where." ORDER BY ".$this->db->dbprefix($this->tabla).".id ASC
+        ");
+        if ($query->num_rows() > 0){
+            if($id_ticket){
+                return $query->row();
+            }
+            return $query->result();
+        }else{
+            return FALSE;
+        }
     }
 }
 
