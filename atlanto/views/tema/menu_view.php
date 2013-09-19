@@ -59,7 +59,7 @@
 										<!-- Solo admin -->
 										<?php if ($ci->session->userdata('roles')->ticket_admin): ?>
 											<li><a href="<?php echo base_url().'ticket'; ?>">Ver Todos</a></li>
-											<li><a href=""><?php echo $ci->lang->line('men_sub_mis_tickets'); ?></a></li>
+											<li><a href="<?php echo base_url().'ticket/index/admin'; ?>"><?php echo $ci->lang->line('men_sub_mis_tickets'); ?></a></li>
 										<?php endif ?>
 									</ul>
 								</li>
@@ -76,9 +76,6 @@
 										<li>
 											<a href="<?php echo base_url().'tarea/nueva_tarea'; ?>">
 												<?php echo $ci->lang->line('men_sub_nueva'); ?>
-												<span class="badge badge-important">
-													<?php echo $ci->tarea_model->get_no_tareas(array('estado' => 0)); ?>
-												</span>
 											</a>
 										</li>
 										<li>
@@ -89,7 +86,13 @@
 												</span>
 											</a>
 										</li>
-										<li><a href="<?php echo base_url().'panel/tareas' ?>"><?php echo $ci->lang->line('men_sub_todo'); ?></a></li>
+										<li>
+											<a href="<?php echo base_url().'panel/tareas' ?>"><?php echo $ci->lang->line('men_sub_todo'); ?>
+												<span class="badge badge-important">
+													<?php echo $ci->tarea_model->get_no_tareas(array('estado' => 0)); ?>
+												</span>
+											</a>
+										</li>
 									</ul>
 								</li>
 							<?php endif ?>

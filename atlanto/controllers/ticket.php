@@ -23,7 +23,7 @@ class Ticket extends CI_Controller
 
 	
 	/***** PANEL ADMINISTRADOR *****/
-	public function index()
+	public function index($admin = FALSE)
 	{
 		$this->acceso_restringido();
 		
@@ -31,8 +31,12 @@ class Ticket extends CI_Controller
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
 
-		$tickets = $this->ticket_model->get_tickets();
-		
+		if ($admin) {
+			$tickets = $this->ticket_model->get_tickets(FALSE, $this->session->userdata('id'));
+		}else{
+			$tickets = $this->ticket_model->get_tickets();			
+		}
+
 		$data = array(
 			'titulo' => 'Tickets',
 			'content' => 'tickets/admin/index_view',

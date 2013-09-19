@@ -147,10 +147,13 @@ class Ticket_model extends CI_Model {
         return $this->db->update($this->db->dbprefix($this->tabla), $datos);
     }
 
-    function get_tickets($id_ticket = FALSE){
+    function get_tickets($id_ticket = FALSE, $id_asignado = FALSE){
         $where = "1";
         if($id_ticket){
             $where .= " AND ".$this->db->dbprefix($this->tabla).".id = ".$id_ticket;
+        }
+        if($id_asignado){
+            $where .= " AND ".$this->db->dbprefix($this->tabla).".id_usuario_asignado = ".$id_asignado;
         }
         $query = $this->db->query("
             SELECT 

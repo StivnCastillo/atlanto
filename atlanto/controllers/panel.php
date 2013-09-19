@@ -40,7 +40,6 @@ class Panel extends CI_Controller {
 		$data = array(
 			'titulo' => $this->lang->line('titulo'),
 			'content' => 'escritorio_view',
-			'validador' => TRUE,
 			'tareas' => $tareas
 		);
 		$this->load->view('template', $data);
@@ -51,8 +50,7 @@ class Panel extends CI_Controller {
 		$data = array(
 			'titulo' => $this->lang->line('titulo_404'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
-			'content' => '404_view',
-			'validador' => FALSE
+			'content' => '404_view'
 		);
 		$this->load->view('template', $data);
 	}
@@ -71,7 +69,6 @@ class Panel extends CI_Controller {
 			'titulo' => $this->lang->line('titulo_usuarios'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'usuarios/index_view',
-			'validador' => TRUE,
 			'breadcrumbs' => $breadcrumbs,
 			'usuarios' => $usuarios
 		);
@@ -93,7 +90,6 @@ class Panel extends CI_Controller {
 			'titulo' => $this->lang->line('titulo_tareas'),
 			'titulo_menu' => $this->lang->line('index_titulo_menu'),
 			'content' => 'tareas/index_view',
-			'validador' => TRUE,
 			'breadcrumbs' => $breadcrumbs,
 			'tareas' => $tareas
 		);
@@ -112,7 +108,6 @@ class Panel extends CI_Controller {
 		$data = array(
 			'titulo' => $this->lang->line('titulo_titulos'),
 			'content' => 'titulos/index_view',
-			'validador' => TRUE,
 			'breadcrumbs' => $breadcrumbs
 		);
 		$this->load->view('template', $data);

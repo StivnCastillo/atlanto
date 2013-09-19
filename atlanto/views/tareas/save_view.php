@@ -1,6 +1,7 @@
 <?php 
 	$ci = &get_instance();
 ?>
+
 <div class="tabbable">
 			<!-- MENU AGREGAR TAREA -->
 			<ul class="nav nav-tabs">
@@ -70,7 +71,7 @@
 									<label class="control-label" for="fecha_fin"><?php echo $ci->lang->line('lbl_fecha_fin') ?></label>
 									<div class="controls">
 										<div class="input-append date fecha">
-											<input data-format="yyyy-MM-dd hh:mm:ss" name="fecha_fin" type="text" value="<?php echo (isset($tarea)) ? $tarea->fecha_inicio : ''; ?>" />
+											<input data-format="yyyy-MM-dd hh:mm:ss" name="fecha_fin" type="text" value="<?php echo (isset($tarea)) ? $tarea->fecha_fin : ''; ?>" />
 											<span class="add-on">
 												<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 											</span>

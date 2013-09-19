@@ -129,4 +129,13 @@ class Tarea_model extends CI_Model {
         $this->db->where('id', $id_usuario);
         $this->db->delete($this->db->dbprefix($this->tabla));
     }
+
+    function get_todos_2() {
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }        
+    }
 }

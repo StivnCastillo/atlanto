@@ -87,7 +87,7 @@ $ci = &get_instance();
 								</td>
 							</tr>
 							<?php $i++; ?>
-						<?php endforeach ?>	
+						<?php endforeach ?>
 					<?php else: ?>
 						<tr>
 							<td colspan="6">Sin Resultados</td>

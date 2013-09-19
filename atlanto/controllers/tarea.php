@@ -5,7 +5,7 @@ class Tarea extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper(array('email'));
-		$this->load->library(array('clasefechas'));
+		$this->load->library(array('clasefechas', 'horas'));
 		$this->load->model(array('tarea_model', 'usuario_model', 'mail_model'));
 	}
 
@@ -86,10 +86,9 @@ class Tarea extends CI_Controller {
 			}else{
 				$estado = 1;
 				//Calcula la duracion que tuvo la tarea
-				$this->clasefechas->setMySQLDateTime($datos_recibidos['fecha_inicio']);
-	    		$tiempo = $this->clasefechas->diff_MySQL($datos_recibidos['fecha_fin']);
-	    		//Duracion separada por comas (,). meses,dias,horas,minutos
-	    		$duracion = floor($tiempo['weeks']).",".floor($tiempo['days']).",".floor($tiempo['hours']).",".floor($tiempo['minutes']);
+	    		$horas = new Horas();
+	    		$tiempo = $horas->calcular($datos_recibidos['fecha_inicio'], $datos_recibidos['fecha_fin']);
+	    		$duracion = $tiempo['minutos'];
 			}
 
 			$datos = array(
@@ -141,6 +140,20 @@ class Tarea extends CI_Controller {
 		}
 	}
 
+	public function mod()
+	{
+		$tareas = $this->tarea_model->get_todos_2();
+		$horas = new Horas();
+		foreach ($tareas as $row) {
+    		$tiempo = $horas->calcular($row->fecha_inicio, $row->fecha_fin);
+    		$duracion = $tiempo['minutos'];
+    		$datos = array(
+				'duracion' => $duracion
+			);
+			$tarea = $this->tarea_model->update($row->id, $datos);
+		}
+	}
+
 	public function modificar()
 	{
 		$this->acceso_restringido();
@@ -182,10 +195,9 @@ class Tarea extends CI_Controller {
 			}else{
 				$estado = 1;
 				//Calcula la duracion que tuvo la tarea
-				$this->clasefechas->setMySQLDateTime($datos_recibidos['fecha_inicio']);
-	    		$tiempo = $this->clasefechas->diff_MySQL($datos_recibidos['fecha_fin']);
-	    		//Duracion separada por comas (,). meses,dias,horas,minutos
-	    		$duracion = floor($tiempo['weeks']).",".floor($tiempo['days']).",".floor($tiempo['hours']).",".floor($tiempo['minutes']);
+	    		$horas = new Horas();
+	    		$tiempo = $horas->calcular($datos_recibidos['fecha_inicio'], $datos_recibidos['fecha_fin']);
+	    		$duracion = $tiempo['minutos'];
 			}
 
 			$datos = array(

@@ -59,7 +59,7 @@ class Reporte extends CI_Controller {
         $pdf->SetTitle($this->input->post('titulo'));
         $pdf->SetSubject($this->input->post('titulo'));
 
-        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $this->lang->line('rep_tareas_lista').' '.date("Y-m-d"), $config->repo->leyenda, array(0, 0, 0), array(0, 0, 0));
+        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $this->lang->line('rep_tareas_lista').' '.date("Y-m-d"), $config->repo_leyenda, array(0, 0, 0), array(0, 0, 0));
         $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
 
         //fuente de los titulos de la tabla y el cuerpo
@@ -94,24 +94,19 @@ class Reporte extends CI_Controller {
 
         $tareas = $this->tarea_model->get_todos(FALSE);
         if ($tareas) {
-        	$this->table->set_heading($this->lang->line('tab_estado'), $this->lang->line('tab_titulo'), $this->lang->line('tab_usuario_asignado'), $this->lang->line('tab_fecha_inicio'), $this->lang->line('tab_fecha_fin'), $this->lang->line('tab_duracion'));		
+        	$this->table->set_heading("#",$this->lang->line('tab_estado'), $this->lang->line('tab_titulo'), $this->lang->line('tab_usuario_asignado'), $this->lang->line('tab_fecha_inicio'), $this->lang->line('tab_fecha_fin'), $this->lang->line('tab_duracion'));		
 			foreach ($tareas as $row) {
 				($row->estado == 1) ? $estado = 'Si' : $estado = 'No';
 				//Calcular duracion
 				if ($row->duracion != '') {
-					$duracion = explode(',', $row->duracion);
-					$duracion_total = '';
-					$duracion_total .= ($duracion[0] != 0) ? $duracion[0].' Meses ' : '';
-					$duracion_total .= ($duracion[1] != 0) ? $duracion[1].' Dias ' : '';
-					$duracion_total .= ($duracion[2] != 0) ? $duracion[2].' Hrs ' : '';
-					$duracion_total .= ($duracion[3] != 0) ? $duracion[3].' Mins ' : '';
+					$duracion_total = $row->duracion.' min';
 				}else{
 					$duracion_total = 'Sin terminar';
 				}
 					
 
 				//$duracion_total = $duracion[0].' Meses'.$duracion[1].' Dias'.$duracion[2].' Hrs'.$duracion[3].' Min';
-				$this->table->add_row($estado, $row->titulo, $row->nombre." ".$row->apellido, $row->fecha_inicio, $row->fecha_fin, $duracion_total);
+				$this->table->add_row($row->id,$estado, $row->titulo, $row->nombre." ".$row->apellido, $row->fecha_inicio, $row->fecha_fin, $duracion_total);
 			}
         }else{
         	$this->table->set_heading('No se encontraron Resultados');
