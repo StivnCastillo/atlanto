@@ -115,7 +115,7 @@
 										<img class="media-object" data-src="holder.js/64x64/text:<?php echo $row->usuario; ?>">
 									</a>
 									<div class="media-body">
-										<h4 class="media-heading"><?php echo $row->fecha; ?> <small><?php echo $row->usuario; ?></small></h4>
+										<h4 class="media-heading"><?php echo $row->usuario; ?> <small><?php echo date("D d \of M Y", strtotime($row->fecha)); ?></small></h4>
 										<p><?php echo $row->mensaje; ?></p>
 									</div>
 								</li>

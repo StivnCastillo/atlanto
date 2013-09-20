@@ -45,6 +45,11 @@ function inicio () {
 	});
 
 	/*
+	* Input type number slider
+	*/
+	$('.slider').slider();
+
+	/*
 	* Agregar conexion, computador -> monitor
 	*/
 	$('#btn_com_mon').on('click', function(){
@@ -225,7 +230,10 @@ function inicio () {
 	        dataType: "html",
 	        async: false,
 	        success: function (datos) {
-	        	
+	        	console.log(datos);
+	        },
+	        error: function(datos){
+	        	console.log(datos);
 	        }
 		});
     });

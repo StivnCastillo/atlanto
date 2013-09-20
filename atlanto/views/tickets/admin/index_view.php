@@ -36,7 +36,7 @@
 			<table class="table table-striped table-hover table-bordered tabla" id="tabla">
 				<thead>
 					<tr>
-						<!-- idioma -->
+						<th>&nbsp;</th>
 						<th>#</th>
 						<th>Asunto</th>
 						<th>Usuario</th>
@@ -46,9 +46,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (isset($tickets) AND $tickets): ?>
+					<?php if (isset($tickets) AND $tickets): $i=1;?>
 						<?php foreach ($tickets as $row): ?>
 							<tr>
+								<td><?php echo $i; ?></td>
 								<td><a href="<?php echo base_url().'ticket/ver_ticket/'.$row->id ?>"><?php echo $row->id; ?></a></td>
 								<td><a href="<?php echo base_url().'ticket/ver_ticket/'.$row->id ?>"><?php echo $row->asunto; ?></a></td>
 								<td><a href="<?php echo base_url().'usuario/nuevo_usuario/'.$row->id ?>"><?php echo $row->usuario; ?></a></td>
@@ -75,6 +76,7 @@
 									</div>
 								</td>
 							</tr>
+							<?php $i++; ?>
 						<?php endforeach ?>					
 					<?php endif ?>				
 				</tbody>

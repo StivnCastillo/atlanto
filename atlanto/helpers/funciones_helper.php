@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+date_default_timezone_set("America/Bogota");
 
 //si no existe la función get_ip_cliente la creamos
 if(!function_exists('get_ip_cliente'))

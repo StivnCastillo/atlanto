@@ -36,8 +36,8 @@
 			<table class="table table-striped table-hover table-bordered tabla" id="tabla">
 				<thead>
 					<tr>
-						<!-- idioma -->
-						<th>#</th>
+						<th>&nbsp;</th>
+						<th># Ticket</th>
 						<th>Asunto</th>
 						<th>Fecha</th>
 						<th>Estado</th>
@@ -45,9 +45,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (isset($tickets) AND $tickets): ?>
+					<?php if (isset($tickets) AND $tickets): $i=1;?>
 						<?php foreach ($tickets as $row): ?>
 							<tr>
+								<td><?php echo $i; ?></td>
 								<td><a href="<?php echo base_url().'ticket/ver/'.$row->id ?>"><?php echo $row->id; ?></a></td>
 								<td><a href="<?php echo base_url().'ticket/ver/'.$row->id ?>"><?php echo $row->asunto; ?></a></td>
 								<td><?php echo $row->fecha_creado; ?></td>
@@ -73,6 +74,7 @@
 									</div>
 								</td>
 							</tr>
+							<?php $i++; ?>
 						<?php endforeach ?>					
 					<?php endif ?>				
 				</tbody>

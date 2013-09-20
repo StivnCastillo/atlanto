@@ -7,6 +7,7 @@ class Ticket_model extends CI_Model {
     private $tabla_prioridad = 'ticket_prioridad';
     private $tabla_origen = 'ticket_origen';
     private $tabla_mensaje = 'ticket_mensaje';
+    private $tabla_ca = 'ticket_calificacion';
 	private $tabla_usuario = 'usuario';
 
 	function __construct() {
@@ -35,6 +36,15 @@ class Ticket_model extends CI_Model {
 
     function save_mensaje($datos) {
         $guarda = $this->db->insert($this->db->dbprefix($this->tabla_mensaje), $datos);
+        if ($guarda) {
+            return $this->db->insert_id();
+        }else{
+            return $guarda;
+        }
+    }
+
+    function save_calificacion($datos) {
+        $guarda = $this->db->insert($this->db->dbprefix($this->tabla_ca), $datos);
         if ($guarda) {
             return $this->db->insert_id();
         }else{
@@ -85,7 +95,7 @@ class Ticket_model extends CI_Model {
             ".$this->db->dbprefix($this->tabla).".id_prioridad = ".$this->db->dbprefix($this->tabla_prioridad).".id AND
             ".$this->db->dbprefix($this->tabla).".id_usuario = ".$this->db->dbprefix($this->tabla_usuario).".id
             )
-            WHERE ".$where." ".$this->db->dbprefix($this->tabla).".id_usuario = ".$id." ORDER BY ".$this->db->dbprefix($this->tabla).".id ASC
+            WHERE ".$where." ".$this->db->dbprefix($this->tabla).".id_usuario = ".$id." ORDER BY ".$this->db->dbprefix($this->tabla).".id DESC
         ");
         if ($query->num_rows() > 0){
             if($id_ticket){
@@ -97,7 +107,37 @@ class Ticket_model extends CI_Model {
         }
     }
 
-    public function get_mensajes($id)
+    function get_ticket_usuario($id_ticket){
+        $query = $this->db->query("
+            SELECT 
+            ".$this->db->dbprefix($this->tabla).".*,
+            ".$this->db->dbprefix($this->tabla_origen).".nombre AS origen,
+            ".$this->db->dbprefix($this->tabla_estado).".nombre AS estado,
+            ".$this->db->dbprefix($this->tabla_prioridad).".nombre AS prioridad,
+            ".$this->db->dbprefix($this->tabla_usuario).".email AS correo,
+            CONCAT(".$this->db->dbprefix($this->tabla_usuario).".nombre, ' ', ".$this->db->dbprefix($this->tabla_usuario).".apellido) AS usuario
+
+            FROM ".$this->db->dbprefix($this->tabla)." 
+
+            LEFT JOIN(".$this->db->dbprefix($this->tabla_origen).", ".$this->db->dbprefix($this->tabla_estado).", ".$this->db->dbprefix($this->tabla_prioridad).", ".$this->db->dbprefix($this->tabla_usuario).")
+            ON(
+            ".$this->db->dbprefix($this->tabla).".id_origen = ".$this->db->dbprefix($this->tabla_origen).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_estado = ".$this->db->dbprefix($this->tabla_estado).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_prioridad = ".$this->db->dbprefix($this->tabla_prioridad).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_usuario = ".$this->db->dbprefix($this->tabla_usuario).".id
+            )
+            WHERE ".$this->db->dbprefix($this->tabla).".id = ".$id_ticket);
+        if ($query->num_rows() > 0){
+            if($id_ticket){
+                return $query->row();
+            }
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    function get_mensajes($id)
     {
         $query = $this->db->query("
             SELECT 
@@ -172,7 +212,7 @@ class Ticket_model extends CI_Model {
             ".$this->db->dbprefix($this->tabla).".id_prioridad = ".$this->db->dbprefix($this->tabla_prioridad).".id AND
             ".$this->db->dbprefix($this->tabla).".id_usuario = ".$this->db->dbprefix($this->tabla_usuario).".id
             )
-            WHERE ".$where." ORDER BY ".$this->db->dbprefix($this->tabla).".id ASC
+            WHERE ".$where." ORDER BY ".$this->db->dbprefix($this->tabla).".id DESC
         ");
         if ($query->num_rows() > 0){
             if($id_ticket){

@@ -147,12 +147,67 @@ class Ticket extends CI_Controller
 			$mensaje = $this->ticket_model->save_mensaje($datos);
 
 			if($mensaje){
-				/**ENVIAR CORREO*/
-				$this->session->set_flashdata('mensaje', 'Su respuesta ha sido enviada.');
-				$this->session->set_flashdata('tipo_mensaje', 'exito');
-				redirect('ticket/ver_ticket/'.$datos_recibidos['id_ticket'], 'refresh');
+				$ticket = $this->ticket_model->get_ticket_usuario($datos_recibidos['id_ticket']);
+
+				$html = respuesta_ticket('Han respondido tu Ticket #'.$datos_recibidos['id_ticket'], 'Respuesta en ticket', $datos_recibidos['mensaje']);
+				if(enviar_email('SCI - Respuesta en ticket', $html, 'stiven.castillo@blancoynegromasivo.com.co', 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+
+					/**ENVIAR CORREO*/
+					$this->session->set_flashdata('mensaje', 'Su respuesta ha sido enviada.');
+					$this->session->set_flashdata('tipo_mensaje', 'exito');
+					redirect('ticket/ver_ticket/'.$datos_recibidos['id_ticket'], 'refresh');
+				}
 			}
 		}
+	}
+
+	public function envio()
+	{
+		$html = '
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head><title>Correo</title><style>body{background: #EEEEEE;font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;}table{border-left: 3px solid #34495e;}th{background: #34495e;color: #EEEEEE;text-align: left;padding-left: 10px;}#footer{background: #34495e;color: #EEEEEE;font-size: 10px;}#footer a{color: #2ecc71;text-decoration: none;font-weight: bold;}.espacio{height: 12px;}</style></head>
+<body>
+    <table width="100%">
+        <tbody>
+            <tr>
+                <th>
+                    <h3>Titulo del correo</h3>
+                </th>
+            </tr>
+            <tr><td class="espacio"></td></tr>
+            <tr>
+                <td>
+                    <p>Asunto del correo</p>
+                </td>
+            </tr>
+            <tr><td class="espacio"></td></tr>
+            <tr>
+                <td>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </td>
+            </tr>
+            <tr><td class="espacio"></td></tr>
+            <tr>
+                <td id="footer">
+                    Sistema de control de informatica - Blanco y Negro Masivo 2013. <a href="#">Entrar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+		';
+		if(enviar_email('SCI - Respuesta en ticket', $html, 'stiven.castillo@blancoynegromasivo.com.co', 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+			echo "Enviado";
+		}
+
 	}
 
 	/***** PANEL USUARIO *****/
@@ -194,6 +249,7 @@ class Ticket extends CI_Controller
 			'content' => 'tickets/user/ver_view',
 			'breadcrumbs' => $breadcrumbs,
 			'accion' => site_url('ticket/responder'),
+			'accion_c' => site_url('ticket/calificar'),
 			'ticket' => $ticket,
 			'archivos' => $archivos,
 			'mensajes' => $mensajes
@@ -232,6 +288,44 @@ class Ticket extends CI_Controller
 			if($mensaje){
 				/**ENVIAR CORREO*/
 				$this->session->set_flashdata('mensaje', 'Su respuesta ha sido enviada.');
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				redirect('ticket/ver/'.$datos_recibidos['id_ticket'], 'refresh');
+			}
+		}
+	}
+
+	public function calificar()
+	{
+		$this->acceso_restringido();
+		$datos_recibidos = $this->input->post(NULL, TRUE);
+		$config = array(
+			array(
+				'field' => 'solucion',
+				'label' => 'Solucion',
+				'rules' => 'required'
+			)
+		);
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('ticket/ver/'.$datos_recibidos['id_ticket'], 'refresh');
+		}else{
+			$datos = array(
+				'id_ticket' => $datos_recibidos['id_ticket'],
+				'observacion' => $datos_recibidos['observacion'],
+				'solucion' => $datos_recibidos['solucion'],
+				'calificacion' => $datos_recibidos['calificacion'],
+				'fecha' => date('Y-m-d H:i:s')
+			);
+			
+			$calificacion = $this->ticket_model->save_calificacion($datos);
+
+			if($calificacion){
+				$ticket = $this->ticket_model->update($datos_recibidos['id_ticket'], array('calificado' => 1));
+				/**ENVIAR CORREO*/
+				$this->session->set_flashdata('mensaje', 'Gracias por su calificación, estaremos trabajando para mejorar.');
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				redirect('ticket/ver/'.$datos_recibidos['id_ticket'], 'refresh');
 			}
@@ -315,10 +409,20 @@ class Ticket extends CI_Controller
 					);
 					$archivo       = $this->ticket_model->save_archivo($datos_archivo);
 				}
-				$link = anchor('ticket/ver/' . $ticket, 'Ticket #' . $ticket);
-				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito') . " " . $link . " " . $this->lang->line('msj_ext_guardar'));
-				$this->session->set_flashdata('tipo_mensaje', 'exito');
-				redirect('ticket/nuevo', 'refresh');
+
+				$admins = $this->usuario_model->get_administradores();
+				$usuarios = array('informatica@blancoynegromasivo.com.co');
+				foreach ($admins as $row) {
+					array_push($usuarios, $row->email);
+				}
+				$html = nuevo_ticket('Ticket #'.$ticket, $datos_recibidos['asunto'], $datos_recibidos['mensaje']);
+				if(enviar_email('SCI - Nuevo Ticket', $html, $usuarios, 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+						
+					$link = anchor('ticket/ver/' . $ticket, 'Ticket #' . $ticket);
+					$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito') . " " . $link . " " . $this->lang->line('msj_ext_guardar'));
+					$this->session->set_flashdata('tipo_mensaje', 'exito');
+					redirect('ticket/nuevo', 'refresh');
+				}
 			} else {
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
@@ -327,11 +431,6 @@ class Ticket extends CI_Controller
 			}
 			
 		}
-	}
-
-	public function descargar($nombre, $datos)
-	{
-		force_download($nombre, $datos);
 	}
 
 	public function enviar()

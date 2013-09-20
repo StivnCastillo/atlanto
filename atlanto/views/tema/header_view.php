@@ -21,6 +21,7 @@
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap-wysihtml5.css" rel="stylesheet" />
 	<link href="<?php echo base_url(); ?>assets/css/bootstrap-spinedit.css" rel="stylesheet" />
+	<link href="<?php echo base_url(); ?>assets/css/bootstrap-slider.css" rel="stylesheet" />
 	
 	<!-- Font awesome -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">

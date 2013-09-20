@@ -112,9 +112,9 @@ class Tarea extends CI_Controller {
 					//**enviar correo
 					$usuario = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
 
-					$html = nueva_tarea('Tarea #'.$tarea, $datos_recibidos['descripcion'], $datos_recibidos['descripcion']);
+					$html = '<p>'.$datos_recibidos['descripcion'].'</p>';
 
-					if(enviar_email('SCI - Nueva Tarea', $html, $usuario->email, 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+					if(enviar('SCI - Nueva Tarea - #'.$tarea, 'Tarea #'.$tarea, $html, $usuario->email, array('correo' => 'informatica@blancoynegromasivo.com.co','nombre' => 'Informatica'))){
 						
 						$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
 						$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
@@ -219,17 +219,12 @@ class Tarea extends CI_Controller {
 				if ($tareas->id_usuario_asignador != $this->session->userdata('id')){
 					$usuario_asignador = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignador));
 					//enviar correo
-					$usuario_asignado = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));
-					
+					$usuario_asignado = $this->usuario_model->get_usuario(array('id' => $datos_recibidos['id_usuario']));					
 					//Creo el htlm que ira en el correo
-					$html2 = "El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido." Modificó la tarea '".$datos_recibidos['descripcion']."' <br><br> <i>".$datos_recibidos['nota']."</i>";
-					$html = nueva_tarea(
-						'Tarea #'.$datos_recibidos['id_tarea'], 
-						'SCI - Alerta en la Tarea', 
-						$html2
-					);
+					$nombre = $usuario_asignado->nombre." ".$usuario_asignado->apellido;
+					$html = "<p>El usuario ".$nombre." Modificó la tarea #'".$datos_recibidos['id_tarea']."' <hr> <i>".$datos_recibidos['nota']."</i>";					
 					//Se envia el correo
-					if(enviar_email('SCI - Alerta en la Tarea', $html, $usuario_asignador->email, 'informatica@blancoynegromasivo.com.co', 'Informatica')){
+					if(enviar('SCI - Alerta en Tarea - #'.$datos_recibidos['id_tarea'], 'Tarea #'.$datos_recibidos['id_tarea'], $html, $usuario_asignador->email, array('correo' => 'informatica@blancoynegromasivo.com.co','nombre' => 'Informatica'))){
 						
 						$link = anchor('tarea/nueva_tarea/'.$tarea, $datos_recibidos['titulo']);
 						$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_modificar_usu'));
@@ -257,15 +252,12 @@ class Tarea extends CI_Controller {
 	public function cambiar_estado()
 	{
 		$id = $this->input->post('id');		
-		$valor = $this->input->post('valor');
+		$valor = $this->input->post('valor');		
 		$fecha = $this->input->post('fecha');
-
 		if($valor == 1){
-			//Calcula la duracion que tuvo la tarea
-			$this->clasefechas->setMySQLDateTime($fecha);
-			$tiempo = $this->clasefechas->diff_MySQL(date('Y-m-d H:i:s'));
-			//Duracion separada por comas (,). meses,dias,horas,minutos
-			$duracion = floor($tiempo['weeks']).",".floor($tiempo['days']).",".floor($tiempo['hours']).",".floor($tiempo['minutes']);
+			$horas = new Horas();
+    		$tiempo = $horas->calcular($fecha, date('Y-m-d H:i:s'));
+    		$duracion = $tiempo['minutos'];
 
 			$tarea = $this->tarea_model->update($id, array('estado' => $valor, 'fecha_fin' => date('Y-m-d H:i:s'), 'nota' => $this->lang->line('tar_sin_nota'), 'duracion' => $duracion));
 		}elseif ($valor == 0) {
@@ -278,18 +270,12 @@ class Tarea extends CI_Controller {
 				$usuario_asignador = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignador));
 				//enviar correo
 				$usuario_asignado = $this->usuario_model->get_usuario(array('id' => $tareas->id_usuario_asignado));
-
 				//Creo el htlm que ira en el correo
-					$html2 = "El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido.", Cambió el estado de la Tarea #".$id;
-					$html = nueva_tarea(
-						'Tarea #'.$datos_recibidos['id_tarea'], 
-						'SCI - Alerta en la Tarea', 
-						$html2
-					);
-					//Se envia el correo
-					if(enviar_email('SCI - Alerta en la Tarea', $html, $usuario_asignador->email, 'informatica@blancoynegromasivo.com.co', 'Informatica')){
-		
-					}
+				$html = "El usuario ".$usuario_asignado->nombre." ".$usuario_asignado->apellido.", Ha Cambiado el estado de la Tarea #".$id;
+				//Se envia el correo
+				if(enviar('SCI - Alerta en Tarea - #'.$id, 'Tarea #'.$id, $html, $usuario_asignador->email, array('correo' => 'informatica@blancoynegromasivo.com.co','nombre' => 'Informatica'))){
+					echo "Listo";
+				}
 			}
 		}
 	}
