@@ -111,7 +111,7 @@ $ci = &get_instance();
 									<label class="control-label" for="ubicacion"><?php echo $ci->lang->line('lbl_ubicacion') ?></label>
 									<div class="controls">
 										<input type="text" class="span1" id="iubicacion" name="iubicacion" data-url="<?php echo $accion_ubicacion; ?>" />
-										<select class="span2" name="ubicacion" id="ubicacion">
+										<select class="span2" name="ubicacion" id="ubicacion" required>
 											<?php if (isset($usuario)): ?>
 												<option value="<?php echo $usuario->id_lugar ?>"><?php echo $usuario->lugar ?></option>											
 											<?php else: ?>
@@ -126,7 +126,7 @@ $ci = &get_instance();
 									<label class="control-label" for="departamento"><?php echo $ci->lang->line('lbl_departamento') ?></label>
 									<div class="controls">
 										<input type="text" class="span1" id="idepartamento" name="idepartamento" data-url="<?php echo $accion_departamento; ?>" />
-										<select class="span2" name="departamento" id="departamento">
+										<select class="span2" name="departamento" id="departamento" required>
 											<?php if (isset($usuario)): ?>
 												<option value="<?php echo $usuario->id_departamento ?>"><?php echo $usuario->departamento ?></option>											
 											<?php else: ?>
@@ -140,7 +140,7 @@ $ci = &get_instance();
 									<label class="control-label" for="cargo"><?php echo $ci->lang->line('lbl_cargo') ?></label>
 									<div class="controls">
 										<input type="text" class="span1" id="icargo" name="icargo" data-url="<?php echo $accion_cargo; ?>" />
-										<select class="span2" name="cargo" id="cargo">
+										<select class="span2" name="cargo" id="cargo" required>
 											<?php if (isset($usuario)): ?>
 												<option value="<?php echo $usuario->id_cargo?>"><?php echo $usuario->cargo ?></option>											
 											<?php else: ?>

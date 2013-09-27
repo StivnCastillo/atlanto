@@ -223,6 +223,41 @@ class Ticket_model extends CI_Model {
             return FALSE;
         }
     }
+
+    function get_tickets_estado($id_estado){
+        
+        $where = $this->db->dbprefix($this->tabla).".id_estado = ".$id_estado;
+
+        $query = $this->db->query("
+            SELECT 
+            ".$this->db->dbprefix($this->tabla).".*,
+            ".$this->db->dbprefix($this->tabla_origen).".nombre AS origen,
+            ".$this->db->dbprefix($this->tabla_estado).".nombre AS estado,
+            ".$this->db->dbprefix($this->tabla_prioridad).".nombre AS prioridad,
+            CONCAT(".$this->db->dbprefix($this->tabla_usuario).".nombre, ' ', ".$this->db->dbprefix($this->tabla_usuario).".apellido) AS usuario
+
+            FROM ".$this->db->dbprefix($this->tabla)." 
+
+            LEFT JOIN(".$this->db->dbprefix($this->tabla_origen).", ".$this->db->dbprefix($this->tabla_estado).", ".$this->db->dbprefix($this->tabla_prioridad).", ".$this->db->dbprefix($this->tabla_usuario).")
+            ON(
+            ".$this->db->dbprefix($this->tabla).".id_origen = ".$this->db->dbprefix($this->tabla_origen).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_estado = ".$this->db->dbprefix($this->tabla_estado).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_prioridad = ".$this->db->dbprefix($this->tabla_prioridad).".id AND
+            ".$this->db->dbprefix($this->tabla).".id_usuario = ".$this->db->dbprefix($this->tabla_usuario).".id
+            )
+            WHERE ".$where." ORDER BY ".$this->db->dbprefix($this->tabla).".id DESC
+        ");
+        if ($query->num_rows() > 0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
+    }
+
+    //numero de tareas sin resolver
+    function get_no_tickets($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        return $query->num_rows();
+    }
 }
-
-

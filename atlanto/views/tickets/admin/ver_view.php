@@ -56,36 +56,77 @@
 				</table>
 			</div>
 			<div class="row-fluid">
+
+				<div class="span5">
+					<form action="<?php echo $accion_prioridad; ?>" method="POST" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="prioridad">Prioridad</label>
+							<div class="controls">
+								<select name="prioridad" id="prioridad">
+									<?php foreach ($prioridad as $row): ?>										
+										<option value="<?php echo $row->id; ?>" <?php if ($ticket->id_prioridad == $row->id): ?>selected="selected"<?php endif ?> ><?php echo $row->nombre; ?></option>
+									<?php endforeach ?>
+								</select>
+								<button class="btn btn-info" type="submit"><i class="icon icon-wrench"></i></button>
+							</div>
+						</div>
+					</form>
+					
+				</div>
 				
-				<form action="<?php echo $accion_prioridad; ?>" method="POST" class="form-horizontal">
-					<div class="control-group">
-						<label class="control-label" for="prioridad">Prioridad</label>
-						<div class="controls">
-							<select name="prioridad" id="prioridad">
-								<?php foreach ($prioridad as $row): ?>										
-									<option value="<?php echo $row->id; ?>" <?php if ($ticket->id_prioridad == $row->id): ?>selected="selected"<?php endif ?> ><?php echo $row->nombre; ?></option>
-								<?php endforeach ?>
-							</select>
-							<button class="btn btn-info" type="submit"><i class="icon icon-wrench"></i></button>
+				<div class="span5">
+					<form action="<?php echo $accion_asignar; ?>" method="POST" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="usuario">Asignar</label>
+							<div class="controls">
+								<select name="usuario" id="usuario" required>
+									<option value="">--</option>
+									<?php foreach ($admin as $row): ?>										
+										<option value="<?php echo $row->id; ?>" <?php if ($ticket->id_usuario_asignado == $row->id): ?>selected="selected"<?php endif ?>><?php echo $row->nombre; ?> <?php echo $row->apellido; ?></option>
+									<?php endforeach ?>
+								</select>
+								<button class="btn btn-info" type="submit"><i class="icon icon-wrench"></i></button>
+							</div>
 						</div>
-					</div>
-				</form>
-
-				<form action="<?php echo $accion_asignar; ?>" method="POST" class="form-horizontal">
-					<div class="control-group">
-						<label class="control-label" for="usuario">Asignar</label>
-						<div class="controls">
-							<select name="usuario" id="usuario" required>
-								<option value="">--</option>
-								<?php foreach ($admin as $row): ?>										
-									<option value="<?php echo $row->id; ?>" <?php if ($ticket->id_usuario_asignado == $row->id): ?>selected="selected"<?php endif ?>><?php echo $row->nombre; ?> <?php echo $row->apellido; ?></option>
-								<?php endforeach ?>
-							</select>
-							<button class="btn btn-info" type="submit"><i class="icon icon-wrench"></i></button>
+					</form>
+				</div>				
+			</div>
+			<div class="row-fluid">
+				<div class="span5">
+					<form action="<?php echo $accion_estado; ?>" method="POST" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="estado">Estado</label>
+							<div class="controls">
+								<select name="estado" id="estado" required>
+									<?php foreach ($estados as $row): ?>										
+										<option value="<?php echo $row->id; ?>" <?php if ($ticket->id_estado == $row->id): ?>selected="selected"<?php endif ?>><?php echo $row->nombre; ?></option>
+									<?php endforeach ?>
+									<option value="" selected="selected">--</option>
+								</select>
+								<button class="btn btn-info" type="submit"><i class="icon icon-wrench"></i></button>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 
+				<div class="span5">
+					<form action="<?php echo $accion_compu; ?>" method="POST" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="computador">Relacionar Computador?</label>
+							<div class="controls">
+								<?php if ($ticket->computador_relacionado == 1): ?>
+									<span class="uneditable-input">Si</span>
+								<?php else: ?>
+									<select name="computador" id="computador" required>
+										<option value="0" selected="selected">No</option>
+										<option value="1">Si</option>
+									</select>
+									<button class="btn btn-info" type="submit"><i class="icon icon-wrench"></i></button>
+								<?php endif ?>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span10 offset1">
@@ -157,20 +198,6 @@
 								<div class="controls">
 									<input type="hidden" name="id_ticket" value="<?php echo $ticket->id; ?>">
 									<textarea class="input-block-level" name="mensaje" id="mensaje" rows="6" required></textarea>
-								</div>
-							</div>
-
-							<div class="control-group">							
-								<div class="controls">
-									<label class="radio inline">
-										<input type="radio" name="estado" value="2"> Solucionado
-									</label>
-									<label class="radio inline">
-										<input type="radio" name="estado" value="5"> En espera
-									</label>
-									<label class="radio inline">
-										<input type="radio" name="estado" value="4"> Vencido
-									</label>
 								</div>
 							</div>
 

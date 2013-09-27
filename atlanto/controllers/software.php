@@ -250,6 +250,21 @@ class Software extends CI_Controller {
 		}
 	}
 
+	public function eliminar($id)
+	{
+		$this->acceso_restringido();
+		$tipo = $this->software_model->delete($id);
+		if(!$tipo){
+			$this->session->set_flashdata('mensaje', 'Software eliminado exitosamente');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('software', 'refresh');
+	}
+
 
 	public function acceso_restringido(){
 		if (!$this->session->userdata('ingresado')) {

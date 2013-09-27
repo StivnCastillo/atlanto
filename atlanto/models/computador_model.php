@@ -267,7 +267,6 @@ class Computador_model extends CI_Model {
         }
     }
 
-    //Trae computador segun parametros de $data
     function get_discoduro($id_computador) {
         $query = $this->db->query("SELECT 
                 ".$this->db->dbprefix($this->tabla_con_discoduro).".id,
@@ -509,5 +508,59 @@ class Computador_model extends CI_Model {
     function update($id_computador, $datos) {
         $this->db->where('id', $id_computador);
         return $this->db->update($this->db->dbprefix($this->tabla), $datos);
+    }
+
+    public function get_conexion($id, $componente) {
+
+        if($componente == 1){
+            $tabla = $this->db->dbprefix($this->tabla_con_discoduro);
+        }
+        if($componente == 2){
+            $tabla = $this->db->dbprefix($this->tabla_con_memoria);
+        }
+        if($componente == 3){
+            $tabla = $this->db->dbprefix($this->tabla_con_procesador);
+        }
+        if($componente == 4){
+            $tabla = $this->db->dbprefix($this->tabla_con_tvideo);
+        }
+
+        //monitor
+        if($componente == 5){
+            $tabla = $this->db->dbprefix($this->tabla_con_monitor);
+        }
+
+        //impresora
+        if($componente == 6){
+            $tabla = $this->db->dbprefix($this->tabla_con_impresora);
+        }
+
+        //dispositivo
+        if($componente == 7){
+            $tabla = $this->db->dbprefix($this->tabla_con_dispositivo);
+        }
+
+        //software
+        if($componente == 8){
+            $tabla = $this->db->dbprefix($this->tabla_con_software);
+        }
+
+        $this->db->where(array('id' => $id));
+        $query = $this->db->get($tabla);
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
+
+    function get_computador($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
     }
 }

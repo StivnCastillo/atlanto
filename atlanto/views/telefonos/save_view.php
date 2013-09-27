@@ -97,23 +97,6 @@
 									</div>
 								</div>
 
-								<!-- red -->
-								<div class="control-group">
-									<label class="control-label" for="red"><?php echo $ci->lang->line('lbl_red') ?></label>
-									<div class="controls">
-										<select name="red" id="red" required>
-											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
-											<?php if (isset($red)): ?>
-												<?php foreach ($red as $row): ?>
-													<option value="<?php echo $row->id; ?>" <?php if(isset($telefono)){if($telefono->id_red == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
-												<?php endforeach ?>
-											<?php else: ?>
-												<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
-											<?php endif ?>
-										</select>
-									</div>
-								</div>
-
 								<!-- ip -->
 								<div class="control-group">
 									<label class="control-label" for="ip"><?php echo $ci->lang->line('lbl_ip') ?></label>

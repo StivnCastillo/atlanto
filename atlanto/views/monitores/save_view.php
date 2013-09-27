@@ -186,7 +186,7 @@
 								<div class="control-group">
 									<div class="controls">
 										<button type="submit" class="btn btn-inverse"><?php echo $this->lang->line('btn_guardar'); ?></button>
-										<a href="<?php echo base_url().'panel/usuarios' ?>" class="btn"><?php echo $this->lang->line('btn_cancelar'); ?></a>
+										<a href="<?php echo base_url().'monitor' ?>" class="btn"><?php echo $this->lang->line('btn_cancelar'); ?></a>
 									</div>
 								</div>
 							</div>

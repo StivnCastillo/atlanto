@@ -11,7 +11,8 @@ class Monitor extends CI_Controller {
 					'monitor_model', 
 					'estadocomponente_model', 
 					'interfaz_model', 
-					'tipo_model'
+					'tipo_model',
+					'computador_model'
 				)
 		);
 	}
@@ -174,6 +175,115 @@ class Monitor extends CI_Controller {
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
 				redirect('monitor/nuevo', 'refresh');
+			}
+		}
+	}
+
+	public function guardar_externo($id_computador)
+	{
+		$this->acceso_restringido();
+		
+		//reglas de validacion de formulario, en el server
+		$config = array(
+               array(
+                     'field' => 'nombre',
+                     'label' => 'Nombre',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'ubicacion',
+                     'label' => 'Ubicacion',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'usuario',
+                     'label' => 'Usuario',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'estado',
+                     'label' => 'Estado',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'tipo',
+                     'label' => 'Tipo',
+                     'rules' => 'required'
+                  ), 
+               array(
+                     'field' => 'interfaz',
+                     'label' => 'Interfaz',
+                     'rules' => 'required'
+                  ), 
+               array(
+                     'field' => 'fabricante',
+                     'label' => 'Fabricante',
+                     'rules' => 'required'
+                  ),
+               array(
+                     'field' => 'tamano',
+                     'label' => 'Tamaño',
+                     'rules' => 'required|number'
+                  ), 
+               array(
+                     'field' => 'modelo',
+                     'label' => 'Modelo',
+                     'rules' => 'required'
+                  ), 
+               array(
+                     'field' => 'serie',
+                     'label' => 'Serie',
+                     'rules' => 'required'
+                  )
+        );
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE)
+		{
+		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+			
+			redirect('monitor/nuevo', 'refresh');
+		}else{
+			$datos_recibidos = $this->input->post(NULL, TRUE);
+
+			$datos = array(
+				'nombre' => $datos_recibidos['nombre'],
+				'id_usuario' => $datos_recibidos['usuario'],
+				'id_ubicacion' => $datos_recibidos['ubicacion'],
+				'id_estado' => $datos_recibidos['estado'],
+				'id_tipo_monitor' => $datos_recibidos['tipo'],
+				'id_interfaz_monitor' => $datos_recibidos['interfaz'],
+				'fabricante' => $datos_recibidos['fabricante'],
+				'modelo' => $datos_recibidos['modelo'],
+				'n_serie' => $datos_recibidos['serie'],
+				'n_activo' => $datos_recibidos['activo'],
+				'tamano' => $datos_recibidos['tamano'],
+				'fecha_modificacion' => date('Y-m-d H:i:s')
+			);
+
+			$monitor = $this->monitor_model->save($datos);
+
+			if($monitor){
+				$link = anchor('computador/nuevo/'.$monitor, $datos_recibidos['nombre']);
+
+				$datos = array(
+					'id_monitor' => $monitor,
+					'id_computador' => $id_computador
+				);
+
+				$conexion = $this->computador_model->save_monitor($datos);
+				
+				$this->session->set_flashdata('mensaje', 'Monitor creado y conectado a este computador');
+				$this->session->set_flashdata('tipo_mensaje', 'exito');
+				
+				redirect('computador/nuevo/'.$id_computador, 'refresh');
+			}else{
+
+				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
+				$this->session->set_flashdata('tipo_mensaje', 'error');
+				
+				redirect('computador/nuevo/'.$id_computador, 'refresh');
 			}
 		}
 	}

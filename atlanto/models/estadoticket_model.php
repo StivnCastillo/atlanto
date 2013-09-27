@@ -16,4 +16,14 @@ class Estadoticket_model extends CI_Model {
             return FALSE;
         }        
     }
+
+    function get_estado($data) {
+        $this->db->where($data);
+        $query = $this->db->get($this->db->dbprefix($this->tabla));
+        if ($query->num_rows() > 0){
+            return $query->row();
+        }else{
+            return FALSE;
+        }
+    }
 }

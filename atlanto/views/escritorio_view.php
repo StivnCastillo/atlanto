@@ -1,418 +1,162 @@
 <?php 
 	$ci = &get_instance();
 ?>
-		<!-- Sidebar -->
-		<div class="row-fluid">
-			<div class="span3">
-				<div class="sidebar-nav" id="navegacion" style="position: fixed;">
-					<ul class="nav nav-list">
-						<li class="nav-header">Tickets</li>
-						<li class="active"><a href="#tickets" class="lnk">Tickets</a></li>
-						<li><a href="#tickets-nuevos" class="lnk">Tickets Nuevos</a></li>
-						<li><a href="#mis-tickets" class="lnk">Mis Tickets</a></li>
+<?php if ($ci->session->userdata('roles')->id == 1): ?>	
+	<div class="row-fluid">
+		<div class="span10 offset1">
 
-						<li class="nav-header">Tareas</li>
-						<li><a href="#tareas-pendientes" class="lnk">Mis Tareas pendientes</a></li>
+			<div class="row-fluid">
+				<h2><small>Tickets</small></h2>
 
-						<li class="nav-header">Equipos</li>
-						<li><a href="#">Últimos Agregados</a></li>
-						<li><a href="#">Últimos con Incidencias</a></li>
-						<li><a href="#">Últimos Actualizados</a></li>
-						<li><a href="#">Prestados</a></li>
-						<li><a href="#">Bodega</a></li>
-						<li class="nav-header">Usuarios</li>
-						<li><a href="#">Activos Actualmente</a></li>
-					</ul>
-				</div><!--/.well -->
+				<ul class="thumbnails">
+				    <li class="span2">
+					    <a href="<?php echo base_url().'ticket/nuevo'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-plus"></i></h1>
+					    	<p>Nuevo Ticket</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'ticket'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-list-alt"></i></h1>
+					    	<p>Ver Tickets</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'ticket/estado/3'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-remove"></i></h1>
+					    	<p>No Resueltos <span class="badge badge-important"><?php echo $n_tickets_no_resueltos; ?></span></p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'ticket/estado/5'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-check-minus"></i></h1>
+					    	<p>En Espera <span class="badge badge-important"><?php echo $n_tickets_espera; ?></span></p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="#" class="thumbnail">
+					    	<h1><i class="icon icon-check"></i></h1>
+					    	<p>Calificaciones</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'ticket/index/admin'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-user"></i></h1>
+					    	<p>Mis Tickets <span class="badge badge-success"><?php echo $n_mis_tickets ?></span> </p>
+					    </a>
+				    </li>
+			    </ul>
 			</div>
-			
-			<div class="span9">
 
-				<div class="well">
-					<div id="tickets"></div>
-					<h2>Tickets</h2>
-					<table class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Titulo 2</th>
-								<th>Titulo 3</th>
-								<th>Titulo 4</th>
-								<th class="tabla-center">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>						
-						</tbody>
-					</table>
-				</div>
+			<div class="row-fluid">
+				<h2><small>Tareas</small></h2>
 
+				<ul class="thumbnails">
+				    <li class="span2">
+					    <a href="<?php echo base_url().'tarea/nueva_tarea'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-plus"></i></h1>
+					    	<p>Nueva Tarea</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'panel/tareas' ?>" class="thumbnail">
+					    	<h1><i class="icon icon-list-alt"></i></h1>
+					    	<p>Ver Tareas</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'panel/tareas' ?>" class="thumbnail">
+					    	<h1><i class="icon icon-remove"></i></h1>
+					    	<p>Sin Terminar <span class="badge badge-important"><?php echo $n_tareas_no_terminadas; ?></span></p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'panel/tareas/'.$this->session->userdata('id'); ?>" class="thumbnail">
+					    	<h1><i class="icon icon-user"></i></h1>
+					    	<p>Mis Tareas <span class="badge badge-important"><?php echo $n_mis_tareas; ?></span></p>
+					    </a>
+				    </li>
+			    </ul>
+			</div>
+
+			<div class="row-fluid">
+				<h2><small>Inventario</small></h2>
+
+				<ul class="thumbnails">
+				    <li class="span2">
+					    <a href="<?php echo base_url().'computador'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-laptop"></i></h1>
+					    	<p>Computadores</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'componente'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-keyboard"></i></h1>
+					    	<p>Componentes</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'monitor'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-desktop"></i></h1>
+					    	<p>Monitores</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'impresora'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-print"></i></h1>
+					    	<p>Impresoras</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="<?php echo base_url().'telefono'; ?>" class="thumbnail">
+					    	<h1><i class="icon icon-phone"></i></h1>
+					    	<p>Telefonos</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="#" class="thumbnail">
+					    	<h1><i class="icon icon-gear"></i></h1>
+					    	<p>Software</p>
+					    </a>
+				    </li>
+			    </ul>
 			</div>
 		</div>
+	</div>
+<?php else: ?>
+	<div class="row-fluid">
+		<div class="span10 offset1">
 
-		<div class="row-fluid">
-			<div class="span9 offset3">
+			<div class="row-fluid">
+				<h2><small>Tickets</small></h2>
 
-				<div class="well">
-					<div id="tickets-nuevos"></div>
-					<h2>Tickets Nuevos</h2>
-					<table class="table table-striped table-hover tabla">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Titulo 2</th>
-								<th>Titulo 3</th>
-								<th>Titulo 4</th>
-								<th class="tabla-center">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>						
-						</tbody>
-					</table>
-				</div>
-
-				<div class="well">
-					<div id="mis-tickets"></div>
-					<h2>Mis Tickets</h2>
-					<table class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Titulo 2</th>
-								<th>Titulo 3</th>
-								<th>Titulo 4</th>
-								<th class="tabla-center">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>Contenido 2</td>
-								<td>Contenido 3</td>
-								<td>Contenido 4</td>
-								<td class="tabla-center">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#ver" data-toggle="modal">
-											<i class="icon-search icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#modificar" data-toggle="modal">
-											<i class="icon-wrench icon-black"></i>
-										</a>
-										<a class="btn btn-small" href="#eliminar" data-toggle="modal">
-											<i class="icon-remove icon-black"></i>
-										</a>
-									</div>
-								</td>
-							</tr>						
-						</tbody>
-					</table>
-				</div>
-
-				<div class="well">					
-					<div id="tareas-pendientes"></div>
-					<div id="mis-tickets"></div>
-					<h2>Tareas Pendientes</h2>
-					<table class="table table-striped table-hover tabla">
-						<thead>
-							<tr>
-								<th><?php echo $ci->lang->line('tab_titulo'); ?></th>
-								<th><?php echo $ci->lang->line('tab_usuario_asignado'); ?></th>
-								<th class="tabla-center"><?php echo $ci->lang->line('tab_acciones'); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $i = 1; ?>
-							<?php if ($tareas): ?>
-								<?php foreach ($tareas as $row): ?>
-									<tr>
-										<td><a href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>" class="popover-tarea" data-content="<?php echo $row->nota; ?>" data-original-title="<?php echo $row->descripcion; ?>" rel="popover"><?php echo $row->titulo; ?></a></td>
-										<td><a href="<?php echo base_url().'usuario/nuevo_usuario/'.$row->id_usuario ?>"><?php echo $row->nombre." ".$row->apellido; ?></a></td>
-										<td class="tabla-center">
-											<div class="btn-group">
-												<a class="btn btn-small" href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>" data-toggle="modal">
-													<i class="icon-search icon-black"></i>
-												</a>
-												<a class="btn btn-small" href="<?php echo base_url().'tarea/nueva_tarea/'.$row->id ?>" data-toggle="modal">
-													<i class="icon-wrench icon-black"></i>
-												</a>
-											</div>
-										</td>
-									</tr>
-									<?php $i++; ?>
-								<?php endforeach ?>	
-							<?php else: ?>
-								<tr>
-									<td colspan="3">Sin Resultados</td>
-								</tr>
-							<?php endif ?>							
-						</tbody>
-					</table>
-				</div>
-
+				<ul class="thumbnails">
+				    <li class="span2">
+					    <a href="#" class="thumbnail">
+					    	<h1><i class="icon icon-plus"></i></h1>
+					    	<p>Nuevo Ticket</p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="#" class="thumbnail">
+					    	<h1><i class="icon icon-remove"></i></h1>
+					    	<p>No Resueltos <span class="badge badge-important">2</span></p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="#" class="thumbnail">
+					    	<h1><i class="icon icon-check-minus"></i></h1>
+					    	<p>En Espera <span class="badge badge-important">5</span></p>
+					    </a>
+				    </li>
+				    <li class="span2">
+					    <a href="#" class="thumbnail">
+					    	<h1><i class="icon icon-user"></i></h1>
+					    	<p>Mis Tickets</p>
+					    </a>
+				    </li>
+			    </ul>
 			</div>
 		</div>
+	</div>
+<?php endif ?>

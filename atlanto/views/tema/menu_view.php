@@ -1,6 +1,5 @@
 <?php 
 	$ci = &get_instance();
-	$ci->load->model('tarea_model'); 
 ?>
 <!-- Barra superior-->
 	<nav class="navbar navbar-fixed-top navbar-inverse">
@@ -81,17 +80,10 @@
 										<li>
 											<a href="<?php echo base_url().'panel/tareas/'.$this->session->userdata('id'); ?>">
 												<?php echo $ci->lang->line('men_sub_mis'); ?>
-												<span class="badge badge-important">
-													<?php echo $ci->tarea_model->get_no_tareas(array('estado' => 0, 'id_usuario_asignado' => $ci->session->userdata('id'))); ?>
-												</span>
 											</a>
 										</li>
 										<li>
-											<a href="<?php echo base_url().'panel/tareas' ?>"><?php echo $ci->lang->line('men_sub_todo'); ?>
-												<span class="badge badge-important">
-													<?php echo $ci->tarea_model->get_no_tareas(array('estado' => 0)); ?>
-												</span>
-											</a>
+											<a href="<?php echo base_url().'panel/tareas' ?>"><?php echo $ci->lang->line('men_sub_todo'); ?></a>
 										</li>
 									</ul>
 								</li>
@@ -120,9 +112,7 @@
 									</a>
 									<ul class="dropdown-menu">										
 											<li><a href="<?php echo base_url()."panel/usuarios" ?>"><?php echo $ci->lang->line('men_sub_usuarios') ?></a></li>
-											<li><a href=""><?php echo $ci->lang->line('men_sub_perfiles') ?></a></li>
 											<li><a href="<?php echo base_url().'panel/titulos' ?>"><?php echo $ci->lang->line('men_sub_tablas') ?></a></li>
-											<li><a href=""><?php echo $ci->lang->line('men_sub_resp') ?></a></li>
 										<!-- administrador de correos -->
 										<?php if ($ci->session->userdata('roles')->admin_correos): ?>
 											<li><a href="<?php echo base_url().'correo/correos' ?>"><?php echo $ci->lang->line('men_correos') ?></a></li>

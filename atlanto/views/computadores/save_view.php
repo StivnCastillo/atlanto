@@ -8,12 +8,17 @@
 		</form>
 	</article>
 <?php endif ?>
-<div class="tabbable">
+		<div class="tabbable">
 			<!-- MENU AGREGAR COMPUTADOR -->
 			<ul class="nav nav-tabs">
 				<li class="active">
 					<a href="#tab1" data-toggle="tab"><?php echo $ci->lang->line('tab_com_computador'); ?></a>
-				</li>				
+				</li>
+				<?php if (isset($computador)): ?>
+					<li>
+						<a href="#tab2" data-toggle="tab">Historial</a>
+					</li>
+				<?php endif ?>									
 			</ul>
 
 	    	<?php if ($this->session->flashdata('mensaje')): ?>
@@ -299,12 +304,144 @@
 														<form class="form-inline">
 															<label for="id_monitor">Conectar Monitor</label>
 															<select name="id_monitor" id="slc_com_mon" data-url="<?php echo base_url().'computador/conectar_monitor/'.$id_computador; ?>">
+																<option value="">--</option>
 																<?php foreach ($lis_monitores as $row): ?>
 																	<option value="<?php echo $row->id ?>"><?php echo $row->nombre; ?> - <?php echo $row->n_serie; ?></option>
 																<?php endforeach ?>
 															</select>
-															<button type="button" class="btn btn-info" id="btn_com_mon"><i class="icon-plus-sign"></i></button>
+															<button type="button" class="btn btn-info" id="btn_com_mon"><i class="icon-ok"></i></button>
+															<a href="#new_monitor" data-toggle="modal" class="btn btn-info"><i class="icon-plus"></i></a>
 														</form>
+
+														<!-- POPUP MONITOR -->
+														<div id="new_monitor" class="modal hide fade modal-970" >
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+																<h3 id="myModalLabel">Nuevo Monitor</h3>
+															</div>
+															<div class="modal-body">
+																<form class="form-horizontal" id="frmmonitor" name="frmmonitor" action="<?php echo $accion_monitor; ?>" method="POST">
+																	<input type="hidden" name="usuario" value="<?php echo $computador->idusuario ?>" />
+																	<input type="hidden" name="ubicacion" value="<?php echo $computador->idubicacion ?>" />
+																	<div class="span4">
+
+																		<!-- nombre -->
+																		<div class="control-group">
+																			<label class="control-label" for="nombre"><?php echo $ci->lang->line('lbl_nombre') ?></label>
+																			<div class="controls">
+																				<input type="text" class="span3" id="nombre" name="nombre" value="<?php echo (isset($monitor)) ? $monitor->nombre : ''; ?>" required />
+																			</div>
+																		</div>
+
+																		<!-- estado -->
+																		<div class="control-group">
+																			<label class="control-label" for="estado"><?php echo $ci->lang->line('lbl_estado') ?></label>
+																			<div class="controls">
+																				<select name="estado" id="estado" required>
+																					<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
+																					<?php if (isset($estados)): ?>
+																						<?php foreach ($estados as $row): ?>
+																							<option value="<?php echo $row->id; ?>" <?php if(isset($monitor)){if($monitor->id_estado == $row->id){echo 'selected="selected"';}} ?>><?php echo $row->nombre; ?></option>
+																						<?php endforeach ?>
+																					<?php else: ?>
+																						<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
+																					<?php endif ?>
+																				</select>
+																			</div>
+																		</div>
+
+																		<!-- tipo -->
+																		<div class="control-group">
+																			<label class="control-label" for="tipo"><?php echo $ci->lang->line('lbl_tipo') ?></label>
+																			<div class="controls">
+																				<select name="tipo" id="tipo" required>
+																					<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
+																					<?php if (isset($tipo_mon)): ?>
+																						<?php foreach ($tipo_mon as $row): ?>
+																							<option value="<?php echo $row->id; ?>" <?php if(isset($monitor)){if($monitor->id_tipo_monitor == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
+																						<?php endforeach ?>
+																					<?php else: ?>
+																						<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
+																					<?php endif ?>
+																				</select>
+																			</div>
+																		</div>
+
+																		<!-- interfaz -->
+																		<div class="control-group">
+																			<label class="control-label" for="interfaz"><?php echo $ci->lang->line('lbl_interfaz') ?></label>
+																			<div class="controls">
+																				<select name="interfaz" id="interfaz" required>
+																					<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
+																					<?php if (isset($interfaz)): ?>
+																						<?php foreach ($interfaz as $row): ?>
+																							<option value="<?php echo $row->id; ?>" <?php if(isset($monitor)){if($monitor->id_interfaz_monitor == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
+																						<?php endforeach ?>
+																					<?php else: ?>
+																						<option value=""><?php echo $ci->lang->line('msj_error_resultado'); ?></option>
+																					<?php endif ?>
+																				</select>
+																			</div>
+																		</div>
+
+																		<!-- tamano -->
+																		<div class="control-group">
+																			<label class="control-label" for="tamano"><?php echo $ci->lang->line('lbl_tamano') ?></label>
+																			<div class="controls">
+																				<input type="text" class="span1" id="tamano" name="tamano" value="<?php echo (isset($monitor)) ? $monitor->tamano : ''; ?>" required /> "
+																			</div>
+																		</div>
+																	</div>
+
+																	<div class="span4">
+																		<!-- fabricante -->
+																		<div class="control-group">
+																			<label class="control-label" for="fabricante"><?php echo $ci->lang->line('lbl_fabricante') ?></label>
+																			<div class="controls">
+																				<input type="text" class="span3" id="fabricante" name="fabricante" value="<?php echo (isset($monitor)) ? $monitor->fabricante : ''; ?>" required />
+																			</div>
+																		</div>
+
+																		<!-- modelo -->
+																		<div class="control-group">
+																			<label class="control-label" for="modelo"><?php echo $ci->lang->line('lbl_modelo') ?></label>
+																			<div class="controls">
+																				<input type="text" class="span3" id="modelo" name="modelo" value="<?php echo (isset($monitor)) ? $monitor->modelo : ''; ?>" required />
+																			</div>
+																		</div>
+
+																		<!-- serie -->
+																		<div class="control-group">
+																			<label class="control-label" for="serie"><?php echo $ci->lang->line('lbl_serie') ?></label>
+																			<div class="controls">
+																				<input type="text" class="span3" id="serie" name="serie" value="<?php echo (isset($monitor)) ? $monitor->n_serie : ''; ?>" required />
+																			</div>
+																		</div>
+
+																		<!-- activo -->
+																		<div class="control-group">
+																			<label class="control-label" for="activo"><?php echo $ci->lang->line('lbl_activo') ?></label>
+																			<div class="controls">
+																				<input type="text" class="span3" id="activo" name="activo" value="<?php echo (isset($monitor)) ? $monitor->n_activo : ''; ?>" />
+																			</div>
+																		</div>
+
+																		<div class="control-group">
+																			<div class="controls">
+																				<button type="submit" class="btn btn-inverse"><?php echo $this->lang->line('btn_guardar'); ?></button>
+																				<a href="<?php echo base_url().'panel/usuarios' ?>" class="btn"><?php echo $this->lang->line('btn_cancelar'); ?></a>
+																			</div>
+																		</div>
+																	</div>
+
+																</form>
+															</div>
+															<div class="modal-footer">
+																<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $ci->lang->line('btn_cerrar'); ?></button>
+																<a href="<?php echo base_url().'computador/eliminar/'.$row->id ?>" class="btn btn-primary"><?php echo $ci->lang->line('btn_eliminar'); ?></a>
+															</div>
+														</div>
+
 													<?php endif ?>
 												</div>
 											</div>
@@ -692,6 +829,36 @@
 						</article>
 					<?php endif ?>
 						
+				</div>
+
+				<!-- PESTAÑA 2 -->
+				<div class="tab-pane" id="tab2">
+					<?php if ($historial): ?>
+					    <table class="table table-condensed table-bordered tabla">
+							<thead>
+								<tr>
+									<th>&nbsp;</th>
+									<th>Fecha</th>
+									<th>Descripción</th>
+									<th>Valor Anterior</th>
+									<th>Valor Nuevo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php $i = 1; ?>
+								<?php foreach ($historial as $row): ?>									
+									<tr>
+										<td><?php echo $i; ?></td>
+										<td><?php echo $row->fecha; ?></td>
+										<td><?php echo $row->descripcion; ?></td>
+										<td><?php echo $row->ant_valor; ?></td>
+										<td><?php echo $row->new_valor; ?></td>
+									</tr>
+									<?php $i++; ?>
+								<?php endforeach ?>
+							</tbody>
+						</table>
+					<?php endif ?>
 				</div>
 			</div>
 </div>

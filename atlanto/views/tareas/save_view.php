@@ -102,7 +102,7 @@
 								<div class="control-group">
 									<label class="control-label" for="nota"><?php echo $ci->lang->line('lbl_nota') ?></label>
 									<div class="controls">
-										<textarea class="span3" rows="4" name="nota" id="nota"><?php echo (isset($tarea)) ? $tarea->nota : ''; ?></textarea>
+										<textarea class="span3" rows="4" name="nota" id="nota"><?php echo (isset($tarea)) ? $tarea->nota : '';?></textarea>
 									</div>
 								</div>
 

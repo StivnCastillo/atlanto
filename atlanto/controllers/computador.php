@@ -18,7 +18,9 @@ class Computador extends CI_Controller {
 					'impresora_model',
 					'dispositivo_model',
 					'software_model',
-					'componente_model'
+					'componente_model',
+					'interfaz_model',
+					'historial_model'
 				)
 		);
 	}
@@ -66,6 +68,10 @@ class Computador extends CI_Controller {
 		$sistema_o = $this->so_model->get_todos();
 		$redes = $this->red_model->get_todos();
 
+		//monitor
+		$tipo_mon = $this->tipo_model->get_mon_todos();
+		$interfaz = $this->interfaz_model->get_mon_todos();
+
 		$data = array(
 			'titulo' => $this->lang->line('titulo_nuevo_com'),
 			'content' => 'computadores/save_view',
@@ -74,6 +80,8 @@ class Computador extends CI_Controller {
 			'redes' => $redes,
 			'estados' => $estados,
 			'tipos' => $tipos,
+			'tipo_mon' => $tipo_mon,
+			'interfaz' => $interfaz,
 			'sistema_o' => $sistema_o,
 			'accion_guardar' => site_url('computador/guardar'),
 			'accion_modificar' => site_url('computador/modificar'),
@@ -82,6 +90,7 @@ class Computador extends CI_Controller {
 		);
 
 		if($id_computador){
+
 			$data['computador'] = $this->computador_model->get($id_computador);
 			$data['id_computador'] = $id_computador;
 
@@ -89,6 +98,7 @@ class Computador extends CI_Controller {
 			$data['con_monitores'] = $this->computador_model->get_monitor($id_computador);
 			//Todos los monitores
 			$data['lis_monitores'] = $this->monitor_model->get();
+			$data['accion_monitor'] = site_url('monitor/guardar_externo/'.$id_computador);
 
 			//Conexion impresoras
 			$data['con_impresoras'] = $this->computador_model->get_impresora($id_computador);
@@ -126,8 +136,10 @@ class Computador extends CI_Controller {
 			$data['procesador_con'] = $this->computador_model->get_procesador($id_computador);
 			$data['tvideo_con'] = $this->computador_model->get_tvideo($id_computador);
 
-		}
+			//historial
+			$data['historial'] = $this->historial_model->get_historial($id_computador,'computador');
 
+		}
 		$this->load->view('template', $data);
 	}
 
@@ -141,21 +153,35 @@ class Computador extends CI_Controller {
 
 		if($this->input->post('componente') == 'discoduro'){
 			$conexion = $this->computador_model->save_discoduro($datos);
+			$componente = $this->componente_model->get_discosduro($this->input->post('id_componente'));
 		}
 
 		if($this->input->post('componente') == 'procesador'){
 			$conexion = $this->computador_model->save_procesador($datos);
+			$componente = $this->componente_model->get_procesador($this->input->post('id_componente'));
 		}
 
 		if($this->input->post('componente') == 'memoria'){
 			$conexion = $this->computador_model->save_memoria($datos);
+			$componente = $this->componente_model->get_memoria($this->input->post('id_componente'));
 		}
 
 		if($this->input->post('componente') == 'tvideo'){
 			$conexion = $this->computador_model->save_tvideo($datos);
+			$componente = $this->componente_model->get_tvideo($this->input->post('id_componente'));
 		}
-
 		if($conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador',
+				'descripcion' => 'Componente conectado',
+				'ant_valor' => '',
+				'new_valor' => $componente->nombre
+			));
+
 			$this->session->set_flashdata('mensaje_con_componente', 'Componente conectado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 
@@ -170,8 +196,35 @@ class Computador extends CI_Controller {
 	public function desconectar_componente($id_computador, $id_conexion, $componente)
 	{
 		$this->acceso_restringido();
+
+		$conexion = $this->computador_model->get_conexion($id_conexion, $componente);
+
+		if($componente == 1){
+        	$componente_1 = $this->componente_model->get_discosduro($conexion->id_componente);
+        }
+        if($componente == 2){
+            $componente_1 = $this->componente_model->get_memoria($conexion->id_componente);
+        }
+        if($componente == 3){
+            $componente_1 = $this->componente_model->get_procesador($conexion->id_componente);
+        }
+        if($componente == 4){
+            $componente_1 = $this->componente_model->get_tvideo($conexion->id_componente);
+        }
+
 		$componente = $this->computador_model->delete_componente($id_conexion, $componente);
 		if($componente){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador',
+				'descripcion' => 'Componente desconectado',
+				'ant_valor' => $componente_1->nombre,
+				'new_valor' => ''
+			));
+
 			$this->session->set_flashdata('mensaje_con_componente','Componente Desconectado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -190,8 +243,19 @@ class Computador extends CI_Controller {
 		);
 
 		$conexion = $this->computador_model->save_monitor($datos);
+		$monitor = $this->monitor_model->get($this->input->post('id_monitor'));
 
 		if($conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador',
+				'descripcion' => 'Monitor conectado',
+				'ant_valor' => '',
+				'new_valor' => $monitor->nombre.' - '.$monitor->n_serie
+			));
 			$this->session->set_flashdata('mensaje_con_monitor', 'Monitor conectado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -199,8 +263,6 @@ class Computador extends CI_Controller {
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 		}
 	}
-
-
 
 	public function conectar_impresora($id_computador)
 	{
@@ -210,8 +272,18 @@ class Computador extends CI_Controller {
 		);
 
 		$conexion = $this->computador_model->save_impresora($datos);
-
+		$impresora = $this->impresora_model->get($this->input->post('id_impresora'));
 		if($conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador',
+				'descripcion' => 'Impresora conectada',
+				'ant_valor' => '',
+				'new_valor' => $impresora->nombre.' - '.$impresora->n_serie
+			));
 			$this->session->set_flashdata('mensaje_con_impresora', 'Impresora conectada');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -228,8 +300,18 @@ class Computador extends CI_Controller {
 		);
 
 		$conexion = $this->computador_model->save_dispositivo($datos);
-
+		$dispositivo = $this->dispositivo_model->get($this->input->post('id_dispositivo'));
 		if($conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador',
+				'descripcion' => 'Dispositivo conectada',
+				'ant_valor' => '',
+				'new_valor' => $dispositivo->nombre.' - '.$dispositivo->n_serie
+			));
 			$this->session->set_flashdata('mensaje_con_dispositivo', 'Dispositivo conectado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -246,8 +328,18 @@ class Computador extends CI_Controller {
 		);
 
 		$conexion = $this->computador_model->save_software($datos);
-
+		$software = $this->software_model->get($this->input->post('id_software'));
 		if($conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador', 
+				'descripcion' => 'Software instalado',
+				'ant_valor' => '',
+				'new_valor' => $software->nombre.' - '.$software->n_serie
+			));
 			//Restar licencias de software
 			$this->session->set_flashdata('mensaje_con_software', 'Software Instalado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
@@ -260,8 +352,21 @@ class Computador extends CI_Controller {
 	public function eliminar_monitor($id_computador, $id_conexion)
 	{
 		$this->acceso_restringido();
+		$conexion_1 = $this->computador_model->get_conexion($id_conexion, 5);
+		$monitor = $this->monitor_model->get($conexion_1->id_monitor);
+
 		$conexion = $this->computador_model->delete_monitor($id_conexion);
 		if(!$conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador', 
+				'descripcion' => 'Monitor desconectado',
+				'ant_valor' => $monitor->nombre.' - '.$monitor->n_serie,
+				'new_valor' => ''
+			));
 			$this->session->set_flashdata('mensaje_con_monitor', 'Monitor desconectado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -275,8 +380,22 @@ class Computador extends CI_Controller {
 	public function eliminar_impresora($id_computador, $id_conexion)
 	{
 		$this->acceso_restringido();
+
+		$conexion_1 = $this->computador_model->get_conexion($id_conexion, 6);
+		$impresora = $this->impresora_model->get($conexion_1->id_impresora);
+
 		$conexion = $this->computador_model->delete_impresora($id_conexion);
 		if(!$conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador', 
+				'descripcion' => 'Impresora desconectada',
+				'ant_valor' => $impresora->nombre.' - '.$impresora->n_serie,
+				'new_valor' => ''
+			));
 			$this->session->set_flashdata('mensaje_con_impresora', 'Impresora desconectada');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -290,8 +409,22 @@ class Computador extends CI_Controller {
 	public function eliminar_dispositivo($id_computador, $id_conexion)
 	{
 		$this->acceso_restringido();
+
+		$conexion_1 = $this->computador_model->get_conexion($id_conexion, 7);
+		$dispositivo = $this->dispositivo_model->get($conexion_1->id_dispositivo);
+
 		$conexion = $this->computador_model->delete_dispositivo($id_conexion);
 		if(!$conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador', 
+				'descripcion' => 'Dispositivo desconectado',
+				'ant_valor' => $dispositivo->nombre.' - '.$dispositivo->n_serie,
+				'new_valor' => ''
+			));
 			$this->session->set_flashdata('mensaje_con_dispositivo', 'Dispositivo desconectado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
@@ -305,8 +438,22 @@ class Computador extends CI_Controller {
 	public function eliminar_software($id_computador, $id_conexion)
 	{
 		$this->acceso_restringido();
+
+		$conexion_1 = $this->computador_model->get_conexion($id_conexion, 8);
+		$software = $this->software_model->get($conexion_1->id_software);
+
 		$conexion = $this->computador_model->delete_software($id_conexion);
 		if(!$conexion){
+			//Historial**
+			$log = $this->historial_model->save(array(
+				'fecha' => date("Y-m-d H:i:s"),
+				'id_usuario' => $this->session->userdata('id'),
+				'id_componente' => $id_computador,
+				'componente' => 'computador', 
+				'descripcion' => 'Software desinstalado',
+				'ant_valor' => $software->nombre.' - '.$software->version,
+				'new_valor' => ''
+			));
 			//Sumar licencias en el software
 			$this->session->set_flashdata('mensaje_con_software', 'Software Desinstalado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
@@ -390,6 +537,18 @@ class Computador extends CI_Controller {
 			$computador = $this->computador_model->save($datos);
 
 			if($computador){
+
+				//Historial** Creacion de computador
+				$log = $this->historial_model->save(array(
+					'fecha' => date("Y-m-d H:i:s"),
+					'id_usuario' => $this->session->userdata('id'),
+					'id_componente' => $computador,
+					'componente' => 'computador',
+					'descripcion' => 'Nuevo Computador',
+					'ant_valor' => '',
+					'new_valor' => $datos_recibidos['nombre']					
+				));
+
 				$link = anchor('computador/nuevo/'.$computador, $datos_recibidos['nombre']);
 				
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
@@ -456,6 +615,8 @@ class Computador extends CI_Controller {
 		}else{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
 
+			//Estado anterior a modificar computador
+
 			$datos = array(
 				'nombre' => $datos_recibidos['nombre'],
 				'id_usuario' => $datos_recibidos['usuario'],
@@ -477,6 +638,18 @@ class Computador extends CI_Controller {
 			$computadores = $this->computador_model->update($datos_recibidos['id_computador'], $datos);
 
 			if($computadores){
+
+				$computador_ant = $this->computador_model->get($datos_recibidos['id_computador']);
+				//Historial** 
+				$log = $this->historial_model->save(array(
+					'fecha' => date("Y-m-d H:i:s"),
+					'id_usuario' => $this->session->userdata('id'),
+					'id_componente' => $datos_recibidos['id_computador'],
+					'componente' => 'computador',
+					'descripcion' => 'Modifica Computador',
+					'new_valor' => print_r($computador_ant, TRUE)		
+				));
+
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$this->lang->line('msj_ext_config'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				

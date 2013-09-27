@@ -189,16 +189,6 @@ function inicio () {
 		"color": false //Button to change color of font
 	});
 
-	/*
-	* Scroll escritorio, menu
-	*/
-	$('.lnk').on('click', function () {
-		$('.lnk').parent().removeClass();
-		$(this).parent().addClass('active');
-		var href = $(this).attr('href');
-		var posi = $(href).offset().top-60;
-		$('html, body').animate({scrollTop:posi}, 'slow');
-	});
 
 	/*
 	* Toltip para botones de secciones
@@ -230,10 +220,10 @@ function inicio () {
 	        dataType: "html",
 	        async: false,
 	        success: function (datos) {
-	        	console.log(datos);
+	        	//console.log(datos);
 	        },
 	        error: function(datos){
-	        	console.log(datos);
+	        	//console.log(datos);
 	        }
 		});
     });

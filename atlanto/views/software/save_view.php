@@ -1,7 +1,7 @@
 <?php 
 	$ci = &get_instance();
 ?>
-<div class="tabbable">
+		<div class="tabbable">
 			<ul class="nav nav-tabs">
 				<li class="active">
 					<a href="#tab1" data-toggle="tab"><?php echo $ci->lang->line('tab_sof_software') ?></a>
@@ -61,7 +61,6 @@
 									<label class="control-label" for="tipo"><?php echo $ci->lang->line('lbl_tipo') ?></label>
 									<div class="controls">
 										<select name="tipo" id="tipo" required>
-											<option value=""><?php echo $ci->lang->line('slc_ninguno'); ?></option>
 											<?php if (isset($tipos)): ?>
 												<?php foreach ($tipos as $row): ?>
 													<option value="<?php echo $row->id; ?>" <?php if(isset($software)){if($software->id_software_tipo == $row->id){echo 'selected="selected"';}} ?> ><?php echo $row->nombre; ?></option>
@@ -120,7 +119,7 @@
 
 								<!-- comentario -->
 								<div class="control-group">
-									<label class="control-label" for="comentario"><?php echo $ci->lang->line('lbl_comentario') ?></label>
+									<label class="control-label" for="comentario">Descripción</label>
 									<div class="controls">
 										<textarea class="span3" rows="4" name="comentario" id="comentario"><?php echo (isset($software)) ? $software->comentarios : ''; ?></textarea>
 									</div>
@@ -129,13 +128,12 @@
 								<div class="control-group">
 									<div class="controls">
 										<button type="submit" class="btn btn-inverse"><?php echo $this->lang->line('btn_guardar'); ?></button>
-										<a href="<?php echo base_url().'panel/usuarios' ?>" class="btn"><?php echo $this->lang->line('btn_cancelar'); ?></a>
+										<a href="<?php echo base_url().'software' ?>" class="btn"><?php echo $this->lang->line('btn_cancelar'); ?></a>
 									</div>
 								</div>
 							</div>
-
 						</form>
 					</article>
 				</div>
 			</div>
-</div>
+		</div>

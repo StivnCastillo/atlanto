@@ -7,7 +7,6 @@ class Telefono_model extends CI_Model {
     private $tabla_tel_tipo = 'telefono_tipo';
     private $tabla_usu = 'usuario';
     private $tabla_dom = 'dominio';
-    private $tabla_red = 'red';
 
 	function __construct() {
         // Call the Model constructor
@@ -44,14 +43,12 @@ class Telefono_model extends CI_Model {
                     ".$this->db->dbprefix($this->tabla).".n_activo,
                     ".$this->db->dbprefix($this->tabla).".firmware,
                     ".$this->db->dbprefix($this->tabla).".ip,
-                    ".$this->db->dbprefix($this->tabla).".id_red,
                     ".$this->db->dbprefix($this->tabla).".comentarios,
                     ".$this->db->dbprefix($this->tabla).".fecha_modificacion,
                     ".$this->db->dbprefix($this->tabla_ubi).".nombre AS ubicacion,
                     CONCAT(".$this->db->dbprefix($this->tabla_usu).".nombre, ' ', ".$this->db->dbprefix($this->tabla_usu).".apellido) AS usuario,
                     ".$this->db->dbprefix($this->tabla_tel_tipo).".nombre AS tipo,
-                    ".$this->db->dbprefix($this->tabla_estado).".nombre AS estado,
-                    ".$this->db->dbprefix($this->tabla_red).".nombre AS red
+                    ".$this->db->dbprefix($this->tabla_estado).".nombre AS estado
 
                     FROM ".$this->db->dbprefix($this->tabla)." 
 
@@ -66,9 +63,6 @@ class Telefono_model extends CI_Model {
 
                     LEFT JOIN (".$this->db->dbprefix($this->tabla_estado).")
                     ON (".$this->db->dbprefix($this->tabla).".id_estado = ".$this->db->dbprefix($this->tabla_estado).".id)
-
-                    LEFT JOIN (".$this->db->dbprefix($this->tabla_red).")
-                    ON (".$this->db->dbprefix($this->tabla).".id_red = ".$this->db->dbprefix($this->tabla_red).".id)
 
                     WHERE ".$where."
         ");

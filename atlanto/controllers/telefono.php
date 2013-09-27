@@ -51,7 +51,6 @@ class Telefono extends CI_Controller {
 
 		$estado = $this->estadocomponente_model->get_todos();
 		$tipo = $this->tipo_model->get_tel_todos();
-		$red = $this->red_model->get_todos();
 
 		$data = array(
 			'titulo' => $this->lang->line('titulo_nuevo_telefono'),
@@ -59,7 +58,6 @@ class Telefono extends CI_Controller {
 			'breadcrumbs' => $breadcrumbs,
 			'estados' => $estado,
 			'tipos' => $tipo,
-			'red' => $red,
 			'accion_guardar' => site_url('telefono/guardar'),
 			'accion_modificar' => site_url('telefono/modificar'),
 			'accion_ubicacion' => site_url('buscar_ubicacion'),
@@ -109,11 +107,6 @@ class Telefono extends CI_Controller {
                      'rules' => 'required'
                   ),
                array(
-                     'field' => 'red',
-                     'label' => 'Red',
-                     'rules' => 'required'
-                  ), 
-               array(
                      'field' => 'ip',
                      'label' => 'Ip',
                      'rules' => 'required'
@@ -162,7 +155,6 @@ class Telefono extends CI_Controller {
 				'n_serie' => $datos_recibidos['serie'],
 				'n_activo' => $datos_recibidos['activo'],
 				'firmware' => $datos_recibidos['firmware'],
-				'id_red' => $datos_recibidos['red'],
 				'comentarios' => $datos_recibidos['comentario'],
 				'fecha_modificacion' => date('Y-m-d H:i:s')
 			);
