@@ -19,8 +19,9 @@ class Ticket extends CI_Controller
 			'prioridad_model',
 			'usuario_model',
 			'historial_model',
-			'computador_model'
+			'computador_model',
 		));
+		$this->load->library(array('horas'));
 	}
 
 	
@@ -28,7 +29,9 @@ class Ticket extends CI_Controller
 	public function index($admin = FALSE)
 	{
 		$this->acceso_restringido();
-		
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$this->breadcrumbs->push('Tickets', '/ticket');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
@@ -52,7 +55,9 @@ class Ticket extends CI_Controller
 	public function estado($estado)
 	{
 		$this->acceso_restringido();
-		
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$this->breadcrumbs->push('Tickets', '/ticket');
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
 		$breadcrumbs = $this->breadcrumbs->show();
@@ -72,7 +77,9 @@ class Ticket extends CI_Controller
 	public function ver_ticket($id)
 	{
 		$this->acceso_restringido();
-		
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$this->breadcrumbs->push('Tickets', '/ticket');
 		$this->breadcrumbs->push('Ticket #'.$id, '/ticket/ver_ticket/'.$id);
 		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
@@ -108,6 +115,9 @@ class Ticket extends CI_Controller
 	public function relacionar_computador($id)
 	{
 		$datos_recibidos = $this->input->post(NULL, TRUE);
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$datos = array(
 			'computador_relacionado' => $datos_recibidos['computador']
 		);
@@ -138,6 +148,9 @@ class Ticket extends CI_Controller
 	public function asignar($id)
 	{
 		$this->acceso_restringido();
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$datos_recibidos = $this->input->post(NULL, TRUE);
 
 		$datos = array(
@@ -160,6 +173,9 @@ class Ticket extends CI_Controller
 	public function cambiar_prioridad($id)
 	{
 		$this->acceso_restringido();
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$datos_recibidos = $this->input->post(NULL, TRUE);
 
 		$datos = array(
@@ -177,11 +193,26 @@ class Ticket extends CI_Controller
 	public function cambiar_estado($id)
 	{
 		$this->acceso_restringido();
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$datos_recibidos = $this->input->post(NULL, TRUE);
 
 		$datos = array(
 			'id_estado' => $datos_recibidos['estado']
 		);
+		//Si es solucionado calcular tiempo en el que se demoro en solucionar el ticket
+		if ($datos_recibidos['estado'] == 2) {
+			//traer ticket
+			$ticket = $this->ticket_model->get_ticket_usuario($id);
+
+			//Calcula la duracion que tuvo la tarea
+    		$horas = new Horas();
+    		$fecha_actual = date("Y-m-d H:i:s");
+    		$tiempo = $horas->calcular($ticket->fecha_creado, $fecha_actual);
+    		$datos['duracion'] = $tiempo['minutos'];
+    		$datos['fecha_solucion'] = $fecha_actual;
+		}
 		$this->ticket_model->update($id, $datos);
 		//enviar correo
 		$usuario = $this->ticket_model->get_ticket_usuario($id);
@@ -201,6 +232,9 @@ class Ticket extends CI_Controller
 	public function responder_admin()
 	{
 		$this->acceso_restringido();
+		if ($this->session->userdata('roles')->id != 1) {
+			redirect('panel/escritorio', 'refresh');
+		}
 		$datos_recibidos = $this->input->post(NULL, TRUE);
 		$config = array(
 			array(
@@ -235,7 +269,7 @@ class Ticket extends CI_Controller
 				$ticket = $this->ticket_model->get_ticket_usuario($datos_recibidos['id_ticket']);
 				
 				$html = "<p><i>".$datos_recibidos['mensaje']." </i></p>";
-				$html .= "<small>Estado del Ticket: ".$estado."</small>";
+				$html .= "<small>Estado del Ticket: ".$ticket->estado."</small>";
 
 				if(enviar('SCI - Respuesta en Ticket #'.$datos_recibidos['id_ticket'], 'Ticket #'.$datos_recibidos['id_ticket'], $html, $ticket->correo, array('correo' => 'informatica@blancoynegromasivo.com.co','nombre' => 'Informatica'))){
 					$this->session->set_flashdata('mensaje', 'Su respuesta ha sido enviada.');

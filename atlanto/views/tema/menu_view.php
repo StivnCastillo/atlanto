@@ -44,6 +44,7 @@
 							<?php if ($ci->session->userdata('roles')->ticket_admin OR $ci->session->userdata('roles')->ticket_user): ?>
 								<li class="dropdown">
 									<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon icon-ticket"></i>
 										<?php echo $ci->lang->line('men_tickets') ?>
 										<b class="caret"></b>
 									</a>

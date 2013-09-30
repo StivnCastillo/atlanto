@@ -10,7 +10,8 @@ class Reporte extends CI_Controller {
 			'tarea_model', 
 			'config_model', 
 			'usuario_model', 
-			'computador_model'
+			'computador_model',
+            'historial_model'
 		));
 	}
 
@@ -390,16 +391,6 @@ class Reporte extends CI_Controller {
         $html .= "<h5>".'Datos del Equipo'."</h5>";
 
         $computador = $this->computador_model->get($datos_recibidos['id_computador']);
-        //conexiones
-        $monitores = $this->computador_model->get_monitor($datos_recibidos['id_computador']);
-        $impresoras = $this->computador_model->get_impresora($datos_recibidos['id_computador']);
-        $dispositivos = $this->computador_model->get_dispositivo($datos_recibidos['id_computador']);
-        $software = $this->computador_model->get_software($datos_recibidos['id_computador']);
-        //componentes
-        $discosduro = $this->computador_model->get_discoduro($datos_recibidos['id_computador']);
-		$memorias = $this->computador_model->get_memoria($datos_recibidos['id_computador']);
-		$procesadores = $this->computador_model->get_procesador($datos_recibidos['id_computador']);
-		$tvideos = $this->computador_model->get_tvideo($datos_recibidos['id_computador']);
 
         if ($computador) {
     		$html .= '
@@ -453,6 +444,11 @@ class Reporte extends CI_Controller {
         	';
 
         	if (isset($datos_recibidos['componentes'])) {
+                //componentes
+                $discosduro = $this->computador_model->get_discoduro($datos_recibidos['id_computador']);
+                $memorias = $this->computador_model->get_memoria($datos_recibidos['id_computador']);
+                $procesadores = $this->computador_model->get_procesador($datos_recibidos['id_computador']);
+                $tvideos = $this->computador_model->get_tvideo($datos_recibidos['id_computador']);
         		$html .= "<h5>".'Componentes'."</h5>";
 	        	$html .= '<table>';        	
 	        	$html .= '<tr>
@@ -510,6 +506,10 @@ class Reporte extends CI_Controller {
         	}
 
         	if (isset($datos_recibidos['conexiones'])){
+                //conexiones
+                $monitores = $this->computador_model->get_monitor($datos_recibidos['id_computador']);
+                $impresoras = $this->computador_model->get_impresora($datos_recibidos['id_computador']);
+                $dispositivos = $this->computador_model->get_dispositivo($datos_recibidos['id_computador']);
         		$html .= "<h5>".'Conexiones'."</h5>";
 	        	$html .= '<table>';
 	        	$html .= '<tr>
@@ -559,7 +559,9 @@ class Reporte extends CI_Controller {
         	}
 
         	if (isset($datos_recibidos['software'])) {
+                $software = $this->computador_model->get_software($datos_recibidos['id_computador']);
         		if ($software) {
+
 	        		$html .= "<h5>".'Software'."</h5>";
 		        	$html .= '<table>';
 		        	$html .= '<tr>
@@ -578,6 +580,32 @@ class Reporte extends CI_Controller {
 		        	$html .='</table>';
 		        }
         	}
+
+            if (isset($datos_recibidos['historial'])) {
+                 //historial
+                $historial = $this->historial_model->get_historial($datos_recibidos['id_computador'], 'computador');
+                if ($historial) {
+                    $html .= "<h5>".'Historial'."</h5>";
+                    $html .= '<table>';
+                    $html .= '<tr>
+                                <th>Fecha</th>
+                                <th>Descripción</th>
+                                <th>Valor Anterior</th>
+                                <th>Valor Nuevo</th>              
+                            </tr>';
+                
+                    foreach ($historial as $row) {               
+                        $html .= '<tr>
+                                    <td>'.$row->fecha.'</td>
+                                    <td>'.$row->descripcion.'</td>
+                                    <td>'.$row->ant_valor.'</td>
+                                    <td>'.$row->new_valor.'</td>
+                                </tr>';
+                    }
+                    $html .='</table>';
+                }
+            }
+
         }else{
         	$html .= "<h4>".'No se encontró datos del equipo.'."</h4>";
         }

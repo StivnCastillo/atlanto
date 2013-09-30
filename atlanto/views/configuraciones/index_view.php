@@ -30,8 +30,6 @@
 			<article class="tabbable"> <!-- Only required for left/right tabs -->
 			    <ul class="nav nav-tabs">
 				    <li class="active"><a href="#tab1" data-toggle="tab">General</a></li>
-				    <li><a href="#tab2" data-toggle="tab">Notificaciones</a></li>
-				    <li><a href="#tab3" data-toggle="tab">Reportes</a></li>
 			    </ul>
 			    <div class="tab-content">
 				    <div class="tab-pane fade in active" id="tab1">
@@ -65,12 +63,6 @@
 
 							</div>
 						</form>
-				    </div>
-				    <div class="tab-pane fade" id="tab2">
-				    	<p>Howdy, I'm in Section 2.</p>
-				    </div>
-				    <div class="tab-pane fade" id="tab3">
-				    	<p>Howdy, I'm in Section 3.</p>
 				    </div>
 			    </div>
 		    </article>

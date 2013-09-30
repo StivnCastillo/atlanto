@@ -112,14 +112,6 @@ $ci = &get_instance();
 
 					<div class="control-group">
 						<div class="controls">
-							<label class="checkbox" for="tickets">
-								<input type="checkbox" name="tickets" id="tickets" checked> Tickets (en desarrollo)
-							</label>
-						</div>
-					</div>
-
-					<div class="control-group">
-						<div class="controls">
 							<label class="checkbox" for="historial">
 								<input type="checkbox" name="historial" id="historial" checked> Historial (en desarrollo)
 							</label>
