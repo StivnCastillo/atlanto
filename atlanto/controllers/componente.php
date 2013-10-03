@@ -28,7 +28,7 @@ class Componente extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
+	
 	/*
 	* Discoduro
 	*/
@@ -52,7 +52,6 @@ class Componente extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
 	public function nuevo_discoduro($id_discoduro = FALSE)
 	{
 		$this->acceso_restringido();
@@ -81,8 +80,7 @@ class Componente extends CI_Controller {
 		}
 
 		$this->load->view('template', $data);
-	}
-	
+	}	
 	public function guardar_discoduro()
 	{
 		$this->acceso_restringido();
@@ -138,17 +136,16 @@ class Componente extends CI_Controller {
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('componente/nuevo_discoduro', 'refresh');
+				redirect('componente/discoduro', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('componente/nuevo_discoduro', 'refresh');
+				redirect('componente/discoduro', 'refresh');
 			}
 		}
 	}
-
 	public function modificar_discoduro()
 	{
 		$this->acceso_restringido();
@@ -224,7 +221,6 @@ class Componente extends CI_Controller {
 			}
 		}
 	}
-
 	public function eliminar_discoduro($id)
 	{
 		$this->acceso_restringido();
@@ -239,7 +235,6 @@ class Componente extends CI_Controller {
 
 		redirect('componente/discoduro', 'refresh');
 	}
-
 
 	/*
 	* Procesador
@@ -264,7 +259,6 @@ class Componente extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
 	public function nuevo_procesador($id_procesador = FALSE)
 	{
 		$this->acceso_restringido();
@@ -291,7 +285,6 @@ class Componente extends CI_Controller {
 
 		$this->load->view('template', $data);
 	}
-
 	public function guardar_procesador()
 	{
 		$this->acceso_restringido();
@@ -339,17 +332,16 @@ class Componente extends CI_Controller {
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('componente/nuevo_procesador', 'refresh');
+				redirect('componente/procesador', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('componente/nuevo_procesador', 'refresh');
+				redirect('componente/procesador', 'refresh');
 			}
 		}
 	}
-
 	public function modificar_procesador()
 	{
 		$this->acceso_restringido();
@@ -407,13 +399,12 @@ class Componente extends CI_Controller {
 			}
 		}
 	}
-
 	public function eliminar_procesador($id)
 	{
 		$this->acceso_restringido();
 		$componente = $this->componente_model->delete_procesador($id);
 		if(!$componente){
-			$this->session->set_flashdata('mensaje', $this->lang->line('msj_ext_eliminar_dd'));
+			$this->session->set_flashdata('mensaje', 'Procesador Eliminado');
 			$this->session->set_flashdata('tipo_mensaje', 'exito');
 		}else{
 			$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_eliminar'));
@@ -446,7 +437,6 @@ class Componente extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
 	public function nuevo_memoria($id_memoria = FALSE)
 	{
 		$this->acceso_restringido();
@@ -476,7 +466,6 @@ class Componente extends CI_Controller {
 
 		$this->load->view('template', $data);
 	}
-
 	public function guardar_memoria()
 	{
 		$this->acceso_restringido();
@@ -509,7 +498,7 @@ class Componente extends CI_Controller {
 		    $this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 			$this->session->set_flashdata('tipo_mensaje', 'error');
 			
-			redirect('componente/nuevo_memoria', 'refresh');
+			redirect('componente/memoria', 'refresh');
 		}else{
 			$datos_recibidos = $this->input->post(NULL, TRUE);
 
@@ -531,17 +520,16 @@ class Componente extends CI_Controller {
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('componente/nuevo_memoria', 'refresh');
+				redirect('componente/memoria', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('componente/nuevo_memoria', 'refresh');
+				redirect('componente/memoria', 'refresh');
 			}
 		}
 	}
-
 	public function modificar_memoria()
 	{
 		$this->acceso_restringido();
@@ -606,7 +594,6 @@ class Componente extends CI_Controller {
 			}
 		}
 	}
-
 	public function eliminar_memoria($id)
 	{
 		$this->acceso_restringido();
@@ -645,7 +632,6 @@ class Componente extends CI_Controller {
 		);
 		$this->load->view('template', $data);
 	}
-
 	public function nuevo_tvideo($id_tvideo = FALSE)
 	{
 		$this->acceso_restringido();
@@ -733,7 +719,6 @@ class Componente extends CI_Controller {
 			}
 		}
 	}
-
 	public function modificar_tvideo()
 	{
 		$this->acceso_restringido();
@@ -792,7 +777,6 @@ class Componente extends CI_Controller {
 			}
 		}
 	}
-
 	public function eliminar_tvideo($id)
 	{
 		$this->acceso_restringido();

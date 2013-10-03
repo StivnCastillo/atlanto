@@ -669,9 +669,19 @@ class Computador extends CI_Controller {
 	/*
 	* Procesa los datos y envia la peticion para eliminar el registro
 	*/
-	public function eliminar($id_cargo)
+	public function eliminar($id_computador)
 	{
-		
+		$this->acceso_restringido();
+		$computador = $this->computador_model->delete($id_computador);
+		if(!$computador){
+			$this->session->set_flashdata('mensaje', 'Computador eliminado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', 'Ocurrio un error al eliminar Computador');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('computador', 'refresh');
 	}
 
 	//Busca computadores segun el parametro $valor y las manda a la vista para ser agregado al select

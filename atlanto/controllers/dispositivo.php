@@ -255,6 +255,20 @@ class Dispositivo extends CI_Controller {
 		}		
 	}
 
+	public function eliminar($id_dispositivo)
+	{
+		$this->acceso_restringido();
+		$dispositivo = $this->dispositivo_model->delete($id_dispositivo);
+		if(!$dispositivo){
+			$this->session->set_flashdata('mensaje', 'Dispositivo eliminado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', 'Ocurrio un error al eliminar Dispositivo');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('dispositivo', 'refresh');
+	}
 
 	public function acceso_restringido(){
 		if (!$this->session->userdata('ingresado')) {

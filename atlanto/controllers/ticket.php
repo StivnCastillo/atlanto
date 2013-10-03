@@ -328,6 +328,25 @@ class Ticket extends CI_Controller
 		$this->load->view('template', $data);
 	}
 
+	public function estado_ticket($estado)
+	{
+		$this->acceso_restringido();
+		$this->breadcrumbs->push('Tickets', '/ticket');
+		$this->breadcrumbs->unshift($this->lang->line('bre_inicio'), '/panel/escritorio');
+		$breadcrumbs = $this->breadcrumbs->show();
+
+		$tickets = $this->ticket_model->get_tickets_estado($estado, $this->session->userdata('id'));
+
+		$data = array(
+			'titulo' => 'Tickets',
+			'content' => 'tickets/user/mis_tickets_view',
+			'breadcrumbs' => $breadcrumbs,
+			'tickets' => $tickets
+		);
+		
+		$this->load->view('template', $data);
+	}
+
 	public function responder()
 	{
 		$this->acceso_restringido();
@@ -518,15 +537,15 @@ class Ticket extends CI_Controller
 				if(enviar('SCI - Nuevo Ticket #'.$ticket, 'Ticket #'.$ticket, $html, $usuarios, array('correo' => 'informatica@blancoynegromasivo.com.co','nombre' => 'Informatica'))){
 					
 					$link = anchor('ticket/ver/' . $ticket, 'Ticket #' . $ticket);
-					$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito') . " " . $link . " " . $this->lang->line('msj_ext_guardar'));
+					$this->session->set_flashdata('mensaje', "Su " . $link . " " . 'Ha sido enviado con Éxito. Estaremos atentos para darle una pronta solución a su problema. Gracias.');
 					$this->session->set_flashdata('tipo_mensaje', 'exito');
-					redirect('ticket/nuevo', 'refresh');
+					redirect('ticket/mis_tickets', 'refresh');
 				}
 			} else {
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('ticket/nuevo', 'refresh');
+				redirect('ticket/mis_tickets', 'refresh');
 			}
 			
 		}

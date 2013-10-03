@@ -391,6 +391,21 @@ class Monitor extends CI_Controller {
 		}		
 	}
 
+	public function eliminar($id_monitor)
+	{
+		$this->acceso_restringido();
+		$monitor = $this->monitor_model->delete($id_monitor);
+		if(!$monitor){
+			$this->session->set_flashdata('mensaje', 'Monitor eliminado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', 'Ocurrio un error al eliminar monitor');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('monitor', 'refresh');
+	}
+
 	public function acceso_restringido(){
 		if (!$this->session->userdata('ingresado')) {
 			redirect('panel', 'refresh');

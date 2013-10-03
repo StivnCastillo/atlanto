@@ -1,4 +1,4 @@
- <?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *
  * Clase para calcular las horas empleadas en cierta tarea que tiene 
@@ -110,4 +110,3 @@ class Horas_laborales
         return true;
     }
 }
-?> 

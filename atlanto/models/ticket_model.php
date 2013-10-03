@@ -224,9 +224,13 @@ class Ticket_model extends CI_Model {
         }
     }
 
-    function get_tickets_estado($id_estado){
+    function get_tickets_estado($id_estado, $id_usuario = FALSE){
         
         $where = $this->db->dbprefix($this->tabla).".id_estado = ".$id_estado;
+
+        if ($id_usuario) {
+            $where .= " AND ".$this->db->dbprefix($this->tabla).".id_usuario = ".$id_usuario;
+        }
 
         $query = $this->db->query("
             SELECT 

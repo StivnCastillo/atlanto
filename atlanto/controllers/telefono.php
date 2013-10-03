@@ -167,13 +167,13 @@ class Telefono extends CI_Controller {
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_exito')." ".$link." ".$this->lang->line('msj_ext_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'exito');
 				
-				redirect('telefono/nuevo', 'refresh');
+				redirect('telefono', 'refresh');
 			}else{
 
 				$this->session->set_flashdata('mensaje', $this->lang->line('msj_error_guardar'));
 				$this->session->set_flashdata('tipo_mensaje', 'error');
 				
-				redirect('telefono/nuevo', 'refresh');
+				redirect('telefono', 'refresh');
 			}
 		}
 	}
@@ -285,6 +285,21 @@ class Telefono extends CI_Controller {
 				redirect('telefono', 'refresh');
 			}
 		}		
+	}
+
+	public function eliminar($id_telefono)
+	{
+		$this->acceso_restringido();
+		$telefono = $this->telefono_model->delete($id_telefono);
+		if(!$telefono){
+			$this->session->set_flashdata('mensaje', 'Teléfono eliminado');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', 'Ocurrio un error al eliminar teléfono');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('telefono', 'refresh');
 	}
 
 	public function acceso_restringido(){

@@ -24,6 +24,7 @@
 							<?php if ($ci->session->userdata('roles')->inventario): ?>
 								<li class="dropdown">
 									<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-paste"></i>
 										<?php echo $ci->lang->line('men_inventario'); ?>
 										<b class="caret"></b>
 									</a>
@@ -69,6 +70,7 @@
 							<?php if ($ci->session->userdata('roles')->tareas): ?>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-tasks"></i>
 										<?php echo $ci->lang->line('men_tareas') ?>
 										<b class="caret"></b>
 									</a>
@@ -108,6 +110,7 @@
 							<?php if ($ci->session->userdata('roles')->administracion): ?>
 								<li class="dropdown">
 									<a href="" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-building"></i>
 										<?php echo $ci->lang->line('men_administracion') ?>
 										<b class="caret"></b>
 									</a>
@@ -124,12 +127,18 @@
 
 							<!-- reportes -->
 							<?php if ($ci->session->userdata('roles')->reportes): ?>
-								<li><a href="<?php echo base_url()."reporte" ?>"><?php echo $ci->lang->line('men_reportes') ?></a></li>
+
+								<li><a href="<?php echo base_url()."reporte" ?>"><i class="icon-file-text"></i> <?php echo $ci->lang->line('men_reportes') ?></a></li>
 							<?php endif ?>
 
 							<!-- configuraciones -->
 							<?php if ($ci->session->userdata('roles')->configuraciones): ?>
-								<li><a href="<?php echo base_url()."configuracion" ?>"><?php echo $ci->lang->line('men_config') ?></a></li>			
+								<li>
+									<a href="<?php echo base_url()."configuracion" ?>">
+										<i class="icon-wrench"></i>
+										<?php echo $ci->lang->line('men_config') ?>
+									</a>
+								</li>			
 							<?php endif ?>
 
 						<?php else: ?>

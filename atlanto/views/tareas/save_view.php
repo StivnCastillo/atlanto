@@ -110,6 +110,9 @@
 									<div class="controls">
 										<button type="submit" class="btn btn-inverse"><?php echo $this->lang->line('btn_guardar'); ?></button>
 										<a href="<?php echo base_url().'panel/tareas' ?>" class="btn"><?php echo $this->lang->line('btn_cancelar'); ?></a>
+										<?php if (isset($tarea)): ?>
+											<a href="<?php echo base_url().'tarea/eliminar/'.$id_tarea ?>" class="btn btn-danger"><i class="icon icon-remove"></i> Eliminar</a>
+										<?php endif ?>
 									</div>
 								</div>	
 							</div>

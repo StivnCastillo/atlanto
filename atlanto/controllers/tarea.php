@@ -5,7 +5,7 @@ class Tarea extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper(array('email'));
-		$this->load->library(array('clasefechas', 'horas'));
+		$this->load->library(array('horas'));
 		$this->load->model(array('tarea_model', 'usuario_model', 'mail_model'));
 	}
 
@@ -278,6 +278,21 @@ class Tarea extends CI_Controller {
 				}
 			}
 		}
+	}
+
+	public function eliminar($id_tarea)
+	{
+		$this->acceso_restringido();
+		$tarea = $this->tarea_model->delete($id_tarea);
+		if(!$tarea){
+			$this->session->set_flashdata('mensaje', 'Tarea #'.$id_tarea.' eliminada');
+			$this->session->set_flashdata('tipo_mensaje', 'exito');
+		}else{
+			$this->session->set_flashdata('mensaje', 'Ocurrio un error al eliminar Tarea');
+			$this->session->set_flashdata('tipo_mensaje', 'error');
+		}
+
+		redirect('panel/tareas', 'refresh');
 	}
 
 	public function acceso_restringido(){

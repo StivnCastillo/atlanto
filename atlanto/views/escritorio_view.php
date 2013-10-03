@@ -138,13 +138,13 @@
 					    </a>
 				    </li>
 				    <li class="span2">
-					    <a href="#" class="thumbnail">
+					    <a href="<?php echo base_url().'ticket/estado_ticket/3'; ?>" class="thumbnail">
 					    	<h1><i class="icon icon-remove"></i></h1>
 					    	<p>No Resueltos <span class="badge badge-important"><?php echo $n_tickets_no_resueltos; ?></span></p>
 					    </a>
 				    </li>
 				    <li class="span2">
-					    <a href="#" class="thumbnail">
+					    <a href="<?php echo base_url().'ticket/estado_ticket/5'; ?>" class="thumbnail">
 					    	<h1><i class="icon icon-check-minus"></i></h1>
 					    	<p>En Espera <span class="badge badge-important"><?php echo $n_en_espera; ?></span></p>
 					    </a>
