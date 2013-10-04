@@ -25,9 +25,6 @@
 
 					<li class="active"><a href=""><?php echo $ci->lang->line('tit_men_software'); ?></a></li>
 					<li><a href="<?php echo base_url().'sistema_operativo' ?>"><?php echo $ci->lang->line('tit_men_so'); ?><i class="icon icon-chevron-right pull-right"></i></a></li>
-					<li><a href="">menu 3</a></li>
-					<li><a href="">menu 4</a></li>
-					<li><a href="">menu 5</a></li>
 				</ul>
 			</div>
 		</div>

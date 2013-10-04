@@ -17,7 +17,10 @@
 						<?php if ($ci->session->userdata('ingresado')): ?>
 							<!-- escritorio -->
 							<li>
-								<a href="<?php echo base_url().'panel/escritorio' ?>"><?php echo $ci->lang->line('men_escritorio') ?></a>
+								<a href="<?php echo base_url().'panel/escritorio' ?>">
+									<i class="icon-desktop"></i> 
+									<?php echo $ci->lang->line('men_escritorio') ?>
+								</a>
 							</li>
 
 							<!-- inventario -->
@@ -162,7 +165,6 @@
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href=""><?php echo $ci->lang->line('men_sub_configuracion') ?></a></li>
 									<li><a href="<?php echo base_url().'usuario/logout' ?>"><?php echo $ci->lang->line('men_sub_salir') ?></a></li>
 								</ul>
 							</li>

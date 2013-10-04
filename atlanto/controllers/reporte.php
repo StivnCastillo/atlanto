@@ -50,17 +50,19 @@ class Reporte extends CI_Controller {
 	/* Accion */
 	public function gen_tareas_lista()
 	{
+        $datos_recibidos = $this->input->post(NULL, TRUE);
+
 		//traigo configuraciones generales
 		$config = $this->config_model->get(array('id' => 1));
 		//COLOCAR TODO DESDE LAS CONFIGURACIONES DE LOS REPORTES
 		//crear instancia de la clase y propiedades del archivo
-		$pdf = new Pdf('P', 'mm', $config->repo_formato, true, 'UTF-8', false);
-		$pdf->SetCreator($this->input->post('creador'));
-        $pdf->SetAuthor($this->input->post('autor'));
-        $pdf->SetTitle($this->input->post('titulo'));
-        $pdf->SetSubject($this->input->post('titulo'));
+        $pdf = new Pdf('P', 'mm', $datos_recibidos['formato'], true, 'UTF-8', false);
+        $pdf->SetCreator($datos_recibidos['creador']);
+        $pdf->SetAuthor($datos_recibidos['autor']);
+        $pdf->SetTitle($datos_recibidos['titulo']);
+        $pdf->SetSubject($datos_recibidos['titulo']);
 
-        $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $this->lang->line('rep_tareas_lista').' '.date("Y-m-d"), $config->repo_leyenda, array(0, 0, 0), array(0, 0, 0));
+         $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $datos_recibidos['titulo'].' '.date("Y-m-d"), $datos_recibidos['leyenda'], array(0, 0, 0), array(0, 0, 0));
         $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
 
         //fuente de los titulos de la tabla y el cuerpo
@@ -83,7 +85,7 @@ class Reporte extends CI_Controller {
 		// Añadir una página
 		// Este método tiene varias opciones, consulta la documentación para más información.
 
-        $pdf->AddPage($config->repo_horientacion);
+        $pdf->AddPage($datos_recibidos['horientacion']);
 
         //preparamos y maquetamos el contenido a crear
         $html = '';
