@@ -1,0 +1,13 @@
+
+1 - Descomprimir el archivo sci.zip en el servidor.
+2 - Crear nueva base de datos en el phpmyadmin
+3 - Importar a esta base de datos el archivo base_datos.sql
+4 - Abrir el archivo sci/sci/config/database.php y modificar las lineas segun el nombre de la base de datos y el usuario
+
+	$db['default']['hostname'] = 'localhost';
+	$db['default']['username'] = 'NOMBRE_DE_USUARIO';
+	$db['default']['password'] = 'CONTRASEÑA';
+	$db['default']['database'] = 'NOMBRE_DE_LA_BASE_DE_DATOS';
+	$db['default']['dbdriver'] = 'mysql';
+
+5 - Probar conexexion entrando al sistema. user: stiven.castillo pass: 1234

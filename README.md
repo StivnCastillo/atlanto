@@ -8,9 +8,8 @@ llevando un inventario de todos estos equipos y su respectiva hoja de vida junto
 Posee un sistema de tickets y reportes.
 
 
-El sistema atlanto se desarrollara con PHP (Codeigniter), y en un futuro con Nodejs y Django, esto por la parte del backend. 
-En la parte frontend usaré bootstrap, modificando algo de la hoja de estilos.
+El sistema se encuentra en una version estable.
 
-Base de datos relacional con mysql.
+el archivo base_datos.sql es la base de datos del software, instalacion.txt contiene todos los detalles de la configuracion.
 
-Proyecto en desarrollo
+cualquier inquietud stiven@imosai.co
